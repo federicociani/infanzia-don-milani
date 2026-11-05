@@ -111,7 +111,7 @@ main{position:relative;z-index:1;flex:1;padding:28px 0 64px}
 .hero{text-align:center;margin:24px 0 40px}
 .hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(28px,5vw,42px);letter-spacing:-.02em;line-height:1.1;margin-bottom:10px;text-wrap:balance;color:var(--accent)}
 .hero p{font-weight:600;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg)}
-.hero small{display:block;margin-top:10px;font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg)}
+.hero small{display:block;margin-top:3px;font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg)}
 
 .notice{border-radius:var(--radius);padding:28px 20px;text-align:center;color:var(--fg-2);font-size:16px;margin-bottom:44px}
 
@@ -182,6 +182,7 @@ mark{background:#ffe08a;color:#080b14;border-radius:4px;padding:0 2px}
 .dd{position:relative;z-index:15}
 .dd-btn{display:flex;align-items:center;gap:7px;height:100%;min-height:44px;padding:7px 14px;border-radius:999px;font-weight:700;font-size:14px;color:var(--fg);white-space:nowrap}
 .dd-btn svg{width:16px;height:16px;color:var(--fg)}
+.dd-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .dd-btn .chev{color:var(--fg-2);transition:transform .2s}
 .dd.open .dd-btn .chev{transform:rotate(180deg)}
 .dd.open .dd-btn{border-color:var(--fg)}
@@ -309,7 +310,7 @@ footer{position:relative;z-index:1;padding:0 16px 28px}
     <div id="homeWeek">
     <div class="sec-h">
       <div><h2 id="homeWeekTitle">Questa Settimana</h2><p class="sub" id="homeWeekRange"></p></div>
-      <div class="sec-actions"><div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" hidden></div></div>
+      <div class="sec-actions"><div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false" aria-label="Filtra per tipo di menu"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" hidden></div></div>
       </div>
     </div>
     <div class="grid" id="weekGrid" tabindex="0" aria-label="Giorni della settimana, scorri in orizzontale"></div>
@@ -343,11 +344,10 @@ footer{position:relative;z-index:1;padding:0 16px 28px}
 
 <footer>
   <div class="foot glass">
-    <div>Mensa — Scuola dell'Infanzia “Don Milani” Cervia<br>
-    Anno Scolastico 2026-2027 · <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink">Apri il PDF ufficiale del Comune</a></div>
+    <div>Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale: <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink">Apri il PDF ufficiale del Comune</a></div>
     <div class="themes" role="group" aria-label="Tema">
-      <button data-theme="light"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>Chiaro</button>
-      <button data-theme="dark"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Scuro</button>
+      <button data-theme="light" aria-label="Tema chiaro" title="Tema chiaro"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
+      <button data-theme="dark" aria-label="Tema scuro" title="Tema scuro"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
     </div>
   </div>
 </footer>
@@ -523,7 +523,7 @@ function renderFilters(){
   document.querySelectorAll("[data-filters]").forEach(dd=>{
     const open=dd.classList.contains("open");
     dd.querySelector(".dd-label").textContent=label;
-    const c=dd.querySelector(".dd-count");c.hidden=sel.size<2;c.textContent=sel.size;
+    const c=dd.querySelector(".dd-count");c.hidden=sel.size<1;c.textContent=sel.size;
     dd.querySelector(".dd-panel").innerHTML=opts+`<div class="dd-foot"><button data-clear>Mostra tutti</button><button class="done" data-close>Fatto</button></div>`;
     dd.querySelector(".dd-panel").hidden=!open;
   });
