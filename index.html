@@ -13,7 +13,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Mensa Don Milani">
 <meta name="application-name" content="Mensa Don Milani">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Il menu della mensa della Scuola dell'Infanzia “Don Milani” di Cervia, giorno per giorno: oggi, questa settimana e tutto il periodo. Pagina non ufficiale.">
 <link rel="canonical" href="https://federicociani.github.io/mensa-don-milani/">
 <meta property="og:type" content="website">
@@ -73,6 +73,15 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;font-size:100%}
+/* status bar trasparente: la pagina scorre sotto l'orologio (app sulla Home: black-translucent; Safari: stesso colore di fondo) */
+html{background:var(--bg)}
+body{padding-top:env(safe-area-inset-top)}
+.sb-scrim{display:none}
+@media (display-mode:standalone){
+  .sb-scrim{display:block;position:fixed;top:0;left:0;right:0;height:calc(env(safe-area-inset-top) + .75rem);z-index:30;pointer-events:none;
+    background:linear-gradient(180deg,rgba(8,11,20,.28),rgba(8,11,20,0))}
+  .dark .sb-scrim{background:linear-gradient(180deg,rgba(7,6,26,.55),rgba(7,6,26,0))}
+}
 body{font-family:var(--font-sans);font-size:1rem;background:var(--bg);color:var(--fg);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 a{color:inherit}
@@ -400,6 +409,7 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
 </script>
 </head>
 <body>
+<div class="sb-scrim" aria-hidden="true"></div>
 <div class="bg-blobs" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="bg-food" id="bgFood" aria-hidden="true"></div>
 
