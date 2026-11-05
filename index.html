@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#07061a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mensa Don Milani">
+<meta name="application-name" content="Mensa Don Milani">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="description" content="Il menu della mensa della Scuola dell'Infanzia “Don Milani” di Cervia, giorno per giorno: oggi, questa settimana e tutto il periodo. Pagina non ufficiale.">
 <link rel="canonical" href="https://federicociani.github.io/mensa-don-milani/">
 <meta property="og:type" content="website">
@@ -284,6 +292,34 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 /* "Oggi" alto quanto i tab interni allo switch, centrato */
 .today-btn{align-self:center;height:2.75rem;min-height:2.75rem}
 
+
+/* ===== banner "Aggiungi alla schermata Home" ===== */
+.a2hs{position:fixed;z-index:40;left:.75rem;right:.75rem;bottom:calc(5.25rem + env(safe-area-inset-bottom));max-width:26rem;margin:0 auto;
+  padding:1rem 1rem .875rem;border-radius:1.375rem;background:var(--glass-strong);color:var(--fg);border:1.5px solid var(--line);
+  -webkit-backdrop-filter:blur(1.5rem) saturate(170%);backdrop-filter:blur(1.5rem) saturate(170%);box-shadow:var(--glass-shadow);
+  animation:a2hsIn .8s var(--ease,ease) .6s backwards}
+.a2hs.out{animation:a2hsOut .45s var(--ease-io,ease) forwards}
+@keyframes a2hsIn{from{opacity:0;transform:translateY(1.5rem) scale(.97);filter:blur(.375rem)}}
+@keyframes a2hsOut{to{opacity:0;transform:translateY(1.25rem) scale(.97);filter:blur(.25rem)}}
+.a2hs-top{display:flex;gap:.75rem;align-items:center;padding-right:1.75rem}
+.a2hs-top img{width:3rem;height:3rem;border-radius:.75rem;flex:none;box-shadow:0 .25rem .75rem -.25rem rgba(0,0,0,.35)}
+.a2hs-top strong{display:block;font-family:var(--font-display);font-size:1.0625rem;line-height:1.2}
+.a2hs-top p{font-size:.8125rem;color:var(--fg-2);margin-top:.125rem;line-height:1.35}
+.a2hs-x{position:absolute;top:.5rem;right:.5rem;width:2.25rem;height:2.25rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2)}
+.a2hs-x svg{width:1rem;height:1rem}
+.a2hs-x:active{background:var(--tile)}
+.a2hs-steps{margin:.875rem 0 0;padding:0 0 0 1.25rem;font-size:.8125rem;line-height:1.5;color:var(--fg-2)}
+.a2hs-steps li{margin:.25rem 0}
+.a2hs-steps .k{display:inline-flex;align-items:center;gap:.25rem;font-weight:600;color:var(--fg);white-space:nowrap}
+.a2hs-steps svg{width:1rem;height:1rem;color:var(--primary)}
+.a2hs-actions{display:flex;justify-content:flex-end;gap:.5rem;margin-top:.875rem}
+.a2hs-actions button{min-height:2.5rem;padding:0 1rem;border-radius:999rem;text-transform:uppercase;font-size:.75rem;letter-spacing:.0625rem;font-weight:600}
+.a2hs-no{color:var(--fg-2)}
+.a2hs-no:active{background:var(--tile)}
+.a2hs-yes{background:var(--fg);color:var(--bg)}
+.dark .a2hs-yes{background:#e4e1ff;color:#0b0920}
+@media (prefers-reduced-motion:reduce){.a2hs,.a2hs.out{animation-duration:.01s}}
+
 /* ===== animazioni morbide ===== */
 :root{--ease:cubic-bezier(.22,1,.36,1);--ease-io:cubic-bezier(.65,0,.35,1)}
 @keyframes softIn{from{opacity:0;transform:translateY(1rem);filter:blur(.375rem)}}
@@ -426,6 +462,29 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
     </div>
   </div>
 </footer>
+<!-- Banner "Aggiungi alla schermata Home" (solo mobile) -->
+<div class="a2hs" id="a2hs" role="dialog" aria-labelledby="a2hsTitle" hidden>
+  <button class="a2hs-x" id="a2hsClose" aria-label="Chiudi">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <div class="a2hs-top">
+    <img src="apple-touch-icon.png" alt="" width="48" height="48">
+    <div><strong id="a2hsTitle">Mensa Don Milani sul telefono</strong><p>Aggiungila alla schermata Home: la apri con un tocco, come un'app.</p></div>
+  </div>
+  <ol class="a2hs-steps" id="a2hsIos" hidden>
+    <li>Tocca <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> Condividi</span> nella barra di Safari</li>
+    <li>Scegli <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi alla schermata Home</span></li>
+  </ol>
+  <ol class="a2hs-steps" id="a2hsAndroid" hidden>
+    <li>Tocca il menu <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span> del browser</li>
+    <li>Scegli <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi a schermata Home</span> (o "Installa app")</li>
+  </ol>
+  <div class="a2hs-actions">
+    <button class="a2hs-no" id="a2hsNever">Non mi interessa</button>
+    <button class="a2hs-yes" id="a2hsInstall" hidden>Aggiungi</button>
+  </div>
+</div>
+
 
 <script>
 /* ===== DATI MENU — Menù Scuola dell'infanzia e primaria, Comune di Cervia, A.S. 2026-2027 (15/09 – 23/12/2026)
@@ -766,6 +825,43 @@ document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",
 ["weekGrid","calGrid"].forEach(id=>{const g=document.getElementById(id);
   new MutationObserver(()=>[...g.children].forEach((c,i)=>c.style.setProperty("--i",Math.min(i,8)))).observe(g,{childList:true});});
 calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));
+
+/* ===== banner "Aggiungi alla schermata Home" =====
+   - solo su telefono/tablet e solo se il sito non è già aperto come app
+   - la X lo chiude per questa visita (ricompare la prossima volta)
+   - "Non mi interessa" lo nasconde per sempre su questo dispositivo */
+(function(){
+  const NEVER="mensa-a2hs-never";
+  const box=document.getElementById("a2hs");
+  let never=false;try{never=localStorage.getItem(NEVER)==="1";}catch(e){}
+  const ua=navigator.userAgent;
+  const isIOS=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  const isAndroid=/Android/.test(ua);
+  const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+  if(!(isIOS||isAndroid)||standalone||never) return;
+  let deferred=null;
+  const install=document.getElementById("a2hsInstall");
+  function hide(){box.classList.add("out");setTimeout(()=>{box.hidden=true;box.classList.remove("out");},450);}
+  /* Android con Chrome/Edge/Samsung: pulsante "Aggiungi" che apre il prompt di installazione */
+  window.addEventListener("beforeinstallprompt",e=>{
+    e.preventDefault();deferred=e;
+    install.hidden=false;document.getElementById("a2hsAndroid").hidden=true;
+  });
+  install.addEventListener("click",async()=>{
+    if(!deferred) return;
+    deferred.prompt();
+    try{await deferred.userChoice;}catch(e){}
+    deferred=null;hide();
+  });
+  window.addEventListener("appinstalled",()=>{try{localStorage.setItem(NEVER,"1");}catch(e){}hide();});
+  document.getElementById("a2hsClose").addEventListener("click",hide);
+  document.getElementById("a2hsNever").addEventListener("click",()=>{try{localStorage.setItem(NEVER,"1");}catch(e){}hide();});
+  /* istruzioni: iPhone/iPad via Condividi; Android senza prompt via menu del browser */
+  document.getElementById(isIOS?"a2hsIos":"a2hsAndroid").hidden=false;
+  box.hidden=false;
+})();
+if("serviceWorker" in navigator&&location.protocol==="https:"){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
 </script>
+
 </body>
 </html>
