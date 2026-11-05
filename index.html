@@ -251,7 +251,10 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 .weeknav strong{font-weight:700;font-size:1.5rem;position:relative;white-space:nowrap}
 .weeknav .mid{display:flex;flex-direction:column;align-items:center;gap:.375rem;position:relative}
 .cur{align-self:center;flex:none;height:3.5rem;display:flex;align-items:center;padding:0 1.25rem;border-radius:1rem;white-space:nowrap}
-.cur[hidden]{display:none}
+/* il pulsante "Questa settimana" entra/esce allargandosi: la barra delle settimane si restringe in modo fluido */
+.week-row .cur{overflow:hidden;max-width:12.5rem;opacity:1;
+  transition:max-width .65s var(--ease-io,ease-in-out),padding .65s var(--ease-io,ease-in-out),margin .65s var(--ease-io,ease-in-out),opacity .5s ease,border-width .65s var(--ease-io,ease-in-out),height .65s var(--ease-io,ease-in-out),background .45s ease,transform .35s ease}
+.week-row .cur:not(.show){max-width:0;padding-left:0;padding-right:0;margin-right:-.625rem;border-width:0;opacity:0;pointer-events:none}
 .cur{background:var(--glass);-webkit-backdrop-filter:blur(1rem) saturate(160%);backdrop-filter:blur(1rem) saturate(160%);color:var(--fg);border:1.5px solid var(--line);transition:background .2s}
 .cur:hover{background:var(--tile)}
 .arrow{width:2.75rem;height:2.75rem;border-radius:.75rem;display:grid;place-items:center;color:var(--fg);background:var(--surface-2);border:1.5px solid var(--line);position:relative;transition:transform .15s}
@@ -328,7 +331,8 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
 
 @media (max-width:53.75rem){.grid > .day{flex-basis:calc((100% - 1rem) / 2)}}
 @media (max-width:40rem){
-  .week-row{flex-wrap:wrap}.cur{width:100%;justify-content:center;height:2.75rem}
+  .week-row{flex-wrap:wrap}.week-row .cur{width:100%;max-width:none;justify-content:center;height:2.75rem}
+  .week-row .cur:not(.show){max-width:none;height:0;margin-right:0;margin-bottom:-.625rem}
   .hero{gap:.625rem}.hero-meta{padding-left:.625rem}.hero h1{font-size:1.5rem}.hero p{font-size:.6875rem;letter-spacing:.08em}.hero small{font-size:.75rem;letter-spacing:.08em}
   .tab .l{display:none}.tab .s{display:inline}
   .tab{padding:.5625rem .875rem}
@@ -402,7 +406,7 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
     <div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false" aria-label="Filtra per tipo di menu"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" hidden></div></div>
     </div>
     <div class="week-row">
-    <button class="cur" id="curWeek" hidden><span id="curLabel">Questa settimana</span></button>
+    <button class="cur" id="curWeek" tabindex="-1" aria-hidden="true"><span id="curLabel">Questa settimana</span></button>
     <div class="weeknav glass">
       <button class="arrow" id="prev" aria-label="Settimana precedente"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
       <div class="mid"><strong id="range" aria-live="polite"></strong></div>
@@ -672,7 +676,8 @@ function renderCal(){
   document.getElementById("prev").disabled=wk===0;
   document.getElementById("next").disabled=wk===WEEKS.length-1;
   const ci=currentWeekIndex();
-  document.getElementById("curWeek").hidden=ci<0||wk===ci;
+  const cw=document.getElementById("curWeek"),showCur=!(ci<0||wk===ci);
+  cw.classList.toggle("show",showCur);cw.tabIndex=showCur?0:-1;cw.setAttribute("aria-hidden",!showCur);
   const thisWeek=ci>=0&&WEEKS[ci].monday===mondayOf(todayISO);
   document.getElementById("curLabel").textContent=thisWeek?"Questa settimana":"Prossima settimana";
   document.getElementById("curWeek").setAttribute("aria-label",thisWeek?"Torna a questa settimana":"Vai alla prossima settimana");
