@@ -2,40 +2,56 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#07061a">
 <title>Scuola dell'Infanzia "Don Milani" – Mensa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* Tutti i colori del testo sono verificati per contrasto WCAG 2.1 AA (≥4.5:1 testo normale, ≥3:1 testo grande e controlli)
+   sia in tema chiaro sia scuro. Le superfici con testo sopra (barra, menu a tendina, pulsanti) sono quasi opache,
+   così il contrasto non dipende da cosa scorre dietro. */
 :root{
   --font-sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-display:"Bricolage Grotesque",sans-serif;
   /* light — palette federicociani.com */
-  --bg:#efebe4;--fg:#080b14;--muted-fg:#5c6170;
+  --bg:#efebe4;--fg:#080b14;--fg-2:#2b303c;--muted-fg:#4f5563;
   --primary:#6a8298;--primary-strong:#55697d;--primary-rgb:106,130,152;
-  --glass:rgba(255,255,255,.52);--glass-strong:rgba(255,255,255,.72);
+  --accent:#3a5266;          /* testo/icone d'accento leggibili su chiaro */
+  --glass:rgba(255,255,255,.62);--glass-strong:rgba(255,255,255,.82);
   --glass-border:rgba(255,255,255,.75);--glass-edge:rgba(8,11,20,.08);
   --glass-shadow:0 10px 30px -12px rgba(8,11,20,.18),0 2px 6px -2px rgba(8,11,20,.06);
-  --hi:rgba(255,255,255,.9);--tile:rgba(8,11,20,.05);
-  --blob1:#9fb6cb;--blob2:#e8d3b6;--blob3:#b9c7b0;--blob-op:.55;
-  --bg-emoji-opacity:.3;--radius:22px;
+  --hi:rgba(255,255,255,.9);--tile:rgba(8,11,20,.06);
+  --surface:#fbfaf7;          /* superfici solide per controlli e pannelli */
+  --surface-2:#ffffff;
+  --line:rgba(8,11,20,.22);   /* bordo dei controlli (≥3:1 non serve, ma rende evidente il pulsante) */
+  --sel-bg:#dfe7ef;--sel-fg:#0d1824;
+  --ring:#1f6fd1;
+  --blob1:#9fb6cb;--blob2:#e8d3b6;--blob3:#b9c7b0;--blob-op:.5;
+  --bg-emoji-opacity:.26;--radius:22px;
 }
 .dark{
-  --bg:#07061a;--fg:#e6e3f5;--muted-fg:#8e8ab0;
+  --bg:#07061a;--fg:#eeecfa;--fg-2:#d6d3ec;--muted-fg:#aeaacb;
   --primary:#b4b0ff;--primary-strong:#cdc9ff;--primary-rgb:180,176,255;
-  --glass:rgba(28,24,62,.42);--glass-strong:rgba(44,38,92,.55);
-  --glass-border:rgba(200,195,255,.12);--glass-edge:rgba(0,0,0,.45);
+  --accent:#c4c0ff;
+  --glass:rgba(28,24,62,.62);--glass-strong:rgba(44,38,92,.75);
+  --glass-border:rgba(200,195,255,.16);--glass-edge:rgba(0,0,0,.45);
   --glass-shadow:0 14px 40px -14px rgba(0,0,0,.75),0 2px 8px -2px rgba(0,0,0,.45);
-  --hi:rgba(220,215,255,.16);--tile:rgba(200,195,255,.06);
-  --blob1:#3b2f86;--blob2:#1f2f73;--blob3:#4a2a6e;--blob-op:.55;
-  --bg-emoji-opacity:.22;
+  --hi:rgba(220,215,255,.16);--tile:rgba(200,195,255,.08);
+  --surface:#15122f;--surface-2:#1e1a42;
+  --line:rgba(214,210,255,.34);
+  --sel-bg:#3a338a;--sel-fg:#ffffff;
+  --ring:#9ec5ff;
+  --blob1:#3b2f86;--blob2:#1f2f73;--blob3:#4a2a6e;--blob-op:.5;
+  --bg-emoji-opacity:.18;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{font-family:var(--font-sans);background:var(--bg);color:var(--fg);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 a{color:inherit}
+:focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:12px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .wrap{width:100%;max-width:1008px;margin:0 auto;padding:0 16px}
 
 /* liquid glass base */
@@ -50,6 +66,9 @@ a{color:inherit}
   background:linear-gradient(155deg,var(--hi) 0%,transparent 28%,transparent 72%,rgba(255,255,255,.06) 100%);
   opacity:.55;mix-blend-mode:soft-light;
 }
+/* controlli: superficie solida + bordo visibile, così sono riconoscibili come pulsanti */
+.ctl{background:var(--surface);border:1.5px solid var(--line);box-shadow:0 6px 16px -10px rgba(8,11,20,.45)}
+.ctl::before{display:none}
 
 /* sfondo: macchie di colore + cibo fluttuante */
 .bg-blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
@@ -63,27 +82,26 @@ a{color:inherit}
 .bg-food span b{display:inline-block;font-weight:400;animation:sway var(--s,4s) ease-in-out infinite alternate}
 @keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}8%{opacity:var(--bg-emoji-opacity)}92%{opacity:var(--bg-emoji-opacity)}100%{transform:translateY(calc(-100vh - 120px)) rotate(var(--r,40deg));opacity:0}}
 @keyframes sway{from{transform:translateX(calc(var(--x,20px)*-1))}to{transform:translateX(var(--x,20px))}}
-@media (prefers-reduced-motion:reduce){.bg-blobs i{animation:none}.bg-food span{animation-duration:calc(var(--d,22s)*2)}}
+@media (prefers-reduced-motion:reduce){
+  .bg-blobs i,.bg-food span,.bg-food span b{animation:none}
+  .bg-food{display:none}
+  .view.active,.dd-panel,.day.flash{animation:none}
+  .day,.day:hover{transition:none;transform:none}
+}
 
-/* header */
+/* header / barra di navigazione */
 header{position:sticky;top:0;z-index:20;padding:14px 0;display:flex;justify-content:center}
 .hdr{display:flex;justify-content:center;align-items:stretch;gap:10px}
-.brand{display:flex;align-items:center;gap:10px;min-width:0;position:relative}
-.logo{width:40px;height:40px;border-radius:13px;color:#fff;display:grid;place-items:center;flex:none;position:relative;
-  background:linear-gradient(160deg,color-mix(in srgb,var(--primary) 80%,#fff) 0%,var(--primary) 45%,var(--primary-strong) 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 4px rgba(0,0,0,.15),0 6px 16px -6px rgba(var(--primary-rgb),.8)}
-.dark .logo{color:#080b14}
-.logo svg{width:22px;height:22px}
-.brand-t{font-family:var(--font-display);font-weight:700;font-size:17px;line-height:1.1;white-space:nowrap}
-.brand-s{font-size:11.5px;color:var(--muted-fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-nav{display:flex;gap:4px;padding:5px;border-radius:999px}
+nav{display:flex;gap:4px;padding:5px;border-radius:999px;background:var(--surface);border:1.5px solid var(--line);
+  box-shadow:0 14px 34px -14px rgba(8,11,20,.55),0 2px 6px -2px rgba(8,11,20,.15)}
+nav::before{display:none}
 nav .tab{position:relative}
-.tab{display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:999px;font-weight:600;font-size:14.5px;color:var(--muted-fg);transition:background .25s,color .25s,box-shadow .25s}
-.tab svg{width:16px;height:16px}
-.tab:hover{color:var(--fg)}
-.tab.active{color:var(--fg);background:var(--glass-strong);
-  box-shadow:0 4px 12px -4px rgba(8,11,20,.25),inset 0 1px 0 var(--hi),inset 0 0 0 1px var(--glass-border)}
-.tab.active svg{color:var(--primary)}
+.tab{display:flex;align-items:center;gap:7px;min-height:44px;padding:9px 18px;border-radius:999px;font-weight:600;font-size:14.5px;color:var(--fg-2);transition:background .25s,color .25s,box-shadow .25s}
+.tab svg{width:18px;height:18px;flex:none}
+.tab:hover{color:var(--fg);background:var(--tile)}
+.tab.active{color:var(--sel-fg);background:var(--sel-bg);box-shadow:inset 0 0 0 1.5px var(--line)}
+.tab .f{display:none}.tab.active .f{display:block}.tab.active .o{display:none}
+.tab .f .cut{stroke:var(--sel-bg)}
 
 main{position:relative;z-index:1;flex:1;padding:28px 0 64px}
 .view{display:none}.view.active{display:block;animation:fade .4s ease}
@@ -91,33 +109,30 @@ main{position:relative;z-index:1;flex:1;padding:28px 0 64px}
 
 /* hero */
 .hero{text-align:center;margin:24px 0 40px}
-.hero .logo{width:68px;height:68px;border-radius:21px;margin:0 auto 16px}
-.hero .logo svg{width:34px;height:34px}
-.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(28px,5vw,42px);letter-spacing:-.02em;line-height:1.1;margin-bottom:10px;text-wrap:balance;color:var(--primary)}
-.hero p{font-weight:600;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg);opacity:.85}
-.hero small{display:block;margin-top:10px;font-size:13px;color:var(--muted-fg)}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(28px,5vw,42px);letter-spacing:-.02em;line-height:1.1;margin-bottom:10px;text-wrap:balance;color:var(--accent)}
+.hero p{font-weight:600;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg)}
+.hero small{display:block;margin-top:10px;font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg)}
 
-.notice{border-radius:var(--radius);padding:28px 20px;text-align:center;color:var(--muted-fg);font-size:16px;margin-bottom:44px}
+.notice{border-radius:var(--radius);padding:28px 20px;text-align:center;color:var(--fg-2);font-size:16px;margin-bottom:44px}
 
 .sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .sec-h h2{font-family:var(--font-display);font-weight:700;font-size:21px}
-.more{display:flex;align-items:center;gap:4px;color:var(--primary);font-weight:600;font-size:14px;padding:7px 12px 7px 14px;border-radius:999px}
-.more svg{width:15px;height:15px;transition:transform .2s}.more:hover svg{transform:translateX(3px)}
+.sec-h h2 + .sub{font-size:14px;color:var(--fg-2);font-weight:500;margin-top:3px}
+.more{display:inline-flex;align-items:center;gap:4px;font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;color:var(--fg)}
 
-/* card giorno */
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.day{border-radius:var(--radius);overflow:hidden;transition:transform .25s,box-shadow .25s}
+/* card sempre in scorrimento orizzontale */
+.grid{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding:0 16px;padding:8px 16px 26px;margin:-8px -16px -10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+.grid::-webkit-scrollbar{display:none}
+.grid > .day{flex:0 0 calc((100% - 32px) / 3);scroll-snap-align:start}
+.grid > .empty{flex:1 1 100%}
+.day{border-radius:var(--radius);overflow:hidden;transition:transform .25s,box-shadow .25s;background:var(--glass-strong)}
 .day:hover{transform:translateY(-3px)}
-.day.today{box-shadow:var(--glass-shadow),inset 0 0 0 1.5px var(--primary)}
-.day-h{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--glass-border);background:linear-gradient(180deg,var(--tile),transparent);position:relative}
-.date{width:48px;height:48px;border-radius:14px;background:var(--glass-strong);box-shadow:inset 0 1px 0 var(--hi),inset 0 0 0 1px var(--glass-border);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
+.day-h{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--tile),transparent);position:relative}
+.date{width:50px;height:50px;border-radius:14px;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
 .date b{font-family:var(--font-display);font-size:19px;line-height:1}
-.date i{font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.06em;margin-top:2px;color:var(--primary)}
+.date i{font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.06em;margin-top:2px;color:var(--accent)}
 .dname{font-family:var(--font-display);font-weight:700;font-size:17px;flex:1}
-.badge{font-size:10.5px;font-weight:600;letter-spacing:.05em;padding:4px 10px;border-radius:999px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.b-vegano{color:#3d8a62;background:rgba(170,226,195,.45);box-shadow:inset 0 0 0 1px rgba(120,200,158,.5)}
-.b-onnivoro{color:var(--primary-strong);background:rgba(var(--primary-rgb),.16);box-shadow:inset 0 0 0 1px rgba(var(--primary-rgb),.42)}
-.dark .b-vegano{color:#b9f0d1;background:rgba(150,230,190,.12);box-shadow:inset 0 0 0 1px rgba(150,230,190,.3)}
+.badge{font-size:11px;font-weight:700;letter-spacing:.05em;padding:4px 10px;border-radius:999px}
 .items{list-style:none;padding:18px 18px 20px;display:flex;flex-direction:column;gap:15px;position:relative}
 .it{display:flex;gap:12px;align-items:flex-start}
 .ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:18px;flex:none;
@@ -130,135 +145,139 @@ main{position:relative;z-index:1;flex:1;padding:28px 0 64px}
 .c-pane{--c:#fbe7b0}
 .c-frutta{--c:#ffcfe4}
 .c-merenda{--c:#ddd5ff}
-.lbl{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-fg);margin-top:1px}
+.lbl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-fg);margin-top:1px}
 .dish{font-weight:600;font-size:15px;line-height:1.35}
-mark{background:rgba(var(--primary-rgb),.28);color:inherit;border-radius:4px;padding:0 2px}
+mark{background:#ffe08a;color:#080b14;border-radius:4px;padding:0 2px}
 
-.oggi{display:inline-block;vertical-align:middle;margin-left:6px;font-family:var(--font-sans);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--primary);color:#fff}
-.dark .oggi{color:#07061a}
-.b-pesce{color:#3f7fa8;background:rgba(170,212,240,.45);box-shadow:inset 0 0 0 1px rgba(120,180,220,.55)}
-.dark .b-pesce{color:#bfe3fb;background:rgba(160,210,245,.12);box-shadow:inset 0 0 0 1px rgba(160,210,245,.3)}
-.b-carne{color:#b0566a;background:rgba(255,200,210,.5);box-shadow:inset 0 0 0 1px rgba(240,160,178,.6)}
-.dark .b-carne{color:#ffd0da;background:rgba(255,190,205,.12);box-shadow:inset 0 0 0 1px rgba(255,190,205,.3)}
-.noday{padding:22px 18px;color:var(--muted-fg);font-size:14px;position:relative}
+.dname .oggi{display:table;margin:0 0 4px}
+.oggi{display:inline-block;vertical-align:middle;font-family:var(--font-sans);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px}
+.noday{padding:22px 18px;color:var(--fg-2);font-size:14px;position:relative}
 [hidden]{display:none!important}
 
+/* badge per tipo: testo scuro su pastello (chiaro), testo chiaro su tinta scura (scuro) */
+.b-pesce{color:#1d4f70;background:#d6e9f6;box-shadow:inset 0 0 0 1px #9cc4e0}
+.b-carne{color:#7d2b3f;background:#fbdde3;box-shadow:inset 0 0 0 1px #e9a9b7}
+.b-uova{color:#5c4405;background:#f8ebc4;box-shadow:inset 0 0 0 1px #dcc27a}
+.b-formaggi{color:#6a3e0a;background:#fde4c8;box-shadow:inset 0 0 0 1px #e8b884}
+.b-verdure{color:#1c5a3d;background:#d5f0e0;box-shadow:inset 0 0 0 1px #94cfae}
+.b-pizza{color:#7a341c;background:#fcdcd1;box-shadow:inset 0 0 0 1px #eaa892}
+.b-unico{color:#3f3492;background:#e5e0ff;box-shadow:inset 0 0 0 1px #b8adf5}
+.dark .b-pesce{color:#cfeafc;background:#183247;box-shadow:inset 0 0 0 1px #3f6a8a}
+.dark .b-carne{color:#ffd9e1;background:#43202b;box-shadow:inset 0 0 0 1px #81505c}
+.dark .b-uova{color:#fbeab8;background:#3a3112;box-shadow:inset 0 0 0 1px #7a6a35}
+.dark .b-formaggi{color:#ffe0bf;background:#3d2a14;box-shadow:inset 0 0 0 1px #806040}
+.dark .b-verdure{color:#d0f2de;background:#163829;box-shadow:inset 0 0 0 1px #3f7a5c}
+.dark .b-pizza{color:#ffd8ca;background:#40231a;box-shadow:inset 0 0 0 1px #84523f}
+.dark .b-unico{color:#e5e0ff;background:#2c2660;box-shadow:inset 0 0 0 1px #6058a8}
+
 .tab{white-space:nowrap}.tab .s{display:none}
-/* shortcut oggi */
-.today-btn{display:flex;align-items:center;gap:6px;padding:0 18px 0 15px;border-radius:999px;font-weight:700;font-size:14.5px;
-  background:var(--fg);color:var(--bg);box-shadow:0 8px 20px -8px rgba(8,11,20,.55),inset 0 1px 0 rgba(255,255,255,.25);transition:transform .15s}
-.dark .today-btn{background:#d9d6ff;color:#07061a;box-shadow:0 8px 24px -8px rgba(180,176,255,.6),inset 0 1px 0 rgba(255,255,255,.7)}
+/* shortcut oggi: azione principale */
+.today-btn{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 22px;border-radius:999px;font-weight:700;font-size:15px;
+  background:#080b14;color:#ffffff;border:1.5px solid #080b14;box-shadow:0 0 0 3px var(--surface),0 10px 24px -8px rgba(8,11,20,.6);transition:transform .15s}
+.dark .today-btn{background:#e4e1ff;color:#0b0920;border-color:#e4e1ff;box-shadow:0 0 0 3px var(--surface),0 10px 26px -8px rgba(0,0,0,.8)}
 .today-btn:active{transform:scale(.95)}
-.today-btn svg{width:16px;height:16px}
 
 /* filtro tipo di menu: dropdown multiselezione */
 .sec-actions{display:flex;align-items:center;gap:8px}
 .dd{position:relative;z-index:15}
-.dd-btn{display:flex;align-items:center;gap:7px;height:100%;min-height:36px;padding:7px 12px 7px 13px;border-radius:999px;font-weight:600;font-size:14px;color:var(--fg);white-space:nowrap}
-.dd-btn > *{position:relative}
-.dd-btn svg{width:15px;height:15px;color:var(--primary)}
-.dd-btn .chev{color:var(--muted-fg);transition:transform .2s}
+.dd-btn{display:flex;align-items:center;gap:7px;height:100%;min-height:44px;padding:7px 14px;border-radius:999px;font-weight:700;font-size:14px;color:var(--fg);white-space:nowrap}
+.dd-btn svg{width:16px;height:16px;color:var(--fg)}
+.dd-btn .chev{color:var(--fg-2);transition:transform .2s}
 .dd.open .dd-btn .chev{transform:rotate(180deg)}
+.dd.open .dd-btn{border-color:var(--fg)}
 .dd-count{min-width:20px;height:20px;padding:0 6px;border-radius:999px;font-size:11.5px;display:grid;place-items:center;background:var(--fg);color:var(--bg)}
-.dark .dd-count{background:#d9d6ff;color:#07061a}
-.dd-panel{position:absolute;right:0;top:calc(100% + 8px);width:250px;padding:8px;border-radius:18px;background:var(--glass-strong);
-  -webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);animation:pop .18s ease}
+.dd-panel{position:absolute;right:0;top:calc(100% + 8px);width:260px;padding:8px;border-radius:18px;
+  background:var(--surface-2);border:1.5px solid var(--line);box-shadow:0 24px 50px -16px rgba(8,11,20,.55),0 4px 12px -4px rgba(8,11,20,.25);
+  animation:pop .18s ease}
+.dark .dd-panel{box-shadow:0 24px 50px -12px rgba(0,0,0,.9),0 4px 12px -4px rgba(0,0,0,.6)}
 @keyframes pop{from{opacity:0;transform:translateY(-4px) scale(.98)}to{opacity:1;transform:none}}
-.dd-panel > *{position:relative}
-.opt{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border-radius:12px;font-size:14px;font-weight:500;text-align:left}
+.opt{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:9px 10px;border-radius:12px;font-size:15px;font-weight:600;text-align:left;color:var(--fg)}
 .opt:hover{background:var(--tile)}
-.opt .box{width:18px;height:18px;border-radius:6px;flex:none;display:grid;place-items:center;box-shadow:inset 0 0 0 1.5px var(--muted-fg);transition:background .15s}
-.opt .box svg{width:12px;height:12px;opacity:0;color:var(--bg)}
+.opt .box{width:20px;height:20px;border-radius:6px;flex:none;display:grid;place-items:center;box-shadow:inset 0 0 0 2px var(--fg-2);transition:background .15s}
+.opt .box svg{width:13px;height:13px;opacity:0;color:var(--bg)}
+.opt.on{background:var(--sel-bg);color:var(--sel-fg)}
 .opt.on .box{background:var(--fg);box-shadow:none}
-.dark .opt.on .box{background:#d9d6ff}.dark .opt .box svg{color:#07061a}
 .opt.on .box svg{opacity:1}
-.opt .n{margin-left:auto;font-size:12px;color:var(--muted-fg);font-weight:600}
-.dd-foot{display:flex;justify-content:space-between;gap:6px;margin-top:6px;padding-top:8px;border-top:1px solid var(--glass-border)}
-.dd-foot button{font-size:13px;font-weight:600;padding:6px 10px;border-radius:10px;color:var(--muted-fg)}
-.dd-foot button:hover{background:var(--tile);color:var(--fg)}
-.dd-foot .done{color:var(--primary)}
+.opt .n{margin-left:auto;font-size:13px;color:var(--fg-2);font-weight:600}
+.opt.on .n{color:var(--sel-fg)}
+.dd-foot{display:flex;justify-content:space-between;gap:6px;margin-top:6px;padding-top:8px;border-top:1px solid var(--line)}
+.dd-foot button{font-size:14px;font-weight:700;min-height:40px;padding:6px 12px;border-radius:12px;color:var(--fg)}
+.dd-foot button:hover{background:var(--tile)}
+.dd-foot .done{background:var(--fg);color:var(--bg)}
 .search-row{display:flex;gap:10px;align-items:stretch;margin-bottom:16px}
 .search-row .search{flex:1;margin-bottom:0}
 .search-row .dd-btn{border-radius:16px;padding:0 14px}
 
-/* badge per tipo (pastello) */
-.b-uova{color:#9a7414;background:rgba(251,231,176,.6);box-shadow:inset 0 0 0 1px rgba(232,200,110,.7)}
-.b-formaggi{color:#a0661c;background:rgba(255,220,180,.55);box-shadow:inset 0 0 0 1px rgba(240,190,130,.7)}
-.b-verdure{color:#3d8a62;background:rgba(198,236,214,.6);box-shadow:inset 0 0 0 1px rgba(130,205,165,.65)}
-.b-pizza{color:#b25a3c;background:rgba(255,210,195,.55);box-shadow:inset 0 0 0 1px rgba(240,165,140,.6)}
-.b-unico{color:#6b5fc4;background:rgba(221,213,255,.6);box-shadow:inset 0 0 0 1px rgba(180,168,250,.7)}
-.dark .b-uova{color:#fbe7b0;background:rgba(251,231,176,.1);box-shadow:inset 0 0 0 1px rgba(251,231,176,.3)}
-.dark .b-formaggi{color:#ffdcb4;background:rgba(255,220,180,.1);box-shadow:inset 0 0 0 1px rgba(255,220,180,.3)}
-.dark .b-verdure{color:#c6ecd6;background:rgba(198,236,214,.1);box-shadow:inset 0 0 0 1px rgba(198,236,214,.3)}
-.dark .b-pizza{color:#ffd2c3;background:rgba(255,210,195,.1);box-shadow:inset 0 0 0 1px rgba(255,210,195,.3)}
-.dark .b-unico{color:#ddd5ff;background:rgba(221,213,255,.1);box-shadow:inset 0 0 0 1px rgba(221,213,255,.3)}
-
 /* card di OGGI a contrasto */
 .day.glass.today{
-  --fg:#f4f2fb;--muted-fg:#a9a6c4;--glass-strong:rgba(255,255,255,.1);--glass-border:rgba(255,255,255,.14);--tile:rgba(255,255,255,.06);--hi:rgba(255,255,255,.2);
+  --fg:#f4f2fb;--fg-2:#dcd9ef;--muted-fg:#c1bed8;--accent:#cfcbff;--line:rgba(255,255,255,.22);--surface-2:rgba(255,255,255,.1);--tile:rgba(255,255,255,.06);--hi:rgba(255,255,255,.2);
   background:linear-gradient(160deg,#25213f 0%,#0d0b1f 100%);color:var(--fg);border-color:transparent;
   box-shadow:0 22px 44px -18px rgba(8,11,20,.7),0 0 0 2px #080b14,inset 0 1px 0 rgba(255,255,255,.18);
   transform:translateY(-4px)}
 .dark .day.glass.today{
-  --fg:#130f2e;--muted-fg:#5f5a8c;--primary:#5b52d6;--glass-strong:rgba(255,255,255,.55);--glass-border:rgba(255,255,255,.7);--tile:rgba(255,255,255,.3);--hi:rgba(255,255,255,.9);
-  background:linear-gradient(160deg,#ece9ff 0%,#c9c3ff 100%);
+  --fg:#130f2e;--fg-2:#2c2752;--muted-fg:#433d70;--accent:#3a31b0;--line:rgba(19,15,46,.2);--surface-2:rgba(255,255,255,.6);--tile:rgba(255,255,255,.3);--hi:rgba(255,255,255,.9);
+  background:linear-gradient(160deg,#ece9ff 0%,#cfc9ff 100%);
   box-shadow:0 22px 50px -16px rgba(180,176,255,.55),0 0 0 2px #d9d6ff,inset 0 1px 0 #fff}
 .day.today .oggi{background:#ffd8b8;color:#3a1f08}
 .dark .day.today .oggi{background:#130f2e;color:#ece9ff}
-.day.today .badge{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
-.dark .day.today .badge{background:rgba(255,255,255,.5);color:#130f2e;box-shadow:inset 0 0 0 1px rgba(19,15,46,.15)}
+.day.today .badge{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.dark .day.today .badge{background:rgba(255,255,255,.6);color:#130f2e;box-shadow:inset 0 0 0 1px rgba(19,15,46,.2)}
 .day.today .ico{background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,.1)),var(--c)!important}
-.day.today .date i{color:var(--primary)}
 .day.flash{animation:flash 1.4s ease}
-@keyframes flash{0%,100%{outline:0 solid transparent}25%{outline:6px solid rgba(var(--primary-rgb),.45);outline-offset:4px}}
+@keyframes flash{0%,100%{outline:0 solid transparent}25%{outline:6px solid rgba(var(--primary-rgb),.55);outline-offset:4px}}
 
-/* calendario */
+/* menu completo */
 .cal-h{display:flex;align-items:center;gap:12px;margin-bottom:22px}
-.cal-h .tile{width:42px;height:42px;border-radius:14px;color:var(--primary);display:grid;place-items:center;flex:none}
-.cal-h .tile svg{width:20px;height:20px;position:relative}
-.cal-h h1{font-family:var(--font-display);font-weight:700;font-size:26px;line-height:1.1;color:var(--primary)}
-.cal-h p{color:var(--muted-fg);font-size:14.5px;margin-top:3px}
+.cal-h h1{font-family:var(--font-display);font-weight:700;font-size:26px;line-height:1.1;color:var(--accent)}
+.cal-h p{color:var(--fg-2);font-size:15px;margin-top:3px}
 .search{position:relative;margin-bottom:16px;border-radius:16px}
-.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted-fg);z-index:1}
-.search input{position:relative;width:100%;height:46px;border-radius:16px;border:0;background:transparent;color:var(--fg);font:inherit;font-size:15px;padding:0 14px 0 42px;outline:none;transition:box-shadow .2s}
-.search input::placeholder{color:var(--muted-fg)}
-.search input:focus{box-shadow:0 0 0 3px rgba(var(--primary-rgb),.3)}
+.search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--fg-2);z-index:1}
+.search input{position:relative;width:100%;height:48px;border-radius:16px;border:0;background:transparent;color:var(--fg);font:inherit;font-size:16px;padding:0 14px 0 42px;outline:none}
+.search input::placeholder{color:var(--muted-fg);opacity:1}
+.search:focus-within{outline:3px solid var(--ring);outline-offset:2px}
 .weeknav{display:flex;align-items:center;justify-content:space-between;border-radius:18px;padding:8px;margin-bottom:22px}
-.weeknav strong{font-weight:700;font-size:15px;position:relative}
-.arrow{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:var(--fg);background:var(--glass-strong);box-shadow:inset 0 1px 0 var(--hi),inset 0 0 0 1px var(--glass-border);position:relative;transition:transform .15s}
+.weeknav strong{font-weight:700;font-size:16px;position:relative}
+.weeknav .mid{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative}
+.cur{font-size:13px;font-weight:700;min-height:36px;padding:6px 14px;border-radius:999px;background:var(--fg);color:var(--bg)}
+.arrow{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:var(--fg);background:var(--surface-2);border:1.5px solid var(--line);position:relative;transition:transform .15s}
 .arrow:active:not(:disabled){transform:scale(.94)}
-.arrow:disabled{opacity:.35;cursor:default}
-.arrow svg{width:16px;height:16px}
-.empty{grid-column:1/-1;text-align:center;padding:40px;color:var(--muted-fg)}
+.arrow:disabled{opacity:.4;cursor:default}
+.arrow svg{width:18px;height:18px}
+.empty{text-align:center;padding:40px;color:var(--fg-2)}
 
 /* footer */
 footer{position:relative;z-index:1;padding:0 16px 28px}
-.foot{max-width:976px;margin:0 auto;border-radius:22px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:13px;color:var(--muted-fg);line-height:1.7}
+.foot{max-width:976px;margin:0 auto;border-radius:22px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:13.5px;color:var(--fg-2);line-height:1.7;background:var(--glass-strong)}
 .foot > *{position:relative}
-.foot a{text-decoration:underline;text-underline-offset:2px}
-.foot a:hover{color:var(--primary)}
-.themes{display:flex;gap:2px;padding:4px;border-radius:14px;background:var(--tile);flex:none}
-.themes button{display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:10px;font-size:13px;font-weight:600;color:var(--muted-fg);transition:background .25s,color .25s,box-shadow .25s}
-.themes button svg{width:15px;height:15px}
-.themes button.on{color:var(--fg);background:var(--glass-strong);box-shadow:0 3px 10px -4px rgba(8,11,20,.25),inset 0 1px 0 var(--hi),inset 0 0 0 1px var(--glass-border)}
-.themes button.on svg{color:var(--primary)}
+.foot a{color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.themes{display:flex;gap:2px;padding:4px;border-radius:14px;background:var(--surface);border:1.5px solid var(--line);flex:none}
+.themes button{display:flex;align-items:center;gap:6px;min-height:40px;padding:7px 12px;border-radius:10px;font-size:14px;font-weight:600;color:var(--fg-2);transition:background .25s,color .25s}
+.themes button svg{width:16px;height:16px}
+.themes button.on{color:var(--sel-fg);background:var(--sel-bg)}
 
 /* fallback senza backdrop-filter */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   .glass{background:var(--glass-strong)}
 }
+@media (prefers-contrast:more){
+  :root{--glass:var(--surface);--glass-strong:var(--surface);--line:rgba(8,11,20,.6)}
+  .dark{--glass:var(--surface);--glass-strong:var(--surface);--line:rgba(230,228,255,.7)}
+}
 
-@media (max-width:860px){.grid{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.grid > .day{flex-basis:calc((100% - 16px) / 2)}}
 @media (max-width:640px){
   .tab .l{display:none}.tab .s{display:inline}
-  .tab{padding:9px 13px}
-  .today-btn{padding:0 14px 0 12px}
-  .sec-h{flex-wrap:wrap;gap:10px}
-  .sec-h .dd-panel{left:0;right:auto}
-  .more .l2{display:none}
+  .tab{padding:9px 14px}
+  .today-btn{padding:0 18px}
+  .sec-h{gap:10px}
+  .sec-h .dd-panel{right:0;left:auto}
   .search-row .dd-label{display:none}
-  .grid{grid-template-columns:1fr}
+  .grid > .day{flex-basis:86%}
   .foot{flex-direction:column;text-align:center}
+  /* navbar in basso su mobile */
+  header{position:fixed;top:auto;bottom:0;left:0;right:0;padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
+  main{padding-top:8px}
+  footer{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
 }
 </style>
 </head>
@@ -268,68 +287,67 @@ footer{position:relative;z-index:1;padding:0 16px 28px}
 
 <header>
   <div class="wrap"><div class="hdr">
-    <nav class="glass">
-      <button class="tab" data-view="settimana"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg><span class="l">Questa settimana</span><span class="s">Settimana</span></button>
-      <button class="tab" data-view="tutto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h.01M3 12h.01M3 19h.01M8 5h13M8 12h13M8 19h13"/></svg><span class="l">Tutto il menu</span><span class="s">Tutto</span></button>
+    <nav aria-label="Sezioni">
+      <button class="tab" data-view="settimana"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="3" fill="currentColor"/><path d="M16 2v4M8 2v4"/><path class="cut" d="m9 15 2 2 4-4" stroke-width="2.2"/></svg><span class="l">Questa settimana</span><span class="s">Settimana</span></button>
+      <button class="tab" data-view="tutto"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h.01M3 12h.01M3 19h.01M8 5h13M8 12h13M8 19h13"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="18" x="2" y="3" rx="4" fill="currentColor" stroke="none"/><path class="cut" d="M6.5 8h.01M6.5 12h.01M6.5 16h.01M10 8h8M10 12h8M10 16h8" stroke-width="2.2"/></svg><span class="l">Menu completo</span><span class="s">Completo</span></button>
     </nav>
-    <button class="today-btn" id="todayBtn" aria-label="Vai al menu di oggi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Oggi</button>
+    <button class="today-btn" id="todayBtn" aria-label="Vai al menu di oggi">Oggi</button>
   </div></div>
 </header>
 
 <main>
   <!-- MENU -->
-  <section class="view wrap" id="view-settimana">
+  <section class="view wrap" id="view-settimana" aria-labelledby="homeWeekTitle">
     <div class="hero">
       <h1>Menu Mensa</h1>
       <p>Scuola dell'Infanzia “Don Milani”</p>
-      <small>Comune di Cervia · Anno Scolastico 2026-2027</small>
+      <small>Cervia · Anno Scolastico 2026 — 2027</small>
     </div>
 
     <div class="notice glass" id="homeNotice" hidden>Il menu scolastico non è al momento disponibile.</div>
 
     <div id="homeWeek">
     <div class="sec-h">
-      <h2 id="homeWeekTitle">Questa Settimana</h2>
-      <div class="sec-actions"><div class="dd" data-filters><button class="dd-btn glass" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel glass" hidden></div></div>
-      <button class="more glass" data-view="tutto">Tutto il menu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+      <div><h2 id="homeWeekTitle">Questa Settimana</h2><p class="sub" id="homeWeekRange"></p></div>
+      <div class="sec-actions"><div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" hidden></div></div>
       </div>
     </div>
-    <div class="grid" id="weekGrid"></div>
+    <div class="grid" id="weekGrid" tabindex="0" aria-label="Giorni della settimana, scorri in orizzontale"></div>
     </div>
   </section>
 
-  <!-- TUTTO IL MENU -->
-  <section class="view wrap" id="view-tutto">
+  <!-- MENU COMPLETO -->
+  <section class="view wrap" id="view-tutto" aria-labelledby="calTitle">
     <div class="cal-h">
-      <div class="tile glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h.01M3 12h.01M3 19h.01M8 5h13M8 12h13M8 19h13"/></svg></div>
       <div>
-        <h1>Tutto il menu</h1>
-        <p>15 settembre – 23 dicembre 2026 · Sezione Api</p>
+        <h1 id="calTitle">Menu completo</h1>
+        <p>15 settembre – 23 dicembre 2026</p>
       </div>
     </div>
     <div class="search-row">
-    <div class="search glass">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <div class="search ctl">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <label for="q" class="sr-only">Cerca un piatto</label>
       <input type="search" id="q" placeholder="Cerca un piatto..." autocomplete="off">
     </div>
-    <div class="dd" data-filters><button class="dd-btn glass" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel glass" hidden></div></div>
+    <div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false" aria-label="Filtra per tipo di menu"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" hidden></div></div>
     </div>
     <div class="weeknav glass">
-      <button class="arrow" id="prev" aria-label="Settimana precedente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-      <strong id="range"></strong>
-      <button class="arrow" id="next" aria-label="Settimana successiva"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+      <button class="arrow" id="prev" aria-label="Settimana precedente"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+      <div class="mid"><strong id="range" aria-live="polite"></strong><button class="cur" id="curWeek" hidden>Torna a questa settimana</button></div>
+      <button class="arrow" id="next" aria-label="Settimana successiva"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
     </div>
-    <div class="grid" id="calGrid"></div>
+    <div class="grid" id="calGrid" tabindex="0" aria-label="Giorni del menu, scorri in orizzontale"></div>
   </section>
 </main>
 
 <footer>
   <div class="foot glass">
     <div>Mensa — Scuola dell'Infanzia “Don Milani” Cervia<br>
-    Anno Scolastico 2026-2027 · <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" download target="_blank" rel="noopener" id="pdfLink">Scarica il PDF ufficiale del Comune</a></div>
+    Anno Scolastico 2026-2027 · <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink">Apri il PDF ufficiale del Comune</a></div>
     <div class="themes" role="group" aria-label="Tema">
-      <button data-theme="light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>Chiaro</button>
-      <button data-theme="dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Scuro</button>
+      <button data-theme="light"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>Chiaro</button>
+      <button data-theme="dark"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Scuro</button>
     </div>
   </div>
 </footer>
@@ -444,6 +462,19 @@ const CATS = [
 ];
 const GIORNI=["Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"];
 const MESI=["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];
+const MESI_L=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+function rangeLong(days){
+  const a=new Date(days[0].date+"T12:00:00"),b=new Date(days[days.length-1].date+"T12:00:00");
+  return a.getMonth()===b.getMonth()?a.getDate()+" – "+b.getDate()+" "+MESI_L[b.getMonth()]+" "+b.getFullYear()
+    :a.getDate()+" "+MESI_L[a.getMonth()]+" – "+b.getDate()+" "+MESI_L[b.getMonth()]+" "+b.getFullYear();
+}
+/* porta la card di oggi (se c'è) al primo posto visibile nello scorrimento */
+function focusToday(grid,smooth){
+  if(!grid||!grid.offsetParent) return;
+  const el=grid.querySelector(".day.today");
+  const left=el?el.getBoundingClientRect().left-grid.getBoundingClientRect().left+grid.scrollLeft-16:0;
+  grid.scrollTo({left:Math.max(0,left),behavior:smooth?"smooth":"auto"});
+}
 
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
@@ -460,11 +491,12 @@ function dayCard(d,q=""){
   const unico=isUnico(d.piatti);
   const lab={primo:unico?"Antipasto":"Primo",secondo:unico?"Piatto unico":"Secondo"};
   const items=CATS.filter(([k])=>d.piatti[k]).map(([k,l,e])=>`
-    <li class="it c-${k}"><span class="ico">${e}</span><div><div class="lbl">${lab[k]||l}</div><div class="dish">${hl(d.piatti[k],q)}</div></div></li>`).join("");
-  return `<article class="day glass${d.date===todayISO?" today":""}" id="d-${d.date}">
+    <li class="it c-${k}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${lab[k]||l}</div><div class="dish">${hl(d.piatti[k],q)}</div></div></li>`).join("");
+  const isToday=d.date===todayISO;
+  return `<article class="day glass${isToday?" today":""}" id="d-${d.date}" aria-label="${isToday?"Oggi, ":""}${GIORNI[dt.getDay()]} ${dt.getDate()} ${MESI_L[dt.getMonth()]}">
     <div class="day-h">
-      <div class="date"><b>${dt.getDate()}</b><i>${MESI[dt.getMonth()].toUpperCase()}</i></div>
-      <div class="dname">${GIORNI[dt.getDay()]}${d.date===todayISO?' <span class="oggi">Oggi</span>':""}</div>
+      <div class="date" aria-hidden="true"><b>${dt.getDate()}</b><i>${MESI[dt.getMonth()].toUpperCase()}</i></div>
+      <div class="dname">${isToday?'<span class="oggi">Oggi</span>':""}${GIORNI[dt.getDay()]}</div>
       ${d.tipo?`<span class="badge b-${d.tipo}">${TIPI.find(t=>t[0]===d.tipo)[1].toUpperCase()}</span>`:""}
     </div>
     ${items?`<ul class="items">${items}</ul>`:`<p class="noday">Nessun menu indicato nel PDF per questo giorno.</p>`}
@@ -483,10 +515,10 @@ if(currentWeekIndex()<0) wk=WEEKS.length-1;
 const sel=new Set();
 const ALL_DAYS=WEEKS.flatMap(w=>w.days);
 const passa=d=>!sel.size||sel.has(d.tipo);
-const CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const CHECK='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 function renderFilters(){
   const counts={};ALL_DAYS.forEach(d=>{if(d.tipo)counts[d.tipo]=(counts[d.tipo]||0)+1;});
-  const opts=TIPI.filter(([k])=>counts[k]).map(([k,l,e])=>`<button class="opt${sel.has(k)?" on":""}" data-f="${k}" role="menuitemcheckbox" aria-checked="${sel.has(k)}"><span class="box">${CHECK}</span>${e} ${l}<span class="n">${counts[k]}</span></button>`).join("");
+  const opts=TIPI.filter(([k])=>counts[k]).map(([k,l,e])=>`<button class="opt${sel.has(k)?" on":""}" data-f="${k}" aria-pressed="${sel.has(k)}"><span class="box">${CHECK}</span><span aria-hidden="true">${e}</span> ${l}<span class="n" aria-label="${counts[k]} giorni">${counts[k]}</span></button>`).join("");
   const label=!sel.size?"Tipo di menu":sel.size===1?TIPI.find(t=>t[0]===[...sel][0]).slice(1,3).reverse().join(" "):"Tipi di menu";
   document.querySelectorAll("[data-filters]").forEach(dd=>{
     const open=dd.classList.contains("open");
@@ -517,8 +549,10 @@ function renderHome(){
   if(i<0) return;
   const w=WEEKS[i];
   document.getElementById("homeWeekTitle").textContent=w.monday===mondayOf(todayISO)?"Questa Settimana":"Prossima Settimana";
+  document.getElementById("homeWeekRange").textContent=rangeLong(w.days);
   const days=w.days.filter(passa);
-  document.getElementById("weekGrid").innerHTML=days.length?days.map(d=>dayCard(d)).join(""):`<div class="empty">Nessun giorno di questo tipo in settimana. <button class="more" data-view="tutto" style="display:inline-flex">Cercalo in tutto il menu</button></div>`;
+  document.getElementById("weekGrid").innerHTML=days.length?days.map(d=>dayCard(d)).join(""):`<div class="empty">Nessun giorno di questo tipo in settimana. <button class="more ctl" data-view="tutto">Cercalo nel menu completo</button></div>`;
+  focusToday(document.getElementById("weekGrid"));
 }
 
 function fmt(iso){const d=new Date(iso+"T12:00:00");return d.getDate()+" "+MESI[d.getMonth()];}
@@ -530,6 +564,7 @@ function renderCal(){
     const all=ALL_DAYS.filter(passa).filter(d=>!q||Object.values(d.piatti).some(p=>norm(p).includes(norm(q))));
     nav.style.display="none";
     grid.innerHTML=all.length?all.map(d=>dayCard(d,q)).join(""):`<div class="empty">Nessun giorno trovato${q?` per “${esc(q)}”`:""}.</div>`;
+    grid.scrollLeft=0;
     return;
   }
   nav.style.display="";
@@ -537,18 +572,24 @@ function renderCal(){
   document.getElementById("range").textContent=fmt(w[0].date)+" — "+fmt(w[w.length-1].date);
   document.getElementById("prev").disabled=wk===0;
   document.getElementById("next").disabled=wk===WEEKS.length-1;
+  const ci=currentWeekIndex();
+  document.getElementById("curWeek").hidden=ci<0||wk===ci;
+  document.getElementById("curWeek").textContent=ci>=0&&WEEKS[ci].monday===mondayOf(todayISO)?"Torna a questa settimana":"Vai alla prossima settimana";
   grid.innerHTML=w.map(d=>dayCard(d)).join("");
+  focusToday(grid);
 }
 document.getElementById("prev").onclick=()=>{if(wk>0){wk--;renderCal();}};
 document.getElementById("next").onclick=()=>{if(wk<WEEKS.length-1){wk++;renderCal();}};
+document.getElementById("curWeek").onclick=()=>{const ci=currentWeekIndex();if(ci>=0){wk=ci;renderCal();}};
 document.getElementById("q").addEventListener("input",renderCal);
 
-/* viste (Questa settimana / Tutto il menu) */
+/* viste (Questa settimana / Menu completo) */
 function show(v){
   if(v!=="tutto") v="settimana";
   document.querySelectorAll(".view").forEach(s=>s.classList.toggle("active",s.id==="view-"+v));
-  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===v));
+  document.querySelectorAll(".tab").forEach(t=>{const on=t.dataset.view===v;t.classList.toggle("active",on);on?t.setAttribute("aria-current","page"):t.removeAttribute("aria-current");});
   window.scrollTo({top:0});
+  requestAnimationFrame(()=>focusToday(document.querySelector("#view-"+v+" .grid")));
 }
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-view]");if(!b)return;
@@ -568,12 +609,11 @@ document.getElementById("todayBtn").addEventListener("click",()=>{
   if(location.hash!=="#"+v){history.replaceState(null,"","#"+v);} show(v);
   requestAnimationFrame(()=>{
     const el=document.querySelector("#view-"+v+" #d-"+target.date);if(!el)return;
-    el.scrollIntoView({behavior:"smooth",block:"center"});
+    el.scrollIntoView({behavior:"smooth",block:"center",inline:"start"});
     el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");
   });
 });
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
-document.getElementById("pdfLink").addEventListener("click",e=>{if(e.currentTarget.getAttribute("href")==="#")e.preventDefault();});
 
 /* tema chiaro/scuro (selettore nel footer) */
 const root=document.documentElement;
