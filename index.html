@@ -285,7 +285,8 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 /* footer */
 footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 /* iubenda: niente pulsante fluttuante (copriva la barra in basso); le preferenze si riaprono dal link "Preferenze cookie" nel footer */
-html body .iubenda-tp-btn[data-tp-float],html body button.iubenda-tp-btn,html body #iubenda-tp-btn{display:none!important;visibility:hidden!important;pointer-events:none!important}
+/* il CSS di iubenda usa selettori con molti :not(), quindi serve più specificità: i :not(#…) aggiungono peso di ID */
+html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp-btn[data-tp-float]:not(#_a):not(#_b):not(#_c),html body #iubenda-tp-btn{display:none!important;visibility:hidden!important;pointer-events:none!important}
 .foot{max-width:61rem;margin:0 auto;border-radius:1.375rem;padding:1.25rem 1.375rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8438rem;color:var(--fg-2);line-height:1.7;background:var(--glass)}
 .foot > *{position:relative;text-wrap:balance}
 .foot a{color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:.125rem;white-space:nowrap}
