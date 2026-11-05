@@ -235,7 +235,8 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 .cur span{display:none}
 .cur[hidden]{display:none}
 .cur svg{width:1rem;height:1rem}
-.dark .cur{background:#e4e1ff;color:#0b0920}
+.cur{background:var(--glass);-webkit-backdrop-filter:blur(1rem) saturate(160%);backdrop-filter:blur(1rem) saturate(160%);color:var(--fg);border:1.5px solid var(--line);transition:background .2s}
+.cur:hover{background:var(--tile)}
 .arrow{width:2.75rem;height:2.75rem;border-radius:.75rem;display:grid;place-items:center;color:var(--fg);background:var(--surface-2);border:1.5px solid var(--line);position:relative;transition:transform .15s}
 .arrow:active:not(:disabled){transform:scale(.94)}
 .arrow:disabled{opacity:.4;cursor:default}
