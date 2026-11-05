@@ -469,15 +469,15 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
   </button>
   <div class="a2hs-top">
     <img src="apple-touch-icon.png" alt="" width="48" height="48">
-    <div><strong id="a2hsTitle">Mensa Don Milani sul telefono</strong><p>Aggiungila alla schermata Home: la apri con un tocco, come un'app.</p></div>
+    <div><strong id="a2hsTitle">Mensa Don Milani sul telefono</strong><p>Aggiungila alla schermata Home: la ritrovi con un tocco, tra le icone del telefono.</p></div>
   </div>
   <ol class="a2hs-steps" id="a2hsIos" hidden>
-    <li>Tocca <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> Condividi</span> nella barra di Safari</li>
+    <li>Tocca <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> Condividi</span> nella barra del browser</li>
     <li>Scegli <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi alla schermata Home</span></li>
   </ol>
   <ol class="a2hs-steps" id="a2hsAndroid" hidden>
     <li>Tocca il menu <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span> del browser</li>
-    <li>Scegli <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi a schermata Home</span> (o "Installa app")</li>
+    <li>Scegli <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi a schermata Home</span></li>
   </ol>
   <div class="a2hs-actions">
     <button class="a2hs-no" id="a2hsNever">Non mi interessa</button>
@@ -838,7 +838,8 @@ calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(locati
   const isIOS=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
   const isAndroid=/Android/.test(ua);
   const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
-  if(!(isIOS||isAndroid)||standalone||never) return;
+  const touch=matchMedia("(pointer: coarse)").matches&&matchMedia("(hover: none)").matches;
+  if(!(isIOS||isAndroid)||!touch||standalone||never) return;
   let deferred=null;
   const install=document.getElementById("a2hsInstall");
   function hide(){box.classList.add("out");setTimeout(()=>{box.hidden=true;box.classList.remove("out");},450);}
