@@ -108,10 +108,11 @@ main{position:relative;z-index:1;flex:1;padding:1.75rem 0 4rem}
 @keyframes fade{from{opacity:0;transform:translateY(.375rem)}to{opacity:1;transform:none}}
 
 /* hero */
-.hero{text-align:center;margin:1.5rem 0 2.5rem}
-.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.75rem,5vw,2.625rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:.625rem;text-wrap:balance;color:var(--accent)}
-.hero p{font-weight:600;font-size:.8438rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg)}
-.hero small{display:block;margin-top:.1875rem;font-size:.7812rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg)}
+.hero{display:flex;align-items:center;justify-content:center;gap:1rem;margin:1.5rem 0 2.5rem}
+.hero h1{font-family:var(--font-display);font-weight:800;font-size:clamp(1.75rem,5vw,2.625rem);letter-spacing:-.02em;line-height:1;white-space:nowrap;color:var(--accent)}
+.hero-meta{padding-left:1rem;border-left:1.5px solid var(--line);text-align:left}
+.hero p{font-weight:600;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fg);white-space:nowrap}
+.hero small{display:block;margin-top:.125rem;font-size:.6875rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-fg);white-space:nowrap}
 
 .notice{border-radius:var(--radius);padding:1.75rem 1.25rem;text-align:center;color:var(--fg-2);font-size:1rem;margin-bottom:2.75rem}
 
@@ -268,6 +269,7 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 
 @media (max-width:53.75rem){.grid > .day{flex-basis:calc((100% - 1rem) / 2)}}
 @media (max-width:40rem){
+  .hero{gap:.625rem}.hero-meta{padding-left:.625rem}.hero h1{font-size:1.5rem}.hero p{font-size:.6875rem;letter-spacing:.08em}.hero small{font-size:.625rem;letter-spacing:.08em}
   .tab .l{display:none}.tab .s{display:inline}
   .tab{padding:.5625rem .875rem}
   .today-btn{padding:0 1.125rem}
@@ -302,8 +304,7 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
   <section class="view wrap" id="view-settimana" aria-labelledby="homeWeekTitle">
     <div class="hero">
       <h1>Menu Mensa</h1>
-      <p>Scuola dell'Infanzia “Don Milani”</p>
-      <small>Cervia · Anno Scolastico 2026 — 2027</small>
+      <div class="hero-meta"><p>Infanzia “Don Milani”</p><small>Cervia · 2026 – 2027</small></div>
     </div>
 
     <div class="notice glass" id="homeNotice" hidden>Il menu scolastico non è al momento disponibile.</div>
@@ -322,8 +323,7 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
   <section class="view wrap" id="view-tutto" aria-labelledby="calTitle">
     <div class="hero">
       <h1 id="calTitle">Menu Mensa</h1>
-      <p>Scuola dell'Infanzia “Don Milani”</p>
-      <small>15 settembre — 23 dicembre 2026</small>
+      <div class="hero-meta"><p>Infanzia “Don Milani”</p><small>15 set – 23 dic 2026</small></div>
     </div>
     <div class="search-row">
     <div class="search ctl">
