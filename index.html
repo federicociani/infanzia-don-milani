@@ -248,9 +248,11 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 
 /* footer */
 footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
-.foot{max-width:61rem;margin:0 auto;border-radius:1.375rem;padding:1.25rem 1.375rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8438rem;color:var(--fg-2);line-height:1.7;background:var(--glass-strong)}
+.foot{max-width:61rem;margin:0 auto;border-radius:1.375rem;padding:1.25rem 1.375rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8438rem;color:var(--fg-2);line-height:1.7;background:var(--glass)}
 .foot > *{position:relative}
-.foot a{color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:.125rem}
+.foot a{color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:.125rem;white-space:nowrap}
+.foot a .ext{display:inline-block;width:.875rem;height:.875rem;margin-left:.125rem;vertical-align:-.125rem;transition:transform .2s}
+.foot a:hover .ext{transform:translate(.125rem,-.125rem)}
 .themes{display:flex;gap:.125rem;padding:.25rem;border-radius:.875rem;background:var(--surface);border:1.5px solid var(--line);flex:none}
 .themes button{display:flex;align-items:center;gap:.375rem;min-height:2.5rem;padding:.4375rem .75rem;border-radius:.625rem;font-size:.875rem;font-weight:600;color:var(--fg-2);transition:background .25s,color .25s}
 .themes button svg{width:1rem;height:1rem}
@@ -349,7 +351,7 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 
 <footer>
   <div class="foot glass">
-    <div>Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale: <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink">Apri il PDF ufficiale del Comune</a></div>
+    <div>Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale: <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink">apri il PDF ufficiale del Comune<svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> (si apre in una nuova scheda)</span></a></div>
     <div class="themes" role="group" aria-label="Tema">
       <button data-theme="light" aria-label="Tema chiaro" title="Tema chiaro"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
       <button data-theme="dark" aria-label="Tema scuro" title="Tema scuro"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
