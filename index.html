@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+<!-- iubenda: banner cookie, privacy e cookie policy (blocco automatico attivo) -->
+<script type="text/javascript" src="https://embeds.iubenda.com/widgets/1c3f796e-f6ed-41b8-93bd-628a1e17465a.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#07061a">
@@ -276,6 +278,8 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 .foot{max-width:61rem;margin:0 auto;border-radius:1.375rem;padding:1.25rem 1.375rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8438rem;color:var(--fg-2);line-height:1.7;background:var(--glass)}
 .foot > *{position:relative;text-wrap:balance}
 .foot a{color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:.125rem;white-space:nowrap}
+.foot .legal{display:inline-block;margin-top:.375rem;font-size:.75rem}
+.foot .legal a{font-weight:500;color:var(--fg-2)}
 .foot a .ext{display:inline-block;width:.875rem;height:.875rem;margin-left:.125rem;vertical-align:-.125rem;transition:transform .2s}
 .foot a:hover .ext{transform:translate(.125rem,-.125rem)}
 .themes{display:flex;gap:.125rem;padding:.25rem;border-radius:.875rem;background:var(--surface);border:1.5px solid var(--line);flex:none}
@@ -384,8 +388,8 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
   footer{padding-bottom:calc(6.25rem + env(safe-area-inset-bottom))}
 }
 </style>
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
+<!-- Microsoft Clarity: parte solo dopo il consenso ai cookie di misurazione (iubenda) -->
+<script type="text/plain" class="_iub_cs_activate-inline" data-iub-purposes="4">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
@@ -455,7 +459,7 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
 
 <footer>
   <div class="foot glass">
-    <div>Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale: <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink">apri il PDF ufficiale del Comune<svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> (si apre in una nuova scheda)</span></a></div>
+    <div>Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale: <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink">apri il PDF ufficiale del Comune<svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> (si apre in una nuova scheda)</span></a><br><span class="legal"><a href="https://www.iubenda.com/privacy-policy/3321858" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.iubenda.com/privacy-policy/3321858/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> · <a href="#" class="iubenda-cs-preferences-link">Preferenze cookie</a></span></div>
     <div class="themes" role="group" aria-label="Tema">
       <button data-theme="light" aria-label="Tema chiaro" title="Tema chiaro"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2m-7.07-14.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
       <button data-theme="dark" aria-label="Tema scuro" title="Tema scuro"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></button>
@@ -861,6 +865,7 @@ calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(locati
   document.getElementById(isIOS?"a2hsIos":"a2hsAndroid").hidden=false;
   box.hidden=false;
 })();
+document.querySelectorAll(".iubenda-cs-preferences-link").forEach(l=>l.addEventListener("click",e=>e.preventDefault()));
 if("serviceWorker" in navigator&&location.protocol==="https:"){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
 </script>
 
