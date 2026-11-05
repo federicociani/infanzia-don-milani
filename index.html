@@ -155,20 +155,12 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 [hidden]{display:none!important}
 
 /* badge per tipo: testo scuro su pastello (chiaro), testo chiaro su tinta scura (scuro) */
-.b-pesce{color:#1d4f70;background:#d6e9f6;box-shadow:inset 0 0 0 1px #9cc4e0}
-.b-carne{color:#7d2b3f;background:#fbdde3;box-shadow:inset 0 0 0 1px #e9a9b7}
-.b-uova{color:#5c4405;background:#f8ebc4;box-shadow:inset 0 0 0 1px #dcc27a}
-.b-formaggi{color:#6a3e0a;background:#fde4c8;box-shadow:inset 0 0 0 1px #e8b884}
-.b-verdure{color:#1c5a3d;background:#d5f0e0;box-shadow:inset 0 0 0 1px #94cfae}
-.b-pizza{color:#7a341c;background:#fcdcd1;box-shadow:inset 0 0 0 1px #eaa892}
-.b-unico{color:#3f3492;background:#e5e0ff;box-shadow:inset 0 0 0 1px #b8adf5}
-.dark .b-pesce{color:#cfeafc;background:#183247;box-shadow:inset 0 0 0 1px #3f6a8a}
-.dark .b-carne{color:#ffd9e1;background:#43202b;box-shadow:inset 0 0 0 1px #81505c}
-.dark .b-uova{color:#fbeab8;background:#3a3112;box-shadow:inset 0 0 0 1px #7a6a35}
-.dark .b-formaggi{color:#ffe0bf;background:#3d2a14;box-shadow:inset 0 0 0 1px #806040}
-.dark .b-verdure{color:#d0f2de;background:#163829;box-shadow:inset 0 0 0 1px #3f7a5c}
-.dark .b-pizza{color:#ffd8ca;background:#40231a;box-shadow:inset 0 0 0 1px #84523f}
-.dark .b-unico{color:#e5e0ff;background:#2c2660;box-shadow:inset 0 0 0 1px #6058a8}
+.b-vegano{color:#1c5a3d;background:#d5f0e0;box-shadow:inset 0 0 0 1px #94cfae}
+.b-vegetariano{color:#5c4405;background:#f8ebc4;box-shadow:inset 0 0 0 1px #dcc27a}
+.b-onnivoro{color:#7d2b3f;background:#fbdde3;box-shadow:inset 0 0 0 1px #e9a9b7}
+.dark .b-vegano{color:#d0f2de;background:#163829;box-shadow:inset 0 0 0 1px #3f7a5c}
+.dark .b-vegetariano{color:#fbeab8;background:#3a3112;box-shadow:inset 0 0 0 1px #7a6a35}
+.dark .b-onnivoro{color:#ffd9e1;background:#43202b;box-shadow:inset 0 0 0 1px #81505c}
 
 .tab{white-space:nowrap}.tab .s{display:none}
 /* shortcut oggi: azione principale */
@@ -442,21 +434,23 @@ const DAYS = [
 const KEYS=["primo","secondo","contorno","pane","frutta","merenda"];
 const mondayOf=iso=>{const d=new Date(iso+"T12:00:00");d.setDate(d.getDate()-((d.getDay()+6)%7));return d.toISOString().slice(0,10);};
 /* tipo di menu, dedotto dal nome dei piatti principali */
+/* tipo di menu del pranzo (primo, secondo, contorno, pane, frutta), dedotto dai nomi dei piatti:
+   onnivoro = carne o pesce (anche brodo non dichiarato vegetale); vegetariano = latticini o uova
+   (pasta all'uovo, formaggi, pesto, gratinati, sformati…); vegano = nessuno dei due
+   (es. crocchette di verdura con primo di legumi, come i giorni vegani del menu comunale).
+   La classificazione è prudente: nel dubbio scala verso la categoria meno restrittiva. */
 const TIPI=[
-  ["pesce","Pesce","🐟",/pesce|tonno|sardoncini/i],
-  ["carne","Carne","🍗",/pollo|tacchino|vitellone|hamburger|maiale|ragù|polpette(?! ?di ricotta)|carne/i],
-  ["uova","Uova","🥚",/frittat/i],
-  ["formaggi","Formaggi","🧀",/formaggio|ricotta/i],
-  ["pizza","Pizza","🍕",/pizza/i],
-  ["unico","Piatto unico","🥣",null],
-  ["verdure","Verdure","🥦",null]
+  ["vegano","Vegano","🌱"],
+  ["vegetariano","Vegetariano","🥦"],
+  ["onnivoro","Onnivoro","🍗"]
 ];
+const RE_ONNI=/pollo|tacchino|vitellone|hamburger|maiale|ragù|polpette(?! ?di ricotta)|carne|pesce|tonno|sardoncini|brodo(?! vegetale)/i;
+const RE_VEGE=/parmigian|formaggio|ricotta|pizza|frittat|uov|burro|besciamella|pesto|latte|cappelletti|tagliatelle|passatelli|ravioli|maltagliati|lasagne|gnocchi|sformato|gratinat/i;
 const isUnico=p=>/^verdura (cruda|cotta)$/i.test(p.primo||"");
 function tipoDi(p){
   if(!p.secondo) return null;
-  const t=(p.primo||"")+" "+p.secondo;
-  for(const [k,,,re] of TIPI) if(re&&re.test(t)) return k;
-  return isUnico(p)?"unico":"verdure";
+  const t=["primo","secondo","contorno","pane","frutta"].map(k=>p[k]||"").join(" ");
+  return RE_ONNI.test(t)?"onnivoro":RE_VEGE.test(t)?"vegetariano":"vegano";
 }
 const WEEKS=[];
 DAYS.forEach(r=>{
