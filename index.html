@@ -237,7 +237,8 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 .weeknav{flex:1;display:flex;align-items:center;justify-content:space-between;border-radius:1.125rem;padding:.5rem}
 .weeknav strong{font-weight:700;font-size:1rem;position:relative;white-space:nowrap}
 .weeknav .mid{display:flex;flex-direction:column;align-items:center;gap:.375rem;position:relative}
-.cur{display:flex;align-items:center;gap:.375rem;padding:0 1.125rem;border-radius:1.125rem;background:var(--fg);color:var(--bg);white-space:nowrap}
+.cur{align-self:center;flex:none;width:2.75rem;height:2.75rem;display:grid;place-items:center;padding:0;border-radius:.75rem;background:var(--fg);color:var(--bg)}
+.cur span{display:none}
 .cur[hidden]{display:none}
 .cur svg{width:1rem;height:1rem}
 .dark .cur{background:#e4e1ff;color:#0b0920}
@@ -275,7 +276,6 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 
 @media (max-width:53.75rem){.grid > .day{flex-basis:calc((100% - 1rem) / 2)}}
 @media (max-width:40rem){
-  .cur{padding:0 .9375rem}.cur span{display:none}
   .tab .l{display:none}.tab .s{display:inline}
   .tab{padding:.5625rem .875rem}
   .today-btn{padding:0 1.125rem}
@@ -588,6 +588,7 @@ function renderCal(){
   const thisWeek=ci>=0&&WEEKS[ci].monday===mondayOf(todayISO);
   document.getElementById("curLabel").textContent=thisWeek?"Attuale":"Prossima";
   document.getElementById("curWeek").setAttribute("aria-label",thisWeek?"Torna a questa settimana":"Vai alla prossima settimana");
+  document.getElementById("curWeek").title=thisWeek?"Torna a questa settimana":"Vai alla prossima settimana";
   grid.innerHTML=w.map(d=>dayCard(d)).join("");
   focusToday(grid);
 }
