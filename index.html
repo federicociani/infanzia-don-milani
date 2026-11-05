@@ -399,6 +399,11 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
   main{padding-top:.5rem}
   footer{padding-bottom:calc(6.25rem + env(safe-area-inset-bottom))}
 }
+
+/* app aggiunta alla Home: niente hero, si parte subito dal menu (il titolo resta per i lettori di schermo) */
+@media (display-mode:standalone){.hero{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;min-height:0}main{padding-top:1rem}}
+html.standalone .hero{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;min-height:0}
+html.standalone main{padding-top:1rem}
 </style>
 <!-- Microsoft Clarity: parte solo dopo il consenso ai cookie di misurazione (iubenda) -->
 <script type="text/plain" class="_iub_cs_activate-inline" data-iub-purposes="4">
@@ -503,6 +508,7 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
 </div>
 
 
+<script>if(window.navigator.standalone===true||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches))document.documentElement.classList.add("standalone");</script>
 <script>
 /* ===== DATI MENU — Menù Scuola dell'infanzia e primaria, Comune di Cervia, A.S. 2026-2027 (15/09 – 23/12/2026)
    Formato: [data, primo, secondo, contorno, pane, frutta, merenda]. Dove il PDF distingue primaria/infanzia è riportata la versione infanzia. */
