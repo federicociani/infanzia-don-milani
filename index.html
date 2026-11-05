@@ -415,6 +415,14 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
   .hero{justify-content:flex-start;min-height:5.25rem;margin:0 0 2rem}
 }
 
+/* vista unica: in alto/basso resta solo il pulsante Oggi */
+header{pointer-events:none}
+header .today-btn{pointer-events:auto;height:2.75rem;min-height:2.75rem;align-self:center}
+@media (max-width:40rem){
+  header .hdr{justify-content:flex-end}
+  header .today-btn{height:3rem;min-height:3rem;padding:0 1.375rem;box-shadow:0 .75rem 1.75rem -.75rem rgba(0,0,0,.55)}
+}
+
 @media (prefers-contrast:more){
   :root{--glass:var(--surface);--glass-strong:var(--surface);--line:rgba(8,11,20,.6)}
   .dark{--glass:var(--surface);--glass-strong:var(--surface);--line:rgba(230,228,255,.7)}
@@ -469,36 +477,15 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
 
 <header>
   <div class="wrap"><div class="hdr">
-    <nav aria-label="Sezioni">
-      <button class="tab" data-view="settimana"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="3" fill="currentColor"/><path d="M16 2v4M8 2v4"/><path class="cut" d="m9 15 2 2 4-4" stroke-width="2.2"/></svg><span class="l">Questa settimana</span><span class="s">Settimana</span></button>
-      <button class="tab" data-view="tutto"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h.01M3 12h.01M3 19h.01M8 5h13M8 12h13M8 19h13"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="18" x="2" y="3" rx="4" fill="currentColor" stroke="none"/><path class="cut" d="M6.5 8h.01M6.5 12h.01M6.5 16h.01M10 8h8M10 12h8M10 16h8" stroke-width="2.2"/></svg><span class="l">Menu completo</span><span class="s">Completo</span></button>
-    </nav>
     <button class="today-btn" id="todayBtn" aria-label="Vai al menu di oggi">Oggi</button>
   </div></div>
 </header>
 
 <main>
   <!-- MENU -->
-  <section class="view wrap" id="view-settimana" aria-labelledby="homeWeekTitle">
-    <div class="hero">
-      <h1>Menu<br>Mensa</h1>
-      <div class="hero-meta"><p>Scuola dell'Infanzia<br>“Don Milani”</p><small>Cervia · 2026 – 2027</small></div>
-    </div>
-
-    <div class="notice glass" id="homeNotice" hidden>Il menu scolastico non è al momento disponibile.</div>
-
-    <div id="homeWeek">
-    <div class="sec-h">
-      <div class="sec-t"><p class="range" id="homeWeekRange"></p><h2 id="homeWeekTitle">Questa Settimana</h2></div>
-      <div class="sec-actions"><div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false" aria-label="Filtra per tipo di menu"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" hidden></div></div>
-      </div>
-    </div>
-    <div class="grid" id="weekGrid" tabindex="0" aria-label="Giorni della settimana, scorri in orizzontale"></div>
-    </div>
-  </section>
 
   <!-- MENU COMPLETO -->
-  <section class="view wrap" id="view-tutto" aria-labelledby="calTitle">
+  <section class="view wrap active" id="view-tutto" aria-labelledby="calTitle">
     <div class="hero">
       <h1 id="calTitle">Menu<br>Mensa</h1>
       <div class="hero-meta"><p>Scuola dell'Infanzia<br>“Don Milani”</p><small>15 set – 23 dic 2026</small></div>
@@ -775,18 +762,7 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDD();});
 
-function renderHome(){
-  const i=currentWeekIndex();
-  document.getElementById("homeNotice").hidden=i>=0;
-  document.getElementById("homeWeek").hidden=i<0;
-  if(i<0) return;
-  const w=WEEKS[i];
-  document.getElementById("homeWeekTitle").textContent=w.monday===mondayOf(todayISO)?"Questa Settimana":"Prossima Settimana";
-  document.getElementById("homeWeekRange").textContent=rangeLong(w.days);
-  const days=w.days.filter(passa);
-  document.getElementById("weekGrid").innerHTML=days.length?days.map(d=>dayCard(d)).join(""):`<div class="empty">Nessun giorno di questo tipo in settimana. <button class="more ctl" data-view="tutto">Cercalo nel menu completo</button></div>`;
-  focusToday(document.getElementById("weekGrid"));
-}
+function renderHome(){} /* vista unica: niente più "Questa settimana" */
 
 function fmt(iso){const d=new Date(iso+"T12:00:00");return d.getDate()+" "+MESI[d.getMonth()];}
 function renderCal(){
@@ -820,13 +796,10 @@ document.getElementById("next").onclick=()=>{if(wk<WEEKS.length-1){wk++;renderCa
 document.getElementById("curWeek").onclick=()=>{const ci=currentWeekIndex();if(ci>=0){wk=ci;renderCal();}};
 document.getElementById("q").addEventListener("input",renderCal);
 
-/* viste (Questa settimana / Menu completo) */
-function show(v){
-  if(v!=="tutto") v="settimana";
-  document.querySelectorAll(".view").forEach(s=>s.classList.toggle("active",s.id==="view-"+v));
-  document.querySelectorAll(".tab").forEach(t=>{const on=t.dataset.view===v;t.classList.toggle("active",on);on?t.setAttribute("aria-current","page"):t.removeAttribute("aria-current");});
-  window.scrollTo({top:0});
-  requestAnimationFrame(()=>focusToday(document.querySelector("#view-"+v+" .grid")));
+/* vista unica */
+function show(){
+  document.getElementById("view-tutto").classList.add("active");
+  requestAnimationFrame(()=>focusToday(document.getElementById("calGrid")));
 }
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-view]");if(!b)return;
@@ -840,18 +813,15 @@ document.getElementById("todayBtn").addEventListener("click",()=>{
   const target=ALL_DAYS.find(d=>d.date===focusISO)||ALL_DAYS[ALL_DAYS.length-1];
   if(sel.size){sel.clear();renderFilters();}
   document.getElementById("q").value="";
-  const inHome=currentWeekIndex()>=0&&WEEKS[currentWeekIndex()].days.includes(target);
-  if(!inHome){wk=WEEKS.findIndex(w=>w.days.includes(target));}
-  renderHome();renderCal();
-  const v=inHome?"settimana":"tutto";
-  if(location.hash!=="#"+v){history.replaceState(null,"","#"+v);} show(v);
+  wk=WEEKS.findIndex(w=>w.days.includes(target));
+  renderCal();
   requestAnimationFrame(()=>{
-    const el=document.querySelector("#view-"+v+" #d-"+target.date);if(!el)return;
+    const el=document.querySelector("#calGrid #d-"+target.date);if(!el)return;
     el.scrollIntoView({behavior:"smooth",block:"center",inline:"start"});
     el.classList.remove("flash");void el.offsetWidth;el.classList.add("flash");
   });
 });
-window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+
 
 /* etichetta del pulsante: Oggi / Domani / nome del giorno */
 function updateTodayBtn(){
@@ -893,7 +863,7 @@ document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",
 })();
 
 /* indice per l'entrata a cascata delle card */
-["weekGrid","calGrid"].forEach(id=>{const g=document.getElementById(id);
+["calGrid"].forEach(id=>{const g=document.getElementById(id);
   new MutationObserver(()=>[...g.children].forEach((c,i)=>c.style.setProperty("--i",Math.min(i,8)))).observe(g,{childList:true});});
 calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));
 
