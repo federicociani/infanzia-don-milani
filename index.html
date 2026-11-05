@@ -151,6 +151,9 @@ main{position:relative;z-index:1;flex:1;padding:1.75rem 0 4rem}
 mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 
 .dname .oggi{display:table;margin:0 0 .25rem}
+.oggi{background:var(--tile);color:var(--fg-2);box-shadow:inset 0 0 0 1px var(--line)}
+.oggi.rel-oggi{background:var(--fg);color:var(--bg);box-shadow:none}
+.oggi.rel-ieri{opacity:.75}
 .oggi{vertical-align:middle;font-family:var(--font-sans);font-size:.6563rem;font-weight:normal;letter-spacing:.06em;text-transform:uppercase;padding:.1875rem .5rem;border-radius:999rem}
 .noday{padding:1.375rem 1.125rem;color:var(--fg-2);font-size:.875rem;position:relative}
 [hidden]{display:none!important}
@@ -246,7 +249,7 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 /* footer */
 footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 .foot{max-width:61rem;margin:0 auto;border-radius:1.375rem;padding:1.25rem 1.375rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8438rem;color:var(--fg-2);line-height:1.7;background:var(--glass)}
-.foot > *{position:relative}
+.foot > *{position:relative;text-wrap:balance}
 .foot a{color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:.125rem;white-space:nowrap}
 .foot a .ext{display:inline-block;width:.875rem;height:.875rem;margin-left:.125rem;vertical-align:-.125rem;transition:transform .2s}
 .foot a:hover .ext{transform:translate(.125rem,-.125rem)}
@@ -263,6 +266,15 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 .tab,.today-btn,.more,.dd-btn,.dd-foot button,.cur{text-transform:uppercase;font-size:.75rem;letter-spacing:.0625rem;font-weight:600}
 /* "Oggi" alto quanto i tab interni allo switch, centrato */
 .today-btn{align-self:center;height:2.75rem;min-height:2.75rem}
+
+/* desktop largo: intestazione a sinistra, switch + Oggi a destra sulla stessa riga */
+@media (min-width:60rem){
+  header{position:absolute;top:0;left:0;right:0;padding:1.5rem 0;pointer-events:none;display:block}
+  .hdr{justify-content:flex-end;align-items:center;min-height:5.25rem;pointer-events:auto}
+  .hdr > *{pointer-events:auto}
+  main{padding-top:1.5rem}
+  .hero{justify-content:flex-start;min-height:5.25rem;margin:0 0 2rem}
+}
 
 @media (prefers-contrast:more){
   :root{--glass:var(--surface);--glass-strong:var(--surface);--line:rgba(8,11,20,.6)}
@@ -499,7 +511,24 @@ function hl(text,q){
   if(i<0) return esc(text);
   return esc(text.slice(0,i))+"<mark>"+esc(text.slice(i,i+q.length))+"</mark>"+esc(text.slice(i+q.length));
 }
-const todayISO=new Date().toISOString().slice(0,10);
+/* date locali (non UTC). Dalle 18:15 il giorno "in evidenza" diventa il prossimo giorno di mensa */
+const isoLocal=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const addDays=(iso,n)=>{const d=new Date(iso+"T12:00:00");d.setDate(d.getDate()+n);return isoLocal(d);};
+const CAMBIO_ORA=18*60+15;
+let todayISO,focusISO;
+function calcDate(){
+  const now=new Date();
+  todayISO=isoLocal(now);
+  const dopo=now.getHours()*60+now.getMinutes()>=CAMBIO_ORA;
+  const next=WEEKS.flatMap(w=>w.days).find(d=>dopo?d.date>todayISO:d.date>=todayISO);
+  focusISO=next?next.date:null;
+}
+function relLabel(iso){
+  if(iso===todayISO) return "Oggi";
+  if(iso===addDays(todayISO,1)) return "Domani";
+  if(iso===addDays(todayISO,-1)) return "Ieri";
+  return "";
+}
 
 function dayCard(d,q=""){
   const dt=new Date(d.date+"T12:00:00");
@@ -507,11 +536,11 @@ function dayCard(d,q=""){
   const lab={primo:unico?"Antipasto":"Primo",secondo:unico?"Piatto unico":"Secondo"};
   const items=CATS.filter(([k])=>d.piatti[k]).map(([k,l,e])=>`
     <li class="it c-${k}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${lab[k]||l}</div><div class="dish">${hl(d.piatti[k],q)}</div></div></li>`).join("");
-  const isToday=d.date===todayISO;
-  return `<article class="day glass${isToday?" today":""}" id="d-${d.date}" aria-label="${isToday?"Oggi, ":""}${GIORNI[dt.getDay()]} ${dt.getDate()} ${MESI_L[dt.getMonth()]}">
+  const isFocus=d.date===focusISO, rel=relLabel(d.date);
+  return `<article class="day glass${isFocus?" today":""}" id="d-${d.date}" aria-label="${rel?rel+", ":""}${GIORNI[dt.getDay()]} ${dt.getDate()} ${MESI_L[dt.getMonth()]}">
     <div class="day-h">
       <div class="date" aria-hidden="true"><b>${dt.getDate()}</b><i>${MESI[dt.getMonth()].toUpperCase()}</i></div>
-      <div class="dname">${isToday?'<span class="oggi">Oggi</span>':""}${GIORNI[dt.getDay()]}</div>
+      <div class="dname">${rel?`<span class="oggi rel-${rel.toLowerCase()}">${rel}</span>`:""}${GIORNI[dt.getDay()]}</div>
       ${d.tipo?`<span class="badge b-${d.tipo}">${TIPI.find(t=>t[0]===d.tipo)[1].toUpperCase()}</span>`:""}
     </div>
     ${items?`<ul class="items">${items}</ul>`:`<p class="noday">Nessun menu indicato nel PDF per questo giorno.</p>`}
@@ -520,9 +549,10 @@ function dayCard(d,q=""){
 
 /* settimana corrente: quella che contiene oggi, altrimenti la prossima; -1 se il menu è finito */
 function currentWeekIndex(){
-  const m=mondayOf(todayISO);
+  const m=mondayOf(focusISO||todayISO);
   return WEEKS.findIndex(w=>w.monday>=m);
 }
+calcDate();
 let wk=Math.max(0,currentWeekIndex());
 if(currentWeekIndex()<0) wk=WEEKS.length-1;
 
@@ -625,7 +655,8 @@ document.addEventListener("click",e=>{
 
 /* shortcut OGGI: porta alla card di oggi (o al prossimo giorno di mensa) */
 document.getElementById("todayBtn").addEventListener("click",()=>{
-  const target=ALL_DAYS.find(d=>d.date>=todayISO)||ALL_DAYS[ALL_DAYS.length-1];
+  calcDate();
+  const target=ALL_DAYS.find(d=>d.date===focusISO)||ALL_DAYS[ALL_DAYS.length-1];
   if(sel.size){sel.clear();renderFilters();}
   document.getElementById("q").value="";
   const inHome=currentWeekIndex()>=0&&WEEKS[currentWeekIndex()].days.includes(target);
@@ -640,6 +671,21 @@ document.getElementById("todayBtn").addEventListener("click",()=>{
   });
 });
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+
+/* etichetta del pulsante: Oggi / Domani / nome del giorno */
+function updateTodayBtn(){
+  const b=document.getElementById("todayBtn");
+  let t="Oggi";
+  if(focusISO&&focusISO!==todayISO) t=focusISO===addDays(todayISO,1)?"Domani":GIORNI[new Date(focusISO+"T12:00:00").getDay()];
+  b.textContent=t;
+  b.setAttribute("aria-label","Vai al menu di "+(t==="Oggi"||t==="Domani"?t.toLowerCase():t));
+}
+/* ricontrolla ogni minuto: alle 18:15 e a mezzanotte la pagina si aggiorna da sola */
+let lastKey;
+setInterval(()=>{
+  const k=todayISO+focusISO;calcDate();
+  if(todayISO+focusISO!==k){renderFilters();renderHome();renderCal();updateTodayBtn();}
+},60000);
 
 /* tema chiaro/scuro (selettore nel footer) */
 const root=document.documentElement;
@@ -665,7 +711,7 @@ document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",
   box.innerHTML=h;
 })();
 
-renderFilters();renderHome();renderCal();show(location.hash.slice(1));
+calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));
 </script>
 </body>
 </html>
