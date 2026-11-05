@@ -283,6 +283,37 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 /* "Oggi" alto quanto i tab interni allo switch, centrato */
 .today-btn{align-self:center;height:2.75rem;min-height:2.75rem}
 
+/* ===== animazioni morbide ===== */
+:root{--ease:cubic-bezier(.22,1,.36,1);--ease-io:cubic-bezier(.65,0,.35,1)}
+@keyframes softIn{from{opacity:0;transform:translateY(1rem);filter:blur(.375rem)}}
+@keyframes softDown{from{opacity:0;transform:translateY(-.75rem);filter:blur(.25rem)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(1.5rem) scale(.97);filter:blur(.5rem)}}
+@keyframes fadeOnly{from{opacity:0}}
+/* cambio vista: solo dissolvenza, gli elementi interni entrano a cascata */
+.view.active{animation:fadeOnly .5s var(--ease)}
+.hdr{animation:softDown .9s var(--ease) backwards}
+.view.active .hero{animation:softIn .9s var(--ease) .05s backwards}
+.view.active .sec-h,.view.active .search-row{animation:softIn .9s var(--ease) .15s backwards}
+.view.active .week-row{animation:softIn .9s var(--ease) .22s backwards}
+.view.active .day{animation:cardIn 1s var(--ease) backwards;animation-delay:calc(.25s + var(--i,0) * .08s)}
+.view.active .empty,.view.active .notice{animation:softIn .8s var(--ease) .2s backwards}
+footer{animation:softIn 1s var(--ease) .45s backwards}
+/* transizioni più lente e morbide */
+.day{transition:transform .6s var(--ease),box-shadow .6s var(--ease),background .4s var(--ease)}
+.tab,.themes button,.opt,.cur,.arrow,.more,.dd-btn{transition:background .45s var(--ease),color .45s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease),transform .35s var(--ease)}
+.today-btn{transition:transform .35s var(--ease),background .45s var(--ease),color .45s var(--ease)}
+.today-btn:active,.arrow:active:not(:disabled),.cur:active{transform:scale(.96)}
+.dd-btn .chev{transition:transform .45s var(--ease)}
+.dd-panel{animation:panelIn .45s var(--ease)}
+@keyframes panelIn{from{opacity:0;transform:translateY(-.5rem) scale(.97);filter:blur(.25rem)}}
+.foot a .ext{transition:transform .45s var(--ease)}
+.day.flash{animation:flash 1.8s var(--ease-io)}
+@keyframes flash{0%,100%{outline:.375rem solid transparent;outline-offset:.5rem}30%{outline:.375rem solid rgba(var(--primary-rgb),.45);outline-offset:.25rem}}
+.bg-food span b{animation-timing-function:var(--ease-io)}
+@media (prefers-reduced-motion:reduce){
+  .hdr,.view.active .hero,.view.active .sec-h,.view.active .search-row,.view.active .week-row,.view.active .day,.view.active .empty,.view.active .notice,footer,.dd-panel{animation:fadeOnly .3s ease backwards}
+}
+
 /* desktop largo: intestazione a sinistra, switch + Oggi a destra sulla stessa riga */
 @media (min-width:60rem){
   header{position:absolute;top:0;left:0;right:0;padding:1.5rem 0;pointer-events:none;display:block}
@@ -727,6 +758,9 @@ document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",
   box.innerHTML=h;
 })();
 
+/* indice per l'entrata a cascata delle card */
+["weekGrid","calGrid"].forEach(id=>{const g=document.getElementById(id);
+  new MutationObserver(()=>[...g.children].forEach((c,i)=>c.style.setProperty("--i",Math.min(i,8)))).observe(g,{childList:true});});
 calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));
 </script>
 </body>
