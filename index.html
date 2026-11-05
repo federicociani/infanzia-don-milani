@@ -117,8 +117,8 @@ main{position:relative;z-index:1;flex:1;padding:1.75rem 0 4rem}
 .notice{border-radius:var(--radius);padding:1.75rem 1.25rem;text-align:center;color:var(--fg-2);font-size:1rem;margin-bottom:2.75rem}
 
 .sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
-.sec-h h2{font-family:var(--font-display);font-weight:700;font-size:1.3125rem}
-.sec-h h2 + .sub{font-size:.875rem;color:var(--fg-2);font-weight:500;margin-top:.1875rem}
+.sec-h .range{font-family:var(--font-display);font-weight:700;font-size:1.3125rem}
+.sec-h h2{font-size:.875rem;color:var(--fg-2);font-weight:500;margin-top:.1875rem}
 .more{display:inline-flex;align-items:center;gap:.25rem;font-weight:700;font-size:.875rem;padding:.5rem .875rem;border-radius:999rem;color:var(--fg)}
 
 /* card sempre in scorrimento orizzontale */
@@ -311,7 +311,7 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 
     <div id="homeWeek">
     <div class="sec-h">
-      <div><h2 id="homeWeekTitle">Questa Settimana</h2><p class="sub" id="homeWeekRange"></p></div>
+      <div class="sec-t"><p class="range" id="homeWeekRange"></p><h2 id="homeWeekTitle">Questa Settimana</h2></div>
       <div class="sec-actions"><div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false" aria-label="Filtra per tipo di menu"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" hidden></div></div>
       </div>
     </div>
