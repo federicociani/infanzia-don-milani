@@ -164,7 +164,7 @@ nav{display:flex;gap:.25rem;padding:.3125rem;border-radius:999rem;background:var
   box-shadow:0 .875rem 2.125rem -.875rem rgba(8,11,20,.55),0 .125rem .375rem -.125rem rgba(8,11,20,.15)}
 nav::before{display:none}
 nav .tab{position:relative}
-.tab{display:flex;align-items:center;gap:.4375rem;min-height:2.75rem;padding:.5625rem 1.125rem;border-radius:999rem;font-weight:600;font-size:.9062rem;color:var(--fg-2);transition:background .25s,color .25s,box-shadow .25s}
+.tab{display:flex;align-items:center;gap:.4375rem;min-height:2.75rem;padding:.5625rem 1.125rem;border-radius:1rem;font-weight:600;font-size:.9062rem;color:var(--fg-2);transition:background .25s,color .25s,box-shadow .25s}
 .tab svg{width:1.125rem;height:1.125rem;flex:none}
 .tab:hover{color:var(--fg);background:var(--tile)}
 .tab.active{color:var(--sel-fg);background:var(--sel-bg);box-shadow:inset 0 0 0 1.5px var(--line)}
@@ -187,7 +187,7 @@ main{position:relative;z-index:1;flex:1;padding:1.75rem 0 4rem}
 .sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
 .sec-h .range{font-family:var(--font-display);font-weight:700;font-size:1.3125rem}
 .sec-h h2{font-size:.75rem;color:var(--fg-2);font-weight:500;margin-top:.1875rem;text-transform:uppercase;letter-spacing:.0625rem}
-.more{display:inline-flex;align-items:center;gap:.25rem;font-weight:700;font-size:.875rem;padding:.5rem .875rem;border-radius:999rem;color:var(--fg)}
+.more{display:inline-flex;align-items:center;gap:.25rem;font-weight:700;font-size:.875rem;padding:.5rem .875rem;border-radius:1rem;color:var(--fg)}
 
 /* card sempre in scorrimento orizzontale */
 .grid{display:flex;gap:1rem;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding:0 1rem;padding:1rem 1rem 1.625rem;margin:-.5rem -1rem -.625rem;scrollbar-width:none;overscroll-behavior-x:contain}
@@ -238,7 +238,7 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 
 .tab{white-space:nowrap}.tab .s{display:none}
 /* shortcut oggi: azione principale */
-.today-btn{display:flex;align-items:center;gap:.375rem;min-height:2.75rem;padding:0 1.375rem;border-radius:999rem;font-weight:700;font-size:.9375rem;
+.today-btn{display:flex;align-items:center;gap:.375rem;min-height:2.75rem;padding:0 1.375rem;border-radius:1rem;font-weight:700;font-size:.9375rem;
   background:#080b14;color:#ffffff;border:1.5px solid #080b14;box-shadow:0 0 0 .1875rem var(--surface),0 .625rem 1.5rem -.5rem rgba(8,11,20,.6);transition:transform .15s}
 .dark .today-btn{background:#e4e1ff;color:#0b0920;border-color:#e4e1ff;box-shadow:0 0 0 .1875rem var(--surface),0 .625rem 1.625rem -.5rem rgba(0,0,0,.8)}
 .today-btn:active{transform:scale(.95)}
@@ -246,7 +246,7 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 /* filtro tipo di menu: dropdown multiselezione */
 .sec-actions{display:flex;align-items:center;gap:.5rem}
 .dd{position:relative;z-index:15}
-.dd-btn{display:flex;align-items:center;gap:.4375rem;height:100%;min-height:2.75rem;padding:.4375rem .875rem;border-radius:999rem;font-weight:700;font-size:.875rem;color:var(--fg);white-space:nowrap}
+.dd-btn{display:flex;align-items:center;gap:.4375rem;height:100%;min-height:2.75rem;padding:.4375rem .875rem;border-radius:1rem;font-weight:700;font-size:.875rem;color:var(--fg);white-space:nowrap}
 .dd-btn svg{width:1rem;height:1rem;color:var(--fg)}
 .dd-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .dd-btn .chev{color:var(--fg-2);transition:transform .2s}
@@ -269,7 +269,7 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 .opt .n{margin-left:auto;font-size:.8125rem;color:var(--fg-2);font-weight:600}
 .opt.on .n{color:var(--sel-fg)}
 .dd-foot{display:flex;justify-content:space-between;gap:.375rem;margin-top:.375rem;padding-top:.5rem;border-top:1px solid var(--line)}
-.dd-foot button{font-size:.875rem;font-weight:700;min-height:2.5rem;padding:.375rem .75rem;border-radius:.75rem;color:var(--fg)}
+.dd-foot button{font-size:.875rem;font-weight:700;min-height:2.5rem;padding:.375rem .75rem;border-radius:1rem;color:var(--fg)}
 .dd-foot button:hover{background:var(--tile)}
 .dd-foot .done{background:var(--fg);color:var(--bg)}
 .search-row{display:flex;gap:.625rem;align-items:stretch;margin-bottom:1rem}
@@ -304,14 +304,7 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 .weeknav{flex:1;display:flex;align-items:center;justify-content:space-between;border-radius:1.125rem;padding:.5rem}
 .weeknav strong{font-weight:700;font-size:1.25rem;position:relative;white-space:nowrap}
 .weeknav .mid{display:flex;flex-direction:column;align-items:center;gap:.375rem;position:relative}
-.cur{align-self:center;flex:none;height:3.5rem;display:flex;align-items:center;padding:0 1.25rem;border-radius:1rem;white-space:nowrap}
-/* il pulsante "Questa settimana" entra/esce allargandosi: la barra delle settimane si restringe in modo fluido */
-.week-row .cur{overflow:hidden;max-width:18rem;opacity:1;
-  transition:max-width .65s var(--ease-io,ease-in-out),padding .65s var(--ease-io,ease-in-out),margin .65s var(--ease-io,ease-in-out),opacity .5s ease,border-width .65s var(--ease-io,ease-in-out),height .65s var(--ease-io,ease-in-out),background .45s ease,transform .35s ease}
-.week-row .cur:not(.show){max-width:0;padding-left:0;padding-right:0;margin-right:-.625rem;border-width:0;opacity:0;pointer-events:none}
-.cur{background:var(--glass);-webkit-backdrop-filter:blur(1rem) saturate(160%);backdrop-filter:blur(1rem) saturate(160%);color:var(--fg);border:1.5px solid var(--line);transition:background .2s}
-.cur:hover{background:var(--tile)}
-.arrow{width:2.75rem;height:2.75rem;border-radius:.75rem;display:grid;place-items:center;color:var(--fg);background:var(--surface-2);border:1.5px solid var(--line);position:relative;transition:transform .15s}
+.arrow{width:2.75rem;height:2.75rem;border-radius:1rem;display:grid;place-items:center;color:var(--fg);background:var(--surface-2);border:1.5px solid var(--line);position:relative;transition:transform .15s}
 .arrow:active:not(:disabled){transform:scale(.94)}
 .arrow:disabled{opacity:.4;cursor:default}
 .arrow svg{width:1.125rem;height:1.125rem}
@@ -328,7 +321,7 @@ html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp
 /* feedback: domanda a sinistra, pulsante discreto a destra */
 .foot .fb{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.875rem;padding-bottom:.875rem;border-bottom:1px solid var(--line);text-align:left;line-height:1.4}
 .foot .fb > span{color:var(--fg);font-weight:500}
-.foot a.opinion-btn{flex:none;display:inline-flex;align-items:center;gap:.375rem;min-height:2.25rem;padding:0 .875rem;border-radius:999rem;
+.foot a.opinion-btn{flex:none;display:inline-flex;align-items:center;gap:.375rem;min-height:2.25rem;padding:0 .875rem;border-radius:1rem;
   text-decoration:none;font-size:.75rem;font-weight:600;color:var(--fg);background:transparent;border:1.5px solid var(--line);transition:transform .35s var(--ease,ease),background .3s}
 .foot a.opinion-btn:hover{background:var(--tile)}
 .foot a.opinion-btn:active{transform:scale(.97)}
@@ -348,7 +341,7 @@ html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp
   .glass{background:var(--glass-strong)}
 }
 /* pulsanti: maiuscolo, peso normale, .875rem */
-.tab,.today-btn,.more,.dd-btn,.dd-foot button,.cur{text-transform:uppercase;font-size:.75rem;letter-spacing:.0625rem;font-weight:600}
+.tab,.today-btn,.more,.dd-btn,.dd-foot button{text-transform:uppercase;font-size:.875rem;letter-spacing:.0625rem;font-weight:normal}
 /* "Oggi" alto quanto i tab interni allo switch, centrato */
 .today-btn{align-self:center;height:2.75rem;min-height:2.75rem}
 
@@ -366,9 +359,9 @@ html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp
 .a2hs-top img{width:2.25rem;height:2.25rem;border-radius:.5625rem;flex:none;box-shadow:0 .25rem .75rem -.25rem rgba(0,0,0,.35)}
 .a2hs-toggle{flex:1;min-width:0;display:flex;align-items:center;min-height:2.5rem;text-align:left;color:var(--fg)}
 .a2hs-toggle strong{font-family:var(--font-display);font-size:.875rem;padding-left:.25rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.a2hs-no{flex:none;min-height:2.25rem;padding:0 .625rem;border-radius:999rem;font-size:.6875rem;font-weight:400;text-transform:uppercase;letter-spacing:.04em;color:var(--fg-2);border:1.5px solid var(--line);white-space:nowrap}
+.a2hs-no{flex:none;min-height:2.25rem;padding:0 .625rem;border-radius:1rem;font-size:.6875rem;font-weight:400;text-transform:uppercase;letter-spacing:.04em;color:var(--fg-2);border:1.5px solid var(--line);white-space:nowrap}
 .a2hs-no:active{background:var(--tile)}
-.a2hs-chev{flex:none;width:2.25rem;height:2.25rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg);background:var(--tile)}
+.a2hs-chev{flex:none;width:2.25rem;height:2.25rem;border-radius:1rem;display:grid;place-items:center;color:var(--fg);background:var(--tile)}
 .a2hs-chev svg{width:1.125rem;height:1.125rem;transition:transform .45s var(--ease,ease)}
 .a2hs.open .a2hs-chev svg{transform:rotate(180deg)}
 /* dettagli: si aprono verso l'alto toccando titolo o freccia */
@@ -382,7 +375,7 @@ html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp
 .a2hs-steps svg{width:1rem;height:1rem;color:var(--primary)}
 .a2hs-actions{display:flex;justify-content:flex-end;margin-top:.75rem;padding-bottom:.25rem}
 .a2hs-actions:not(:has(button:not([hidden]))){display:none}
-.a2hs-yes{min-height:2.5rem;padding:0 1rem;border-radius:999rem;text-transform:uppercase;font-size:.75rem;letter-spacing:.0625rem;font-weight:600;background:var(--fg);color:var(--bg)}
+.a2hs-yes{min-height:2.5rem;padding:0 1rem;border-radius:1rem;text-transform:uppercase;font-size:.75rem;letter-spacing:.0625rem;font-weight:600;background:var(--fg);color:var(--bg)}
 .dark .a2hs-yes{background:#e4e1ff;color:#0b0920}
 .a2hs-body > div > :last-child{margin-bottom:.375rem}
 /* con il banner visibile il footer lascia spazio: niente sovrapposizioni a fine pagina */
@@ -407,9 +400,9 @@ html.has-a2hs footer{padding-bottom:calc(10rem + env(safe-area-inset-bottom))}
 footer{animation:softIn 1s var(--ease) .45s backwards}
 /* transizioni più lente e morbide */
 .day{transition:transform .6s var(--ease),box-shadow .6s var(--ease),background .4s var(--ease)}
-.tab,.themes button,.opt,.cur,.arrow,.more,.dd-btn{transition:background .45s var(--ease),color .45s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease),transform .35s var(--ease)}
+.tab,.themes button,.opt,.arrow,.more,.dd-btn{transition:background .45s var(--ease),color .45s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease),transform .35s var(--ease)}
 .today-btn{transition:transform .35s var(--ease),background .45s var(--ease),color .45s var(--ease)}
-.today-btn:active,.arrow:active:not(:disabled),.cur:active{transform:scale(.96)}
+.today-btn:active,.arrow:active:not(:disabled){transform:scale(.96)}
 .dd-btn .chev{transition:transform .45s var(--ease)}
 .dd-panel{animation:panelIn .45s var(--ease)}
 @keyframes panelIn{from{opacity:0;transform:translateY(-.5rem) scale(.97);filter:blur(.25rem)}}
@@ -440,7 +433,7 @@ header .today-btn{pointer-events:auto;height:2.75rem;min-height:2.75rem;align-se
   header .weeknav{flex:1;min-width:0;pointer-events:auto;padding:.25rem;border-radius:1rem;background:var(--glass-strong);box-shadow:0 .75rem 1.75rem -.75rem rgba(0,0,0,.45),inset 0 1px 0 var(--hi)}
   header .weeknav .arrow{width:2.5rem;height:2.5rem}
   header .weeknav strong{font-size:1rem;padding:0 .25rem}
-  .week-row:not(:has(.cur.show)){margin-bottom:0}
+  .week-row:not(:has(*)){display:none}
   header .today-btn{height:3rem;min-height:3rem;padding:0 1.375rem;box-shadow:0 .75rem 1.75rem -.75rem rgba(0,0,0,.55)}
 }
 
@@ -451,8 +444,6 @@ header .today-btn{pointer-events:auto;height:2.75rem;min-height:2.75rem;align-se
 
 @media (max-width:53.75rem){.grid > .day{flex-basis:calc((100% - 1rem) / 2)}}
 @media (max-width:40rem){
-  .week-row{flex-wrap:wrap}.week-row .cur{width:100%;max-width:none;justify-content:center;height:2.75rem}
-  .week-row .cur:not(.show){max-width:none;height:0;margin-right:0;margin-bottom:-.625rem}
   .hero{gap:.625rem}.hero-meta{padding-left:0;border-left:none;text-align:right}.hero h1{font-size:1.5rem}.hero p{font-size:.6875rem;letter-spacing:.08em}.hero small{font-size:.75rem;letter-spacing:.08em}
   .tab .l{display:none}.tab .s{display:inline}
   .tab{padding:.5625rem .875rem}
@@ -520,7 +511,6 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
     <div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false" aria-label="Filtra per tipo di menu"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" hidden></div></div>
     </div>
     <div class="week-row">
-    <button class="cur" id="curWeek" tabindex="-1" aria-hidden="true"><span id="curLabel">Vai a questa settimana</span></button>
     <div class="weeknav glass">
       <button class="arrow" id="prev" aria-label="Settimana precedente"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
       <div class="mid"><strong id="range" aria-live="polite"></strong></div>
@@ -810,19 +800,11 @@ function renderCal(){
   setRange();
   document.getElementById("prev").disabled=wk===0;
   document.getElementById("next").disabled=wk===WEEKS.length-1;
-  const ci=currentWeekIndex();
-  const cw=document.getElementById("curWeek"),showCur=!(ci<0||wk===ci);
-  cw.classList.toggle("show",showCur);cw.tabIndex=showCur?0:-1;cw.setAttribute("aria-hidden",!showCur);
-  const thisWeek=ci>=0&&WEEKS[ci].monday===mondayOf(todayISO);
-  document.getElementById("curLabel").textContent=thisWeek?"Vai a questa settimana":"Vai alla prossima settimana";
-  document.getElementById("curWeek").setAttribute("aria-label",thisWeek?"Torna a questa settimana":"Vai alla prossima settimana");
-  document.getElementById("curWeek").title=thisWeek?"Torna a questa settimana":"Vai alla prossima settimana";
   grid.innerHTML=w.map(d=>dayCard(d)).join("");
   focusToday(grid);
 }
 document.getElementById("prev").onclick=()=>{if(wk>0){wk--;renderCal();}};
 document.getElementById("next").onclick=()=>{if(wk<WEEKS.length-1){wk++;renderCal();}};
-document.getElementById("curWeek").onclick=()=>{const ci=currentWeekIndex();if(ci>=0){wk=ci;renderCal();}};
 document.getElementById("q").addEventListener("input",renderCal);
 
 /* vista unica */
