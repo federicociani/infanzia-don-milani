@@ -226,6 +226,9 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 .oggi.rel-ieri{opacity:.75}
 .oggi{vertical-align:middle;font-family:var(--font-sans);font-size:.6563rem;font-weight:normal;letter-spacing:.06em;text-transform:uppercase;padding:.1875rem .5rem;border-radius:999rem}
 .noday{padding:1.375rem 1.125rem;color:var(--fg-2);font-size:.875rem;position:relative}
+/* giorno senza mensa: messaggio al centro della card */
+.day:has(.noday){display:flex;flex-direction:column}
+.day .noday{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;text-wrap:balance;min-height:10rem;padding:1.5rem 1.75rem;font-size:.9375rem;line-height:1.45}
 [hidden]{display:none!important}
 
 /* badge per tipo: testo scuro su pastello (chiaro), testo chiaro su tinta scura (scuro) */
@@ -242,6 +245,9 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
   background:var(--accent);color:#ffffff;border:1.5px solid var(--accent);box-shadow:0 0 0 .1875rem var(--surface),0 .625rem 1.5rem -.5rem rgba(8,11,20,.6);transition:transform .15s}
 .dark .today-btn{background:var(--accent);color:#0b0920;border-color:var(--accent);box-shadow:0 0 0 .1875rem var(--surface),0 .625rem 1.625rem -.5rem rgba(0,0,0,.8)}
 .today-btn:active{transform:scale(.95)}
+/* già sul giorno in evidenza: pulsante spento */
+.today-btn:disabled{opacity:.4;cursor:default;box-shadow:none}
+.today-btn:disabled:active{transform:none}
 
 /* filtro tipo di menu: dropdown multiselezione */
 .sec-actions{display:flex;align-items:center;gap:.5rem}
@@ -499,7 +505,7 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
   <section class="view wrap active" id="view-tutto" aria-labelledby="calTitle">
     <div class="hero">
       <h1 id="calTitle">Menu<br>Mensa</h1>
-      <div class="hero-meta"><p>Scuola dell'Infanzia<br>“Don Milani”</p><small>15 set – 23 dic 2026</small></div>
+      <div class="hero-meta"><p>Scuola dell'Infanzia<br>“Don Milani” a Cervia</p><small>15 set – 23 dic 2026</small></div>
     </div>
     <div class="search-row">
     <div class="search ctl">
@@ -719,7 +725,7 @@ function dayCard(d,q=""){
       <div class="dname">${rel?`<span class="oggi rel-${rel.toLowerCase()}">${rel}</span>`:""}${GIORNI[dt.getDay()]}</div>
       ${d.tipo?`<span class="badge b-${d.tipo}">${TIPI.find(t=>t[0]===d.tipo)[1].toUpperCase()}</span>`:""}
     </div>
-    ${items?`<ul class="items">${items}</ul>`:`<p class="noday">Nessun menu indicato nel PDF per questo giorno.</p>`}
+    ${items?`<ul class="items">${items}</ul>`:`<p class="noday">In questa giornata il servizio mensa non sarà effettuato</p>`}
   </article>`;
 }
 
@@ -792,6 +798,7 @@ function renderCal(){
     nav.style.display="none";weekNav.style.display="none";
     grid.innerHTML=all.length?all.map(d=>dayCard(d,q)).join(""):`<div class="empty">Nessun giorno trovato${q?` per “${esc(q)}”`:""}.</div>`;
     grid.scrollLeft=0;
+    requestAnimationFrame(()=>typeof syncTodayBtn==="function"&&syncTodayBtn());
     return;
   }
   nav.style.display="";weekNav.style.display="";
@@ -801,6 +808,7 @@ function renderCal(){
   document.getElementById("next").disabled=wk===WEEKS.length-1;
   grid.innerHTML=w.map(d=>dayCard(d)).join("");
   focusToday(grid);
+  requestAnimationFrame(()=>typeof syncTodayBtn==="function"&&syncTodayBtn());
 }
 document.getElementById("prev").onclick=()=>{if(wk>0){wk--;renderCal();}};
 document.getElementById("next").onclick=()=>{if(wk<WEEKS.length-1){wk++;renderCal();}};
@@ -833,6 +841,19 @@ document.getElementById("todayBtn").addEventListener("click",()=>{
 });
 
 
+/* il pulsante Oggi/Domani/giorno si spegne quando la card in evidenza è già visibile per intero */
+const calGrid=document.getElementById("calGrid");
+function syncTodayBtn(){
+  const b=document.getElementById("todayBtn");
+  const target=ALL_DAYS.find(d=>d.date===focusISO)||ALL_DAYS[ALL_DAYS.length-1];
+  const el=target&&!document.getElementById("q").value.trim()&&!sel.size?calGrid.querySelector("#d-"+target.date):null;
+  let inView=false;
+  if(el&&calGrid.offsetParent){const g=calGrid.getBoundingClientRect(),r=el.getBoundingClientRect();inView=r.left>=g.left-2&&r.right<=g.right+2;}
+  b.disabled=inView;
+}
+let syncRaf=0;
+calGrid.addEventListener("scroll",()=>{cancelAnimationFrame(syncRaf);syncRaf=requestAnimationFrame(syncTodayBtn);},{passive:true});
+window.addEventListener("resize",()=>requestAnimationFrame(syncTodayBtn));
 /* etichetta del pulsante: Oggi / Domani / nome del giorno */
 function updateTodayBtn(){
   const b=document.getElementById("todayBtn");
