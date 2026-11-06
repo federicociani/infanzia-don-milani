@@ -78,6 +78,7 @@ _iub.csConfiguration = {
   --glass:rgba(255,255,255,.62);--glass-strong:rgba(255,255,255,.82);
   --glass-border:rgba(255,255,255,.75);--glass-edge:rgba(8,11,20,.08);
   --glass-shadow:0 .625rem 1.875rem -.75rem rgba(8,11,20,.18),0 .125rem .375rem -.125rem rgba(8,11,20,.06);
+  --card-shadow:0 .5rem 1.25rem -.75rem rgba(8,11,20,.16);
   --hi:rgba(255,255,255,.9);--tile:rgba(8,11,20,.06);
   --surface:#fbfaf7;          /* superfici solide per controlli e pannelli */
   --surface-2:#ffffff;
@@ -94,6 +95,7 @@ _iub.csConfiguration = {
   --glass:rgba(28,24,62,.62);--glass-strong:rgba(44,38,92,.75);
   --glass-border:rgba(200,195,255,.16);--glass-edge:rgba(0,0,0,.45);
   --glass-shadow:0 .875rem 2.5rem -.875rem rgba(0,0,0,.75),0 .125rem .5rem -.125rem rgba(0,0,0,.45);
+  --card-shadow:0 .5rem 1.25rem -.75rem rgba(0,0,0,.5);
   --hi:rgba(220,215,255,.16);--tile:rgba(200,195,255,.08);
   --surface:#15122f;--surface-2:#1e1a42;
   --line:rgba(214,210,255,.34);
@@ -193,6 +195,8 @@ main{position:relative;z-index:1;flex:1;padding:1.75rem 0 4rem}
 .grid > .day{flex:0 0 calc((100% - 2rem) / 3);scroll-snap-align:start}
 .grid > .empty{flex:1 1 100%}
 .day{border-radius:var(--radius);overflow:hidden;transition:transform .25s,box-shadow .25s;background:var(--glass-strong)}
+/* ombra unica e leggera per tutte le card: resta dentro lo spazio della griglia (che ha overflow nascosto) */
+.day.glass{box-shadow:var(--card-shadow),inset 0 1px 0 var(--hi),inset 0 -1px 0 var(--glass-edge)}
 .day:hover{transform:translateY(-.1875rem)}
 .day-h{display:flex;align-items:center;gap:.75rem;padding:1rem 1.125rem;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--tile),transparent);position:relative}
 .date{width:3.125rem;height:3.125rem;border-radius:.875rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
@@ -276,12 +280,12 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 .day.glass.today{
   --fg:#f4f2fb;--fg-2:#dcd9ef;--muted-fg:#c1bed8;--accent:#cfcbff;--line:rgba(255,255,255,.22);--surface-2:rgba(255,255,255,.1);--tile:rgba(255,255,255,.06);--hi:rgba(255,255,255,.2);
   background:linear-gradient(160deg,#25213f 0%,#0d0b1f 100%);color:var(--fg);border-color:transparent;
-  box-shadow:0 1.375rem 2.75rem -1.125rem rgba(8,11,20,.7),0 0 0 .125rem #080b14,inset 0 1px 0 rgba(255,255,255,.18);
+  box-shadow:var(--card-shadow),0 0 0 .125rem #080b14,inset 0 1px 0 rgba(255,255,255,.18);
   transform:translateY(-.25rem)}
 .dark .day.glass.today{
   --fg:#130f2e;--fg-2:#2c2752;--muted-fg:#433d70;--accent:#3a31b0;--line:rgba(19,15,46,.2);--surface-2:rgba(255,255,255,.6);--tile:rgba(255,255,255,.3);--hi:rgba(255,255,255,.9);
   background:linear-gradient(160deg,#ece9ff 0%,#cfc9ff 100%);
-  box-shadow:0 1.375rem 3.125rem -1rem rgba(180,176,255,.55),0 0 0 .125rem #d9d6ff,inset 0 1px 0 #fff}
+  box-shadow:var(--card-shadow),0 0 0 .125rem #d9d6ff,inset 0 1px 0 #fff}
 .day.today .oggi{background:#ffd8b8;color:#3a1f08}
 .dark .day.today .oggi{background:#130f2e;color:#ece9ff}
 .day.today .badge{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
