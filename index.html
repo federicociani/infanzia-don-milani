@@ -321,13 +321,14 @@ html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp
 .foot{max-width:61rem;margin:0 auto;border-radius:1.375rem;padding:1.25rem 1.375rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8438rem;color:var(--fg-2);line-height:1.7;background:var(--glass)}
 .foot > *{position:relative;text-wrap:balance}
 .foot a{color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:.125rem;white-space:nowrap}
-.foot a.opinion-btn{display:inline-flex;align-items:center;gap:.5rem;min-height:2.75rem;margin:0 0 .875rem;padding:0 1.125rem;border-radius:999rem;
-  text-decoration:none;text-transform:uppercase;font-size:.75rem;letter-spacing:.0625rem;font-weight:600;white-space:normal;text-align:left;
-  background:var(--fg);color:var(--bg);transition:transform .35s var(--ease,ease),opacity .3s}
-.dark .foot a.opinion-btn{background:#e4e1ff;color:#0b0920}
-.foot a.opinion-btn:hover{opacity:.9}
+/* feedback: domanda a sinistra, pulsante discreto a destra */
+.foot .fb{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.875rem;padding-bottom:.875rem;border-bottom:1px solid var(--line);text-align:left;line-height:1.4}
+.foot .fb > span{color:var(--fg);font-weight:500}
+.foot a.opinion-btn{flex:none;display:inline-flex;align-items:center;gap:.375rem;min-height:2.25rem;padding:0 .875rem;border-radius:999rem;
+  text-decoration:none;font-size:.75rem;font-weight:600;color:var(--fg);background:transparent;border:1.5px solid var(--line);transition:transform .35s var(--ease,ease),background .3s}
+.foot a.opinion-btn:hover{background:var(--tile)}
 .foot a.opinion-btn:active{transform:scale(.97)}
-.foot a.opinion-btn svg{width:1rem;height:1rem;flex:none}
+.foot a.opinion-btn svg{width:.875rem;height:.875rem;flex:none;color:var(--fg-2)}
 .foot .legal{display:inline-block;margin-top:.375rem;font-size:.75rem}
 .foot .legal a{font-weight:500;color:var(--fg-2)}
 .foot a .ext{display:inline-block;width:.875rem;height:.875rem;margin-left:.125rem;vertical-align:-.125rem;transition:transform .2s}
@@ -350,29 +351,37 @@ html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp
 
 /* ===== banner "Aggiungi alla schermata Home" ===== */
 .a2hs{position:fixed;z-index:40;left:.75rem;right:.75rem;bottom:calc(5.25rem + env(safe-area-inset-bottom));max-width:26rem;margin:0 auto;
-  padding:1rem 1rem .875rem;border-radius:1.375rem;background:var(--glass-strong);color:var(--fg);border:1.5px solid var(--line);
+  padding:.5rem;border-radius:1.25rem;background:var(--glass-strong);color:var(--fg);border:1.5px solid var(--line);
   -webkit-backdrop-filter:blur(1.5rem) saturate(170%);backdrop-filter:blur(1.5rem) saturate(170%);box-shadow:var(--glass-shadow);
   animation:a2hsIn .8s var(--ease,ease) .6s backwards}
 .a2hs.out{animation:a2hsOut .45s var(--ease-io,ease) forwards}
 @keyframes a2hsIn{from{opacity:0;transform:translateY(1.5rem) scale(.97);filter:blur(.375rem)}}
 @keyframes a2hsOut{to{opacity:0;transform:translateY(1.25rem) scale(.97);filter:blur(.25rem)}}
-.a2hs-top{display:flex;gap:.75rem;align-items:center;padding-right:1.75rem}
-.a2hs-top img{width:3rem;height:3rem;border-radius:.75rem;flex:none;box-shadow:0 .25rem .75rem -.25rem rgba(0,0,0,.35)}
-.a2hs-top strong{display:block;font-family:var(--font-display);font-size:1.0625rem;line-height:1.2}
-.a2hs-top p{font-size:.8125rem;color:var(--fg-2);margin-top:.125rem;line-height:1.35}
-.a2hs-x{position:absolute;top:.5rem;right:.5rem;width:2.25rem;height:2.25rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2)}
-.a2hs-x svg{width:1rem;height:1rem}
-.a2hs-x:active{background:var(--tile)}
-.a2hs-steps{margin:.875rem 0 0;padding:0 0 0 1.25rem;font-size:.8125rem;line-height:1.5;color:var(--fg-2)}
+/* riga compatta: icona, titolo, Non mi interessa, freccia */
+.a2hs-top{display:flex;gap:.375rem;align-items:center}
+.a2hs-top img{width:2.25rem;height:2.25rem;border-radius:.5625rem;flex:none;box-shadow:0 .25rem .75rem -.25rem rgba(0,0,0,.35)}
+.a2hs-toggle{flex:1;min-width:0;display:flex;align-items:center;min-height:2.5rem;text-align:left;color:var(--fg)}
+.a2hs-toggle strong{font-family:var(--font-display);font-size:.875rem;padding-left:.25rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.a2hs-no{flex:none;min-height:2.25rem;padding:0 .625rem;border-radius:999rem;font-size:.6875rem;font-weight:600;color:var(--fg-2);border:1.5px solid var(--line);white-space:nowrap}
+.a2hs-no:active{background:var(--tile)}
+.a2hs-chev{flex:none;width:2.25rem;height:2.25rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg);background:var(--tile)}
+.a2hs-chev svg{width:1.125rem;height:1.125rem;transition:transform .45s var(--ease,ease)}
+.a2hs.open .a2hs-chev svg{transform:rotate(180deg)}
+/* dettagli: si aprono verso l'alto toccando titolo o freccia */
+.a2hs-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease,ease)}
+.a2hs.open .a2hs-body{grid-template-rows:1fr}
+.a2hs-body > div{overflow:hidden;min-height:0;padding:0 .375rem}
+.a2hs-body p{font-size:.8125rem;color:var(--fg-2);margin-top:.75rem;line-height:1.4}
+.a2hs-steps{margin:.5rem 0 0;padding:0 0 0 1.25rem;font-size:.8125rem;line-height:1.5;color:var(--fg-2)}
 .a2hs-steps li{margin:.25rem 0}
 .a2hs-steps .k{display:inline-flex;align-items:center;gap:.25rem;font-weight:600;color:var(--fg);white-space:nowrap}
 .a2hs-steps svg{width:1rem;height:1rem;color:var(--primary)}
-.a2hs-actions{display:flex;justify-content:flex-end;gap:.5rem;margin-top:.875rem}
-.a2hs-actions button{min-height:2.5rem;padding:0 1rem;border-radius:999rem;text-transform:uppercase;font-size:.75rem;letter-spacing:.0625rem;font-weight:600}
-.a2hs-no{color:var(--fg-2)}
-.a2hs-no:active{background:var(--tile)}
-.a2hs-yes{background:var(--fg);color:var(--bg)}
+.a2hs-actions{display:flex;justify-content:flex-end;margin-top:.75rem;padding-bottom:.25rem}
+.a2hs-actions:not(:has(button:not([hidden]))){display:none}
+.a2hs-yes{min-height:2.5rem;padding:0 1rem;border-radius:999rem;text-transform:uppercase;font-size:.75rem;letter-spacing:.0625rem;font-weight:600;background:var(--fg);color:var(--bg)}
 .dark .a2hs-yes{background:#e4e1ff;color:#0b0920}
+.a2hs-body > div > :last-child{margin-bottom:.375rem}
+@media (max-width:24rem){.a2hs-top img{display:none}.a2hs-toggle strong{font-size:.8125rem}.a2hs-no{padding:0 .5rem}.a2hs-chev{width:2rem;height:2rem}}
 @media (prefers-reduced-motion:reduce){.a2hs,.a2hs.out{animation-duration:.01s}}
 
 /* ===== animazioni morbide ===== */
@@ -420,7 +429,12 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
 header{pointer-events:none}
 header .today-btn{pointer-events:auto;height:2.75rem;min-height:2.75rem;align-self:center}
 @media (max-width:40rem){
-  header .hdr{justify-content:flex-end}
+  header .hdr{justify-content:flex-end;gap:.5rem;align-items:center}
+  /* su mobile la barra delle settimane sta in basso, a sinistra del pulsante Oggi */
+  header .weeknav{flex:1;min-width:0;pointer-events:auto;padding:.25rem;border-radius:1rem;background:var(--glass-strong);box-shadow:0 .75rem 1.75rem -.75rem rgba(0,0,0,.45),inset 0 1px 0 var(--hi)}
+  header .weeknav .arrow{width:2.5rem;height:2.5rem}
+  header .weeknav strong{font-size:1rem;padding:0 .25rem}
+  .week-row:not(:has(.cur.show)){margin-bottom:0}
   header .today-btn{height:3rem;min-height:3rem;padding:0 1.375rem;box-shadow:0 .75rem 1.75rem -.75rem rgba(0,0,0,.55)}
 }
 
@@ -513,7 +527,7 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
 
 <footer>
   <div class="foot glass">
-    <div><a class="opinion-btn" href="https://surveys.hotjar.com/d14f3328-33a0-4ef2-aa57-7c8750f0fe92" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Voglio lasciare un’opinione sulla pagina<span class="sr-only"> (si apre in una nuova scheda)</span></a><br>Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale: <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink">apri il PDF ufficiale del Comune<svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> (si apre in una nuova scheda)</span></a><br><span class="legal"><a href="https://www.iubenda.com/privacy-policy/19004044" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.iubenda.com/privacy-policy/19004044/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> · <a href="#" class="iubenda-cs-preferences-link">Preferenze cookie</a></span></div>
+    <div><div class="fb"><span>Un problema, un’idea o un parere?</span><a class="opinion-btn" href="https://surveys.hotjar.com/d14f3328-33a0-4ef2-aa57-7c8750f0fe92" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Invia un feedback<span class="sr-only"> (si apre in una nuova scheda)</span></a></div>Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale: <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink">apri il PDF ufficiale del Comune<svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> (si apre in una nuova scheda)</span></a><br><span class="legal"><a href="https://www.iubenda.com/privacy-policy/19004044" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.iubenda.com/privacy-policy/19004044/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> · <a href="#" class="iubenda-cs-preferences-link">Preferenze cookie</a></span></div>
     <div class="themes" role="group" aria-label="Tema">
       <button data-theme="light" aria-label="Tema chiaro" title="Tema chiaro"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.28 5.28l1.42 1.42M17.3 17.3l1.42 1.42M5.28 18.72l1.42-1.42M17.3 6.7l1.42-1.42"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5" fill="currentColor" stroke="none"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.28 5.28l1.42 1.42M17.3 17.3l1.42 1.42M5.28 18.72l1.42-1.42M17.3 6.7l1.42-1.42"/></svg></button>
       <button data-theme="dark" aria-label="Tema scuro" title="Tema scuro"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7Z"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7Z"/></svg></button>
@@ -521,25 +535,24 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
   </div>
 </footer>
 <!-- Banner "Aggiungi alla schermata Home" (solo mobile) -->
-<div class="a2hs" id="a2hs" role="dialog" aria-labelledby="a2hsTitle" hidden>
-  <button class="a2hs-x" id="a2hsClose" aria-label="Chiudi">
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
-  </button>
-  <div class="a2hs-top">
-    <img src="apple-touch-icon.png" alt="" width="48" height="48">
-    <div><strong id="a2hsTitle">Mensa Don Milani sul telefono</strong><p>Aggiungila alla schermata Home: la ritrovi con un tocco, tra le icone del telefono.</p></div>
-  </div>
-  <ol class="a2hs-steps" id="a2hsIos" hidden>
+<div class="a2hs" id="a2hs" role="region" aria-label="Aggiungi alla schermata Home" hidden>
+  <div class="a2hs-body" id="a2hsBody"><div>
+    <p>Mensa Don Milani sul telefono: la ritrovi con un tocco, tra le icone della schermata Home.</p>
+    <ol class="a2hs-steps" id="a2hsIos" hidden>
     <li>Tocca <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> Condividi</span> nella barra del browser</li>
     <li>Scegli <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi alla schermata Home</span></li>
   </ol>
-  <ol class="a2hs-steps" id="a2hsAndroid" hidden>
+    <ol class="a2hs-steps" id="a2hsAndroid" hidden>
     <li>Tocca il menu <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span> del browser</li>
     <li>Scegli <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi a schermata Home</span></li>
   </ol>
-  <div class="a2hs-actions">
+    <div class="a2hs-actions"><button class="a2hs-yes" id="a2hsInstall" hidden>Aggiungi</button></div>
+  </div></div>
+  <div class="a2hs-top">
+    <img src="apple-touch-icon.png" alt="" width="36" height="36">
+    <button class="a2hs-toggle" id="a2hsToggle" aria-expanded="false" aria-controls="a2hsBody"><strong>Aggiungi alla Home</strong></button>
     <button class="a2hs-no" id="a2hsNever">Non mi interessa</button>
-    <button class="a2hs-yes" id="a2hsInstall" hidden>Aggiungi</button>
+    <button class="a2hs-chev" id="a2hsChev" aria-expanded="false" aria-controls="a2hsBody" aria-label="Mostra come fare"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg></button>
   </div>
 </div>
 
@@ -766,20 +779,29 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDD();});
 function renderHome(){} /* vista unica: niente più "Questa settimana" */
 
 function fmt(iso){const d=new Date(iso+"T12:00:00");return d.getDate()+" "+MESI[d.getMonth()];}
+/* su mobile la barra delle settimane va nella barra in basso, accanto a Oggi */
+const weekNav=document.querySelector(".weeknav"),weekRow=document.querySelector(".week-row"),hdr=document.querySelector(".hdr"),mqBar=matchMedia("(max-width:40rem)");
+function placeWeekNav(){if(mqBar.matches){if(weekNav.parentNode!==hdr)hdr.insertBefore(weekNav,hdr.firstChild);}else if(weekNav.parentNode!==weekRow)weekRow.appendChild(weekNav);}
+/* intervallo della settimana: nella barra in basso in forma breve (9–13 nov) */
+function setRange(){const w=WEEKS[wk].days,a=fmt(w[0].date),b=fmt(w[w.length-1].date);
+  let t=a+" — "+b;
+  if(mqBar.matches){const ma=a.split(" ")[1],mb=b.split(" ")[1];t=ma===mb?a.split(" ")[0]+"–"+b:a+" – "+b;}
+  document.getElementById("range").textContent=t;}
+placeWeekNav();mqBar.addEventListener("change",()=>{placeWeekNav();setRange();});
 function renderCal(){
   const q=document.getElementById("q").value.trim();
   const grid=document.getElementById("calGrid");
   const nav=document.querySelector(".week-row");
   if(q||sel.size){
     const all=ALL_DAYS.filter(passa).filter(d=>!q||Object.values(d.piatti).some(p=>norm(p).includes(norm(q))));
-    nav.style.display="none";
+    nav.style.display="none";weekNav.style.display="none";
     grid.innerHTML=all.length?all.map(d=>dayCard(d,q)).join(""):`<div class="empty">Nessun giorno trovato${q?` per “${esc(q)}”`:""}.</div>`;
     grid.scrollLeft=0;
     return;
   }
-  nav.style.display="";
+  nav.style.display="";weekNav.style.display="";
   const w=WEEKS[wk].days;
-  document.getElementById("range").textContent=fmt(w[0].date)+" — "+fmt(w[w.length-1].date);
+  setRange();
   document.getElementById("prev").disabled=wk===0;
   document.getElementById("next").disabled=wk===WEEKS.length-1;
   const ci=currentWeekIndex();
@@ -870,7 +892,7 @@ calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(locati
 
 /* ===== banner "Aggiungi alla schermata Home" =====
    - solo su telefono/tablet e solo se il sito non è già aperto come app
-   - la X lo chiude per questa visita (ricompare la prossima volta)
+   - compatto: icona, titolo, "Non mi interessa" e freccia; titolo o freccia aprono/chiudono le istruzioni
    - "Non mi interessa" lo nasconde per sempre su questo dispositivo */
 (function(){
   const NEVER="mensa-a2hs-never";
@@ -897,7 +919,10 @@ calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(locati
     deferred=null;hide();
   });
   window.addEventListener("appinstalled",()=>{try{localStorage.setItem(NEVER,"1");}catch(e){}hide();});
-  document.getElementById("a2hsClose").addEventListener("click",hide);
+  const body=document.getElementById("a2hsBody"),tg=[document.getElementById("a2hsToggle"),document.getElementById("a2hsChev")];
+  body.inert=true;
+  function toggle(){const o=box.classList.toggle("open");body.inert=!o;tg.forEach(b=>b.setAttribute("aria-expanded",o));tg[1].setAttribute("aria-label",o?"Chiudi le istruzioni":"Mostra come fare");}
+  tg.forEach(b=>b.addEventListener("click",toggle));
   document.getElementById("a2hsNever").addEventListener("click",()=>{try{localStorage.setItem(NEVER,"1");}catch(e){}hide();});
   /* istruzioni: iPhone/iPad via Condividi; Android senza prompt via menu del browser */
   document.getElementById(isIOS?"a2hsIos":"a2hsAndroid").hidden=false;
