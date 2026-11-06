@@ -305,6 +305,13 @@ mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 .search svg{position:absolute;left:.9375rem;top:50%;transform:translateY(-50%);width:1.0625rem;height:1.0625rem;color:var(--fg-2);z-index:1}
 .search input{position:relative;width:100%;height:3rem;border-radius:1rem;border:0;background:transparent;color:var(--fg);font:inherit;font-size:1rem;padding:0 .875rem 0 2.625rem;outline:none}
 .search input::placeholder{color:var(--muted-fg);opacity:1}
+/* X per cancellare la ricerca: compare con il campo attivo e del testo inserito */
+.search input{padding-right:2.875rem}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.search-x{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);z-index:2;width:2rem;height:2rem;border-radius:1rem;display:none;place-items:center;color:var(--fg-2);background:var(--tile)}
+.search:focus-within.has-q .search-x{display:grid}
+.search .search-x svg{position:static;transform:none;width:.875rem;height:.875rem;color:currentColor}
+.search-x:active{transform:translateY(-50%) scale(.92)}
 .search:focus-within{outline:.1875rem solid var(--ring);outline-offset:.125rem}
 .week-row{display:flex;gap:.625rem;align-items:stretch;margin-bottom:1.375rem}
 .weeknav{flex:1;display:flex;align-items:center;justify-content:space-between;border-radius:1.125rem;padding:.5rem}
@@ -512,6 +519,7 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       <label for="q" class="sr-only">Cerca un piatto</label>
       <input type="search" id="q" placeholder="Cerca..." autocomplete="off">
+      <button type="button" class="search-x" id="qClear" aria-label="Cancella la ricerca"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
     <div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false" aria-label="Filtra per tipo di menu"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" hidden></div></div>
     </div>
@@ -813,6 +821,14 @@ function renderCal(){
 document.getElementById("prev").onclick=()=>{if(wk>0){wk--;renderCal();}};
 document.getElementById("next").onclick=()=>{if(wk<WEEKS.length-1){wk++;renderCal();}};
 document.getElementById("q").addEventListener("input",renderCal);
+/* X nel campo di ricerca: svuota il testo e lascia il campo attivo */
+(function(){
+  const q=document.getElementById("q"),box=q.closest(".search"),x=document.getElementById("qClear");
+  const sync=()=>box.classList.toggle("has-q",q.value!=="");
+  q.addEventListener("input",sync);sync();
+  x.addEventListener("pointerdown",e=>e.preventDefault());
+  x.addEventListener("click",()=>{q.value="";sync();renderCal();q.focus();});
+})();
 
 /* vista unica */
 function show(){
@@ -830,7 +846,7 @@ document.getElementById("todayBtn").addEventListener("click",()=>{
   calcDate();
   const target=ALL_DAYS.find(d=>d.date===focusISO)||ALL_DAYS[ALL_DAYS.length-1];
   if(sel.size){sel.clear();renderFilters();}
-  document.getElementById("q").value="";
+  document.getElementById("q").value="";document.querySelector(".search").classList.remove("has-q");
   wk=WEEKS.findIndex(w=>w.days.includes(target));
   renderCal();
   requestAnimationFrame(()=>{
