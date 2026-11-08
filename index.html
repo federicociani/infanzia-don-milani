@@ -338,6 +338,8 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp-btn[data-tp-float]:not(#_a):not(#_b):not(#_c),html body #iubenda-tp-btn{display:none!important;visibility:hidden!important;pointer-events:none!important}
 .foot{max-width:61rem;margin:0 auto;border-radius:1.375rem;padding:1.25rem 1.375rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8438rem;color:var(--fg-2);line-height:1.7;background:var(--glass)}
 .foot > *{position:relative;text-wrap:balance}
+.foot > div:first-child{flex:1;min-width:0}
+@media (max-width:40rem){.foot > div:first-child{width:100%}}
 .foot a{color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:.125rem;white-space:nowrap}
 /* feedback: domanda a sinistra, pulsante discreto a destra */
 .foot .fb{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.875rem;padding-bottom:.875rem;border-bottom:1px solid var(--line);text-align:left;line-height:1.4}
