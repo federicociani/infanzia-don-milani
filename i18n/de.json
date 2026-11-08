@@ -6,6 +6,7 @@
 "vegano":"Vegan","vegetariano":"Vegetarisch","onnivoro":"Mit Fleisch/Fisch",
 "prev":"Vorherige Woche","next":"Nächste Woche","gridAria":"Tage des Speiseplans, horizontal scrollen",
 "oggi":"Heute","domani":"Morgen","ieri":"Gestern","goTo":"Zum Speiseplan für: {x}",
+"slPrev":"Vorherige Tage","slNext":"Nächste Tage",
 "primo":"Erster Gang","secondo":"Hauptgang","contorno":"Beilage","pane":"Brot","frutta":"Obst","merenda":"Zwischenmahlzeit","antipasto":"Vorspeise","unico":"Eintopfgericht",
 "noday":"An diesem Tag findet kein Mensabetrieb statt","notFound":"Keine Tage gefunden.","notFoundQ":"Keine Tage gefunden für „{q}“.",
 "protLabel":"Wichtigste Eiweißquelle","p_carne":"Fleisch","p_pesce":"Fisch","p_uova":"Eier","p_formaggi":"Käse","p_legumi":"Hülsenfrüchte","p_verdure":"Gemüse",

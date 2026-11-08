@@ -6,6 +6,7 @@
 "vegano":"Vegan","vegetariano":"Vegetarian","onnivoro":"Omnivor",
 "prev":"Săptămâna anterioară","next":"Săptămâna următoare","gridAria":"Zilele meniului, derulează pe orizontală",
 "oggi":"Azi","domani":"Mâine","ieri":"Ieri","goTo":"Mergi la meniul pentru: {x}",
+"slPrev":"Zilele anterioare","slNext":"Zilele următoare",
 "primo":"Felul întâi","secondo":"Felul doi","contorno":"Garnitură","pane":"Pâine","frutta":"Fructe","merenda":"Gustare","antipasto":"Aperitiv","unico":"Fel unic",
 "noday":"În această zi nu va funcționa cantina","notFound":"Nu s-au găsit zile.","notFoundQ":"Nu s-au găsit zile pentru „{q}”.",
 "protLabel":"Principala sursă de proteine","p_carne":"Carne","p_pesce":"Pește","p_uova":"Ouă","p_formaggi":"Brânzeturi","p_legumi":"Leguminoase","p_verdure":"Legume",

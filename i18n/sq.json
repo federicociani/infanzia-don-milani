@@ -6,6 +6,7 @@
 "vegano":"Vegan","vegetariano":"Vegjetarian","onnivoro":"Me mish/peshk",
 "prev":"Java e kaluar","next":"Java tjetër","gridAria":"Ditët e menusë, rrëshqit horizontalisht",
 "oggi":"Sot","domani":"Nesër","ieri":"Dje","goTo":"Shko te menuja e: {x}",
+"slPrev":"Ditët e mëparshme","slNext":"Ditët e ardhshme",
 "primo":"Pjata e parë","secondo":"Pjata e dytë","contorno":"Garniturë","pane":"Bukë","frutta":"Fruta","merenda":"Ushqim i lehtë","antipasto":"Antipastë","unico":"Pjatë e vetme",
 "noday":"Në këtë ditë nuk do të ketë shërbim mense","notFound":"Nuk u gjet asnjë ditë.","notFoundQ":"Nuk u gjet asnjë ditë për “{q}”.",
 "protLabel":"Burimi kryesor i proteinave","p_carne":"Mish","p_pesce":"Peshk","p_uova":"Vezë","p_formaggi":"Djathë","p_legumi":"Bishtajore","p_verdure":"Perime",

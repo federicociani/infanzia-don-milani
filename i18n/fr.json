@@ -6,6 +6,7 @@
 "vegano":"Végétalien","vegetariano":"Végétarien","onnivoro":"Omnivore",
 "prev":"Semaine précédente","next":"Semaine suivante","gridAria":"Jours du menu, faites défiler horizontalement",
 "oggi":"Aujourd'hui","domani":"Demain","ieri":"Hier","goTo":"Aller au menu de : {x}",
+"slPrev":"Jours précédents","slNext":"Jours suivants",
 "primo":"Entrée chaude","secondo":"Plat principal","contorno":"Accompagnement","pane":"Pain","frutta":"Fruit","merenda":"Goûter","antipasto":"Entrée","unico":"Plat unique",
 "noday":"Pas de service de cantine ce jour-là","notFound":"Aucun jour trouvé.","notFoundQ":"Aucun jour trouvé pour « {q} ».",
 "protLabel":"Principale source de protéines","p_carne":"Viande","p_pesce":"Poisson","p_uova":"Œufs","p_formaggi":"Fromages","p_legumi":"Légumineuses","p_verdure":"Légumes",

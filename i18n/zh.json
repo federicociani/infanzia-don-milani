@@ -6,6 +6,7 @@
 "vegano":"纯素","vegetariano":"素食","onnivoro":"荤素搭配",
 "prev":"上一周","next":"下一周","gridAria":"菜单日期，可横向滑动",
 "oggi":"今天","domani":"明天","ieri":"昨天","goTo":"前往菜单：{x}",
+"slPrev":"前几天","slNext":"后几天",
 "primo":"第一道菜","secondo":"第二道菜","contorno":"配菜","pane":"面包","frutta":"水果","merenda":"点心","antipasto":"开胃菜","unico":"一盘餐",
 "noday":"当天食堂不提供用餐服务","notFound":"未找到相关日期。","notFoundQ":"未找到与“{q}”相关的日期。",
 "protLabel":"主要蛋白质来源","p_carne":"肉类","p_pesce":"鱼类","p_uova":"蛋类","p_formaggi":"奶酪","p_legumi":"豆类","p_verdure":"蔬菜",

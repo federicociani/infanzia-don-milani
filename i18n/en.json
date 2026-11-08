@@ -6,6 +6,7 @@
 "vegano":"Vegan","vegetariano":"Vegetarian","onnivoro":"Omnivore",
 "prev":"Previous week","next":"Next week","gridAria":"Menu days, scroll horizontally",
 "oggi":"Today","domani":"Tomorrow","ieri":"Yesterday","goTo":"Go to the menu for: {x}",
+"slPrev":"Previous days","slNext":"Next days",
 "primo":"First course","secondo":"Main course","contorno":"Side dish","pane":"Bread","frutta":"Fruit","merenda":"Snack","antipasto":"Starter","unico":"One-dish meal",
 "noday":"There is no school lunch service on this day","notFound":"No days found.","notFoundQ":"No days found for “{q}”.",
 "protLabel":"Main protein source","p_carne":"Meat","p_pesce":"Fish","p_uova":"Eggs","p_formaggi":"Cheese","p_legumi":"Legumes","p_verdure":"Vegetables",

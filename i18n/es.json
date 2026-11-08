@@ -6,6 +6,7 @@
 "vegano":"Vegano","vegetariano":"Vegetariano","onnivoro":"Omnívoro",
 "prev":"Semana anterior","next":"Semana siguiente","gridAria":"Días del menú, desliza en horizontal",
 "oggi":"Hoy","domani":"Mañana","ieri":"Ayer","goTo":"Ir al menú de: {x}",
+"slPrev":"Días anteriores","slNext":"Días siguientes",
 "primo":"Primer plato","secondo":"Segundo plato","contorno":"Guarnición","pane":"Pan","frutta":"Fruta","merenda":"Merienda","antipasto":"Entrante","unico":"Plato único",
 "noday":"Este día no habrá servicio de comedor","notFound":"No se han encontrado días.","notFoundQ":"No se han encontrado días para “{q}”.",
 "protLabel":"Fuente principal de proteínas","p_carne":"Carne","p_pesce":"Pescado","p_uova":"Huevos","p_formaggi":"Quesos","p_legumi":"Legumbres","p_verdure":"Verduras",
