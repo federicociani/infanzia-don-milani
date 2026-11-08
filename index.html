@@ -496,7 +496,8 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
 .day.today .mood[aria-expanded="true"]{background:#f4f2fb;color:#1b1832}
 .dark .day.today .mood[aria-expanded="true"]{background:#130f2e;color:#ece9ff}
 .mood:focus-visible{outline-offset:.1875rem}
-.day-f{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.375rem .625rem .375rem 1.125rem;border-top:1px solid var(--line);font-size:.6875rem;color:var(--muted-fg);position:relative}
+.day-f{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.375rem .625rem .375rem 1.125rem;border-top:1px solid var(--line);color:var(--muted-fg);position:relative;text-transform:uppercase;letter-spacing:.0625rem;font-size:.65rem}
+:lang(zh) .day-f,:lang(ar) .day-f{letter-spacing:0}
 .ai-info{width:2.25rem;height:2.25rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2)}
 .ai-info:hover{background:var(--tile);color:var(--fg)}
 .ai-info svg{width:1.0625rem;height:1.0625rem}
