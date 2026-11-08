@@ -205,7 +205,7 @@ main{position:relative;z-index:1;flex:1;padding:1.75rem 0 4rem}
 .dname{font-family:var(--font-display);font-weight:700;font-size:1.0625rem;flex:1}
 .badge{font-size:.6875rem;font-weight:normal;letter-spacing:.05em;padding:.25rem .625rem;border-radius:999rem}
 .items{list-style:none;padding:1.125rem 1.125rem 1.25rem;display:flex;flex-direction:column;gap:.9375rem;position:relative}
-.it{display:flex;gap:.75rem;align-items:flex-start}
+.it{display:flex;gap:.75rem;align-items:center}
 .ico{width:2.375rem;height:2.375rem;border-radius:.75rem;display:grid;place-items:center;font-size:1.5rem;flex:none;
   background:linear-gradient(160deg,rgba(255,255,255,.6),rgba(255,255,255,.1)),var(--c);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 0 0 1px rgba(255,255,255,.35),0 .1875rem .5rem -.25rem rgba(8,11,20,.25)}
@@ -220,11 +220,11 @@ main{position:relative;z-index:1;flex:1;padding:1.75rem 0 4rem}
 .dish{font-weight:600;font-size:.9375rem;line-height:1.35}
 mark{background:#ffe08a;color:#080b14;border-radius:.25rem;padding:0 .125rem}
 
-.dname .oggi{display:table;margin:0 0 .25rem}
-.oggi{background:var(--tile);color:var(--fg-2);box-shadow:inset 0 0 0 1px var(--line)}
-.oggi.rel-oggi{background:var(--fg);color:var(--bg);box-shadow:none}
+.dname .oggi{display:table;margin:0}
+.oggi{background:transparent;color:var(--fg-2);box-shadow:none}
+.oggi.rel-oggi{color:var(--accent)}
 .oggi.rel-ieri{opacity:.75}
-.oggi{vertical-align:middle;font-family:var(--font-sans);font-size:.6563rem;font-weight:normal;letter-spacing:.06em;text-transform:uppercase;padding:.1875rem .5rem;border-radius:999rem}
+.oggi{vertical-align:middle;font-family:var(--font-sans);font-size:.75rem;font-weight:normal;letter-spacing:.06em;text-transform:uppercase;padding:0;border-radius:0}
 .noday{padding:1.375rem 1.125rem;color:var(--fg-2);font-size:.875rem;position:relative}
 /* giorno senza mensa: messaggio al centro della card */
 .day:has(.noday){display:flex;flex-direction:column}
@@ -282,6 +282,9 @@ button,a,summary,.arrow,.weeknav{touch-action:manipulation}
 .opt.on .box svg{opacity:1}
 .opt .n{margin-left:auto;font-size:.8125rem;color:var(--fg-2);font-weight:600}
 .opt.on .n{color:var(--sel-fg)}
+.dd-h{padding:.5rem .625rem .25rem;font-size:.6875rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-fg)}
+.dd-h ~ .dd-h{margin-top:.375rem;padding-top:.625rem;border-top:1px solid var(--line)}
+.dd-panel{max-height:min(34rem,70vh);overflow:auto}
 .dd-foot{display:flex;justify-content:space-between;gap:.375rem;margin-top:.375rem;padding-top:.5rem;border-top:1px solid var(--line)}
 .dd-foot button{font-size:.875rem;font-weight:700;min-height:2.5rem;padding:.375rem .75rem;border-radius:1rem;color:var(--fg)}
 .dd-foot button:hover{background:var(--tile)}
@@ -300,8 +303,7 @@ button,a,summary,.arrow,.weeknav{touch-action:manipulation}
   --fg:#130f2e;--fg-2:#2c2752;--muted-fg:#433d70;--accent:#3a31b0;--line:rgba(19,15,46,.2);--surface-2:rgba(255,255,255,.6);--tile:rgba(255,255,255,.3);--hi:rgba(255,255,255,.9);
   background:linear-gradient(160deg,#ece9ff 0%,#cfc9ff 100%);
   box-shadow:var(--card-shadow),0 0 0 .125rem #d9d6ff,inset 0 1px 0 #fff}
-.day.today .oggi{background:#ffd8b8;color:#3a1f08}
-.dark .day.today .oggi{background:#130f2e;color:#ece9ff}
+.day.today .oggi{background:transparent;color:var(--accent)}
 .day.today .badge{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .dark .day.today .badge{background:rgba(255,255,255,.6);color:#130f2e;box-shadow:inset 0 0 0 1px rgba(19,15,46,.2)}
 .day.today .ico{background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,.1)),var(--c)!important}
@@ -338,6 +340,8 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp-btn[data-tp-float]:not(#_a):not(#_b):not(#_c),html body #iubenda-tp-btn{display:none!important;visibility:hidden!important;pointer-events:none!important}
 .foot{max-width:61rem;margin:0 auto;border-radius:1.375rem;padding:1.25rem 1.375rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8438rem;color:var(--fg-2);line-height:1.7;background:var(--glass)}
 .foot > *{position:relative;text-wrap:balance}
+.foot > div:first-child{flex:1;min-width:0}
+@media (max-width:40rem){.foot > div:first-child{width:100%}}
 .foot a{color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:.125rem;white-space:nowrap}
 /* feedback: domanda a sinistra, pulsante discreto a destra */
 .foot .fb{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.875rem;padding-bottom:.875rem;border-bottom:1px solid var(--line);text-align:left;line-height:1.4}
@@ -421,6 +425,7 @@ html.has-a2hs footer{padding-bottom:calc(10rem + env(safe-area-inset-bottom))}
 .view.active{animation:fadeOnly .5s var(--ease)}
 .hdr{animation:softDown .9s var(--ease) backwards}
 .view.active .hero{animation:softIn .9s var(--ease) .05s backwards;justify-content:space-between;padding:0 1rem}
+.hero .lng{margin-inline-start:.25rem}
 .view.active .sec-h,.view.active .search-row{animation:softIn .9s var(--ease) .15s backwards}
 .view.active .week-row{animation:softIn .9s var(--ease) .22s backwards}
 .view.active .day{animation:cardIn 1s var(--ease) backwards;animation-delay:calc(.25s + var(--i,0) * .08s)}
@@ -445,7 +450,7 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
 /* desktop largo: intestazione a sinistra, switch + Oggi a destra sulla stessa riga */
 @media (min-width:60rem){
   header{position:absolute;top:0;left:0;right:0;padding:1.5rem 0;pointer-events:none;display:block}
-  .hdr{justify-content:flex-end;align-items:center;min-height:5.25rem;pointer-events:auto}
+  .hdr{justify-content:flex-end;align-items:center;min-height:5.25rem;pointer-events:none}
   .hdr > *{pointer-events:auto}
   main{padding-top:1.5rem}
   .hero{justify-content:flex-start;min-height:5.25rem;margin:0 0 2rem}
@@ -470,6 +475,126 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
   header .today-btn{height:3rem;min-height:3rem;padding:0 1.375rem;box-shadow:0 .75rem 1.75rem -.75rem rgba(0,0,0,.55)}
 }
 
+
+/* ===== foto dei piatti, freccia "scopri", badge proteina, icona del pasto, footer IA, modali ===== */
+.it{cursor:pointer;border-radius:.875rem;margin:-.25rem;padding:.5rem;transition:background .3s var(--ease,ease)}
+.it:hover{background:var(--tile)}
+.it > div{flex:1;min-width:0}
+.go{flex:none;align-self:center;width:2rem;height:2rem;margin-right:0;border-radius:999rem;display:grid;place-items:center;color:var(--muted-fg);transition:transform .3s var(--ease,ease),color .3s}
+.go svg{width:1rem;height:1rem}
+.it:hover .go{color:var(--fg);background:var(--tile);transform:translateX(.125rem)}
+.dmeta{flex:1;min-width:0;display:flex;flex-direction:column;gap:.375rem}
+.dmeta .dname{flex:none}
+.tags{display:flex;flex-direction:column;align-items:flex-end;gap:.3125rem;margin-inline-start:auto;flex:none}
+.dmeta{overflow-wrap:anywhere}
+.tags .badge{font-size:.625rem;padding:.25rem .5rem;white-space:nowrap}
+.b-prot{color:var(--fg-2);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line)}
+.day.today .b-prot{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.dark .day.today .b-prot{background:rgba(255,255,255,.6);color:#130f2e;box-shadow:inset 0 0 0 1px rgba(19,15,46,.2)}
+.mood{width:1.75rem;height:1.75rem;border-radius:999rem;display:grid;place-items:center;color:var(--accent);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);position:relative}
+.mood::after{content:"";position:absolute;inset:-.5rem}
+.mood svg{width:.9375rem;height:.9375rem}
+.mood[aria-expanded="true"]{background:var(--fg);color:var(--bg);box-shadow:none}
+.day.today .mood[aria-expanded="true"]{background:#f4f2fb;color:#1b1832}
+.dark .day.today .mood[aria-expanded="true"]{background:#130f2e;color:#ece9ff}
+.mood:focus-visible{outline-offset:.1875rem}
+.day-f{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.375rem .625rem .375rem 1.125rem;border-top:1px solid var(--line);color:var(--muted-fg);position:relative;text-transform:uppercase;letter-spacing:.0625rem;font-size:.65rem}
+:lang(zh) .day-f,:lang(ar) .day-f{letter-spacing:0}
+.ai-info{width:2.25rem;height:2.25rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2)}
+.ai-info:hover{background:var(--tile);color:var(--fg)}
+.ai-info svg{width:1.0625rem;height:1.0625rem}
+.day:has(.day-f){display:flex;flex-direction:column}
+.day:has(.day-f) .items{flex:1}
+/* tooltip dell'icona del pasto */
+.tip{position:fixed;z-index:60;width:min(17.5rem,calc(100vw - 2rem));padding:.875rem 1rem;border-radius:1rem;background:var(--surface-2);color:var(--fg);border:1.5px solid var(--line);
+  box-shadow:0 1.25rem 2.5rem -1rem rgba(8,11,20,.5);font-size:.8438rem;line-height:1.45;animation:panelIn .35s var(--ease)}
+.dark .tip{box-shadow:0 1.25rem 2.5rem -1rem rgba(0,0,0,.9)}
+.tip b{display:flex;align-items:center;gap:.375rem;font-family:var(--font-display);font-size:.9375rem;margin-bottom:.25rem}
+.tip b svg{width:1rem;height:1rem;color:var(--accent)}
+.tip small{display:block;margin-top:.5rem;color:var(--muted-fg);font-size:.6875rem}
+/* modali */
+.dlg{margin:auto;border:1.5px solid var(--line);border-radius:1.5rem;padding:0;width:min(26rem,calc(100vw - 2rem));max-height:calc(100dvh - 2rem);overflow:auto;
+  background:var(--surface);color:var(--fg);box-shadow:0 2rem 4rem -1.5rem rgba(8,11,20,.6)}
+.dlg::backdrop{background:rgba(8,11,20,.45);-webkit-backdrop-filter:blur(.375rem);backdrop-filter:blur(.375rem)}
+.dlg[open]{animation:dlgIn .5s var(--ease)}
+@keyframes dlgIn{from{opacity:0;transform:translateY(1.5rem) scale(.97)}}
+.dlg-x{position:absolute;top:.75rem;right:.75rem;z-index:2;width:2.5rem;height:2.5rem;border-radius:999rem;display:grid;place-items:center;background:var(--surface-2);color:var(--fg);box-shadow:0 .25rem .75rem -.25rem rgba(8,11,20,.4),inset 0 0 0 1px var(--line)}
+.dlg-x svg{width:1.125rem;height:1.125rem}
+.dlg-pic{height:7.5rem;display:grid;place-items:center;font-size:3.5rem;background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,.1)),var(--c,var(--tile))}
+.dark .dlg-pic{background:linear-gradient(160deg,rgba(255,255,255,.3),rgba(255,255,255,.04)),color-mix(in srgb,var(--c,#888) 45%,transparent)}
+.dlg-orig{margin:-.5rem 0 .875rem;font-size:.8125rem;color:var(--muted-fg)}
+.dlg-orig[hidden]{display:none}
+.dlg-b{padding:1.25rem 1.375rem 1.375rem}
+.dlg-b .lbl{margin-bottom:.25rem}
+.dlg h2{font-family:var(--font-display);font-size:1.375rem;line-height:1.2;margin-bottom:.875rem;text-wrap:balance}
+.dlg h3{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-fg);margin:0 0 .25rem}
+.dlg p{font-size:.9375rem;line-height:1.55;color:var(--fg-2)}
+.val{display:flex;gap:.625rem;align-items:center;margin-top:1rem;padding:.75rem .875rem;border-radius:1rem;background:var(--sel-bg);color:var(--sel-fg);font-weight:600;font-size:.9062rem;line-height:1.35}
+.val svg{width:1.25rem;height:1.25rem;flex:none}
+.dlg-note{margin-top:1.125rem;padding-top:.875rem;border-top:1px solid var(--line);font-size:.75rem;line-height:1.5;color:var(--muted-fg)}
+.dlg-note button{font-size:.75rem;font-weight:600;color:var(--fg);text-decoration:underline;text-underline-offset:.125rem;padding:0}
+.dlg-ai .dlg-b{padding-top:1.5rem}
+.dlg-ai .ai-ico{width:2.75rem;height:2.75rem;border-radius:.875rem;display:grid;place-items:center;background:var(--sel-bg);color:var(--sel-fg);margin-bottom:.875rem}
+.dlg-ai .ai-ico svg{width:1.375rem;height:1.375rem}
+.dlg-ai p + p{margin-top:.625rem}
+.dlg-ok{margin-top:1.25rem;width:100%;min-height:2.75rem;border-radius:1rem;background:var(--fg);color:var(--bg);text-transform:uppercase;font-size:.875rem;letter-spacing:.0625rem}
+@media (max-width:40rem){
+  .dlg{margin:auto 0 0;width:100%;max-width:100%;border-radius:1.5rem 1.5rem 0 0;border-width:1.5px 0 0;max-height:92dvh;padding-bottom:env(safe-area-inset-bottom)}
+  .dlg[open]{animation:sheetIn .5s var(--ease)}
+  @keyframes sheetIn{from{transform:translateY(100%)}}
+}
+@media (prefers-reduced-motion:reduce){.dlg[open],.tip{animation:none}}
+html:has(.dlg[open]){overflow:hidden}
+
+/* lingua */
+.prefs{display:flex;gap:.5rem;align-items:center;flex:none;flex-wrap:wrap;justify-content:center}
+.lng{position:relative;align-self:center;flex:none;z-index:16}
+.lng-btn{display:flex;align-items:center;gap:.375rem;min-height:2.75rem;padding:0 .625rem 0 .75rem;border-radius:1rem;color:var(--fg);font-size:.8125rem;font-weight:600;letter-spacing:.04em}
+.lng-btn .flag{font-size:1.25rem;line-height:1}
+.lng-btn .chev{width:.875rem;height:.875rem;color:var(--fg-2);transition:transform .45s var(--ease)}
+.lng.open .lng-btn .chev{transform:rotate(180deg)}
+.lng-panel{position:absolute;right:0;top:calc(100% + .5rem);width:13.5rem;max-height:min(26rem,70vh);overflow:auto;padding:.375rem;border-radius:1.125rem;background:var(--surface-2);border:1.5px solid var(--line);
+  box-shadow:0 1.5rem 3.125rem -1rem rgba(8,11,20,.55),0 .25rem .75rem -.25rem rgba(8,11,20,.25);animation:panelIn .45s var(--ease)}
+.dark .lng-panel{box-shadow:0 1.5rem 3.125rem -.75rem rgba(0,0,0,.9)}
+[dir=rtl] .lng-panel{right:auto;left:0}
+.lng-opt{display:flex;align-items:center;gap:.625rem;width:100%;min-height:2.625rem;padding:.375rem .625rem;border-radius:.75rem;font-size:.9375rem;font-weight:600;color:var(--fg);text-align:start}
+.lng-opt .flag{font-size:1.25rem;line-height:1}
+.lng-opt:hover{background:var(--tile)}
+.lng-opt[aria-selected="true"]{background:var(--sel-bg);color:var(--sel-fg)}
+.lng-opt[aria-selected="true"]::after{content:"✓";margin-inline-start:auto;font-size:.875rem}
+body{overflow-x:clip}
+/* frecce dello slider: solo desktop con mouse, discrete, compaiono passando sopra le card */
+.slider{position:relative}
+.sl-btn{display:none}
+@media (hover:hover) and (pointer:fine) and (min-width:40.01rem){
+  .sl-btn{display:grid;place-items:center;position:absolute;top:50%;z-index:3;width:2.5rem;height:2.5rem;margin-top:-1.25rem;border-radius:999rem;
+    color:var(--fg);background:var(--glass-strong);border:1.5px solid var(--line);box-shadow:var(--card-shadow);
+    -webkit-backdrop-filter:blur(.75rem);backdrop-filter:blur(.75rem);opacity:0;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+  .sl-btn svg{width:1.125rem;height:1.125rem}
+  .sl-prev{left:-1.25rem}.sl-next{right:-1.25rem}
+  .slider:hover .sl-btn,.sl-btn:focus-visible{opacity:.92}
+  .sl-btn:hover{opacity:1;transform:scale(1.06)}
+  .sl-btn:active{transform:scale(.94)}
+  .sl-btn[hidden]{display:none!important}
+}
+@media (prefers-reduced-motion:reduce){.sl-btn{transition:none}}
+@media (max-width:40rem){
+  .hero .hero-meta{flex:1;min-width:0}
+  .hero p,.hero small{white-space:normal}
+  .lng-btn{padding:0 .5rem;gap:.25rem}
+  .lng-btn .code{display:none}
+}
+.hero h1{white-space:normal}
+/* RTL: lo scorrimento dei giorni e le frecce delle settimane restano da sinistra a destra (come il calendario) */
+[dir=rtl] .grid,[dir=rtl] .weeknav{direction:ltr}
+[dir=rtl] .grid > *,[dir=rtl] .weeknav strong{direction:rtl}
+[dir=rtl] .go svg{transform:scaleX(-1)}
+[dir=rtl] .hero-meta{padding-left:0;padding-right:1rem;border-left:0;border-right:1.5px solid var(--line);text-align:right}
+[dir=rtl] .go{margin-left:0}
+[dir=rtl] .it:hover .go{transform:translateX(-.125rem)}
+[dir=rtl] .dlg-x{right:auto;left:.75rem}
+[dir=rtl] .dname .oggi{margin:0}
+:lang(zh) .lbl,:lang(zh) .badge,:lang(ar) .lbl,:lang(ar) .badge{letter-spacing:0}
 @media (prefers-contrast:more){
   :root{--glass:var(--surface);--glass-strong:var(--surface);--line:rgba(8,11,20,.6)}
   .dark{--glass:var(--surface);--glass-strong:var(--surface);--line:rgba(230,228,255,.7)}
@@ -532,63 +657,158 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
   <!-- MENU COMPLETO -->
   <section class="view wrap active" id="view-tutto" aria-labelledby="calTitle">
     <div class="hero">
-      <h1 id="calTitle">Menu<br>Mensa</h1>
-      <div class="hero-meta"><p>Scuola dell'Infanzia<br>“Don Milani” a Cervia</p><small>15 set – 23 dic 2026</small></div>
+      <h1 id="calTitle" data-th="heroTitle">Menu<br>Mensa</h1>
+      <div class="hero-meta"><p data-th="school">Scuola dell'Infanzia<br>“Don Milani” a Cervia</p><small id="period">15 set – 23 dic 2026</small></div>
+      <div class="lng" id="lng"><button type="button" class="lng-btn ctl" id="lngBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="lngList"><span class="flag" id="lngFlag" aria-hidden="true">🇮🇹</span><span class="code" id="lngCode">IT</span><span class="sr-only" data-t="lang">Lingua</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="lng-panel" id="lngList" role="listbox" data-ta="lang" aria-label="Lingua" hidden></div></div>
     </div>
     <div class="search-row">
     <div class="search ctl">
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <label for="q" class="sr-only">Cerca un piatto</label>
-      <input type="search" id="q" placeholder="Cerca..." autocomplete="off">
-      <button type="button" class="search-x" id="qClear" aria-label="Cancella la ricerca"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <label for="q" class="sr-only" data-t="searchLabel">Cerca un piatto</label>
+      <input type="search" id="q" placeholder="Cerca..." data-tp="search" autocomplete="off">
+      <button type="button" class="search-x" id="qClear" aria-label="Cancella la ricerca" data-ta="clear"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
-    <div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false" aria-label="Filtra per tipo di menu"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" hidden></div></div>
+    <div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false" aria-label="Filtra per tipo di menu" data-ta="filterAria"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M10 18h4"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" data-ta="menuTypes" hidden></div></div>
     </div>
     <div class="week-row">
     <div class="weeknav glass">
-      <button class="arrow" id="prev" aria-label="Settimana precedente"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+      <button class="arrow" id="prev" aria-label="Settimana precedente" data-ta="prev"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
       <div class="mid"><strong id="range" aria-live="polite"></strong></div>
-      <button class="arrow" id="next" aria-label="Settimana successiva"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+      <button class="arrow" id="next" aria-label="Settimana successiva" data-ta="next"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
     </div>
     </div>
-    <div class="grid" id="calGrid" tabindex="0" aria-label="Giorni del menu, scorri in orizzontale"></div>
+    <div class="slider"><button type="button" class="sl-btn sl-prev" id="slPrev" aria-label="Giorni precedenti" data-ta="slPrev" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div class="grid" id="calGrid" tabindex="0" aria-label="Giorni del menu, scorri in orizzontale" data-ta="gridAria"></div><button type="button" class="sl-btn sl-next" id="slNext" aria-label="Giorni successivi" data-ta="slNext" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div>
   </section>
 </main>
 
 <footer>
   <div class="foot glass">
-    <div><div class="fb"><span>Un problema, un’idea o un parere?</span><a class="opinion-btn" href="https://surveys.hotjar.com/d14f3328-33a0-4ef2-aa57-7c8750f0fe92" target="_blank" rel="noopener">Invia un feedback<span class="sr-only"> (si apre in una nuova scheda)</span></a></div><details class="info"><summary>Maggiori informazioni<svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><p>Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale: <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink">apri il PDF ufficiale del Comune<svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only"> (si apre in una nuova scheda)</span></a></p></details><span class="legal"><a href="https://www.iubenda.com/privacy-policy/19004044" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.iubenda.com/privacy-policy/19004044/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> · <a href="#" class="iubenda-cs-preferences-link">Preferenze cookie</a></span></div>
-    <div class="themes" role="group" aria-label="Tema">
-      <button data-theme="light" aria-label="Tema chiaro" title="Tema chiaro"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.28 5.28l1.42 1.42M17.3 17.3l1.42 1.42M5.28 18.72l1.42-1.42M17.3 6.7l1.42-1.42"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5" fill="currentColor" stroke="none"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.28 5.28l1.42 1.42M17.3 17.3l1.42 1.42M5.28 18.72l1.42-1.42M17.3 6.7l1.42-1.42"/></svg></button>
-      <button data-theme="dark" aria-label="Tema scuro" title="Tema scuro"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7Z"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7Z"/></svg></button>
+    <div><!-- feedback nascosto per ora --><div class="fb" hidden><span data-t="fbQ">Un problema, un’idea o un parere?</span><a class="opinion-btn" href="https://surveys.hotjar.com/d14f3328-33a0-4ef2-aa57-7c8750f0fe92" target="_blank" rel="noopener"><span data-t="fbBtn">Invia un feedback</span><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></div><details class="info"><summary><span data-t="moreInfo">Maggiori informazioni</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><p><span data-t="unofficial">Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale:</span> <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink"><span data-t="pdf">apri il PDF ufficiale del Comune</span><svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></p></details><span class="legal"><a href="https://www.iubenda.com/privacy-policy/19004044" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.iubenda.com/privacy-policy/19004044/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> · <a href="#" class="iubenda-cs-preferences-link" data-t="cookies">Preferenze cookie</a></span></div>
+    <div class="prefs">
+    <div class="themes" role="group" aria-label="Tema" data-ta="theme">
+      <button data-theme="light" aria-label="Tema chiaro" title="Tema chiaro" data-ta="themeLight"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.28 5.28l1.42 1.42M17.3 17.3l1.42 1.42M5.28 18.72l1.42-1.42M17.3 6.7l1.42-1.42"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5" fill="currentColor" stroke="none"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.28 5.28l1.42 1.42M17.3 17.3l1.42 1.42M5.28 18.72l1.42-1.42M17.3 6.7l1.42-1.42"/></svg></button>
+      <button data-theme="dark" aria-label="Tema scuro" title="Tema scuro" data-ta="themeDark"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7Z"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7Z"/></svg></button>
+    </div>
     </div>
   </div>
 </footer>
+
+<!-- modale del piatto -->
+<dialog class="dlg" id="dishDlg" aria-labelledby="dishTitle">
+  <button class="dlg-x" data-close-dlg aria-label="Chiudi" data-ta="close"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="dlg-pic" id="dishPic" aria-hidden="true"></div>
+  <div class="dlg-b">
+    <div class="lbl" id="dishCat"></div>
+    <h2 id="dishTitle"></h2>
+    <p class="dlg-orig" id="dishOrig" hidden></p>
+    <h3 data-t="howMade">Com'è fatto</h3>
+    <p id="dishDesc"></p>
+    <div class="val"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg><span><span class="sr-only" data-t="bringsSr">Cosa porta nel piatto: </span><span id="dishVal"></span></span></div>
+    <p class="dlg-note"><span data-t="dishNote">La descrizione è generata con l'intelligenza artificiale: il piatto servito può essere diverso. Non sono consigli medici o nutrizionali.</span> <button type="button" data-ai-info data-t="why">Perché?</button></p>
+  </div>
+</dialog>
+<!-- modale informazioni IA -->
+<dialog class="dlg dlg-ai" id="aiDlg" aria-labelledby="aiTitle">
+  <button class="dlg-x" data-close-dlg aria-label="Chiudi" data-ta="close"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="dlg-b">
+    <div class="ai-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.94 14.06 4.5 19.5M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9Z"/><path d="M19 15v4M17 17h4"/></svg></div>
+    <h2 id="aiTitle" data-t="aiTitle">Informazioni generate con l'intelligenza artificiale</h2>
+    <p data-t="ai1">Il nome dei piatti in italiano arriva dal menu ufficiale del Comune di Cervia. Tutto il resto (descrizioni, fonte proteica principale, icona del tipo di pasto e traduzioni nelle altre lingue) è stato generato con l'aiuto dell'intelligenza artificiale.</p>
+    <p data-t="ai2">Sono indicazioni per curiosità, da prendere con le pinze: non sono informazioni verificate né fornite da esperti di nutrizione.</p>
+    <p data-t="ai3">Per dubbi sull'alimentazione rivolgiti al pediatra o al servizio mensa. In caso di differenze vale il menu ufficiale in italiano.</p>
+    <button class="dlg-ok" data-close-dlg data-t="ok">Ho capito</button>
+  </div>
+</dialog>
+<div class="tip" id="tip" role="dialog" aria-modal="false" hidden></div>
 <!-- Banner "Aggiungi alla schermata Home" (solo mobile) -->
-<div class="a2hs" id="a2hs" role="region" aria-label="Aggiungi alla schermata Home" hidden>
+<div class="a2hs" id="a2hs" role="region" aria-label="Aggiungi alla schermata Home" data-ta="a2hsTitle" hidden>
   <div class="a2hs-body" id="a2hsBody"><div>
-    <p>Mensa Don Milani sul telefono: la ritrovi con un tocco, tra le icone della schermata Home.</p>
+    <p data-t="a2hsText">Mensa Don Milani sul telefono: la ritrovi con un tocco, tra le icone della schermata Home.</p>
     <ol class="a2hs-steps" id="a2hsIos" hidden>
-    <li>Tocca <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> Condividi</span> nella barra del browser</li>
-    <li>Scegli <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi alla schermata Home</span></li>
+    <li data-steps="ios1" data-k1="share" data-i1='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>'></li>
+    <li data-steps="ios2" data-k1="addHome" data-i1='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg>'></li>
   </ol>
     <ol class="a2hs-steps" id="a2hsAndroid" hidden>
-    <li>Tocca il menu <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span> del browser</li>
-    <li>Scegli <span class="k"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg> Aggiungi a schermata Home</span></li>
+    <li data-steps="and1" data-k1="" data-i1='<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>'></li>
+    <li data-steps="and2" data-k1="addHomeA" data-i1='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg>'></li>
   </ol>
-    <div class="a2hs-actions"><button class="a2hs-yes" id="a2hsInstall" hidden>Aggiungi</button></div>
+    <div class="a2hs-actions"><button class="a2hs-yes" id="a2hsInstall" data-t="add" hidden>Aggiungi</button></div>
   </div></div>
   <div class="a2hs-top">
     <img src="apple-touch-icon.png" alt="" width="36" height="36">
-    <button class="a2hs-toggle" id="a2hsToggle" aria-expanded="false" aria-controls="a2hsBody"><strong>Aggiungi alla schermata Home</strong></button>
-    <button class="a2hs-no" id="a2hsNever">No, grazie!</button>
-    <button class="a2hs-chev" id="a2hsChev" aria-expanded="false" aria-controls="a2hsBody" aria-label="Mostra come fare"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg></button>
+    <button class="a2hs-toggle" id="a2hsToggle" aria-expanded="false" aria-controls="a2hsBody"><strong data-t="a2hsTitle">Aggiungi alla schermata Home</strong></button>
+    <button class="a2hs-no" id="a2hsNever" data-t="noThanks">No, grazie!</button>
+    <button class="a2hs-chev" id="a2hsChev" aria-expanded="false" aria-controls="a2hsBody" aria-label="Mostra come fare" data-ta="showHow"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg></button>
   </div>
 </div>
 
 
 <script>if(window.navigator.standalone===true||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches))document.documentElement.classList.add("standalone");</script>
 <script>
+/* ===== LINGUE — italiano qui sotto, le altre in i18n/<codice>.json (tradotte con l'IA).
+   La lingua si sceglie da sola in base al browser; si può cambiare dal selettore nel footer. */
+const LANGS=[["it","Italiano","🇮🇹"],["en","English","🇬🇧"],["es","Español","🇪🇸"],["pt","Português","🇵🇹"],["fr","Français","🇫🇷"],["de","Deutsch","🇩🇪"],["ro","Română","🇷🇴"],["sq","Shqip","🇦🇱"],["ru","Русский","🇷🇺"],["ar","العربية","🇲🇦"],["zh","中文","🇨🇳"]];
+const LOCALE={it:"it-IT",en:"en-GB",es:"es-ES",pt:"pt-PT",fr:"fr-FR",de:"de-DE",ro:"ro-RO",sq:"sq-AL",ru:"ru-RU",ar:"ar",zh:"zh-CN"};
+const IT={
+  heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
+  search:"Cerca...",searchLabel:"Cerca un piatto",clear:"Cancella la ricerca",
+  menuType:"Tipo di menu",menuTypes:"Tipi di menu",filterAria:"Filtra per tipo di menu",showAll:"Mostra tutti",done:"Fatto",nDays:"{n} giorni",
+  vegano:"Vegano",vegetariano:"Vegetariano",onnivoro:"Onnivoro",
+  prev:"Settimana precedente",next:"Settimana successiva",gridAria:"Giorni del menu, scorri in orizzontale",
+  oggi:"Oggi",domani:"Domani",ieri:"Ieri",goTo:"Vai al menu di: {x}",
+  slPrev:"Giorni precedenti",slNext:"Giorni successivi",
+  primo:"Primo",secondo:"Secondo",contorno:"Contorno",pane:"Pane",frutta:"Frutta",merenda:"Merenda",antipasto:"Antipasto",unico:"Piatto unico",
+  noday:"In questa giornata il servizio mensa non sarà effettuato",notFound:"Nessun giorno trovato.",notFoundQ:"Nessun giorno trovato per “{q}”.",
+  protLabel:"Fonte proteica principale",p_carne:"Carne",p_pesce:"Pesce",p_uova:"Uova",p_formaggi:"Formaggi",p_legumi:"Legumi",p_verdure:"Verdure",
+  m_energia:"Pasto energetico",m_energia_d:"Il piatto forte di oggi sono i carboidrati (pasta ripiena, pizza, gnocchi o patate): tanta energia per giocare tutto il pomeriggio.",
+  m_legumi:"Forza dei legumi",m_legumi_d:"Nel primo ci sono i legumi, che portano proteine vegetali e fibre. Insieme ai cereali formano una coppia sostanziosa.",
+  m_caldo:"Caldo e leggero",m_caldo_d:"Il primo è una minestra o un passato: un pasto caldo, morbido e leggero, che scalda nelle giornate più fresche.",
+  m_bilanciato:"Pasto bilanciato",m_bilanciato_d:"Un primo, un secondo e le verdure: il classico pasto completo, con un po' di tutto.",
+  whatMeans:"cosa significa",tipNote:"Indicazione generata con l'IA, solo orientativa.",
+  aiFoot:"Informazioni generate con l'IA",discover:"Scopri il piatto",howMade:"Com'è fatto",bringsSr:"Cosa porta nel piatto: ",
+  dishNote:"La descrizione è generata con l'intelligenza artificiale: il piatto servito può essere diverso. Non sono consigli medici o nutrizionali.",
+  why:"Perché?",inItalian:"Nel menu ufficiale:",close:"Chiudi",ok:"Ho capito",
+  aiTitle:"Informazioni generate con l'intelligenza artificiale",
+  ai1:"Il nome dei piatti in italiano arriva dal menu ufficiale del Comune di Cervia. Tutto il resto (descrizioni, fonte proteica principale, icona del tipo di pasto e traduzioni nelle altre lingue) è stato generato con l'aiuto dell'intelligenza artificiale.",
+  ai2:"Sono indicazioni per curiosità, da prendere con le pinze: non sono informazioni verificate né fornite da esperti di nutrizione.",
+  ai3:"Per dubbi sull'alimentazione rivolgiti al pediatra o al servizio mensa. In caso di differenze vale il menu ufficiale in italiano.",
+  fbQ:"Un problema, un’idea o un parere?",fbBtn:"Invia un feedback",newTab:" (si apre in una nuova scheda)",moreInfo:"Maggiori informazioni",
+  unofficial:"Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale:",
+  pdf:"apri il PDF ufficiale del Comune",cookies:"Preferenze cookie",lang:"Lingua",theme:"Tema",themeLight:"Tema chiaro",themeDark:"Tema scuro",
+  a2hsTitle:"Aggiungi alla schermata Home",a2hsText:"Mensa Don Milani sul telefono: la ritrovi con un tocco, tra le icone della schermata Home.",
+  ios1:"Tocca {i} nella barra del browser",ios2:"Scegli {i}",and1:"Tocca il menu {i} del browser",and2:"Scegli {i}",
+  share:"Condividi",addHome:"Aggiungi alla schermata Home",addHomeA:"Aggiungi a schermata Home",add:"Aggiungi",noThanks:"No, grazie!",showHow:"Mostra come fare",closeHow:"Chiudi le istruzioni"
+};
+let LANG="it",TR=null; /* TR = {ui, vals, dishes} della lingua scelta */
+const t=k=>(TR&&TR.ui[k])||IT[k]||k;
+const dishIdx=n=>PIATTI_KEYS.indexOf(n);
+const dishName=n=>{const i=dishIdx(n);return TR&&i>=0&&TR.dishes[i]?TR.dishes[i][0]:n;};
+const dishDesc=n=>{const i=dishIdx(n);return TR&&TR.dishes[i]?TR.dishes[i][1]:PIATTI[n][0];};
+const dishVal=n=>{const v=PIATTI[n][1];return TR&&TR.vals[v]?TR.vals[v]:VALS[v];};
+function pickLang(){
+  let saved=null;try{saved=localStorage.getItem("mensa-lang");}catch(e){}
+  if(saved&&LANGS.some(l=>l[0]===saved)) return saved;
+  for(const l of navigator.languages||[navigator.language||"it"]){const c=(l||"").toLowerCase().split("-")[0];if(LANGS.some(x=>x[0]===c)) return c;}
+  return "it";
+}
+function applyStatic(){
+  const r=document.documentElement;r.lang=LANG;r.dir=LANG==="ar"?"rtl":"ltr";
+  document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));
+  document.querySelectorAll("[data-th]").forEach(e=>e.innerHTML=t(e.dataset.th));
+  document.querySelectorAll("[data-tp]").forEach(e=>e.placeholder=t(e.dataset.tp));
+  document.querySelectorAll("[data-ta]").forEach(e=>{e.setAttribute("aria-label",t(e.dataset.ta));if(e.hasAttribute("title"))e.title=t(e.dataset.ta);});
+  document.querySelectorAll("[data-steps]").forEach(e=>{const k=e.dataset.k1;e.innerHTML=esc(t(e.dataset.steps)).replace("{i}",`<span class="k">${e.dataset.i1}${k?" "+esc(t(k)):""}</span>`);});
+  const p=document.getElementById("period");if(p)p.textContent=rangeLong(ALL_DAYS);
+  const L=LANGS.find(l=>l[0]===LANG);document.getElementById("lngFlag").textContent=L[2];document.getElementById("lngCode").textContent=LANG.toUpperCase();
+  document.querySelectorAll(".lng-opt").forEach(o=>o.setAttribute("aria-selected",o.dataset.l===LANG));
+}
+async function setLang(code,store){
+  let tr=null;
+  if(code!=="it"){try{const r=await fetch("i18n/"+code+".json");if(r.ok)tr=await r.json();}catch(e){}if(!tr)code="it";}
+  LANG=code;TR=tr;
+  if(store){try{localStorage.setItem("mensa-lang",code);}catch(e){}}
+  applyStatic();
+}
 /* ===== DATI MENU — Menù Scuola dell'infanzia e primaria, Comune di Cervia, A.S. 2026-2027 (15/09 – 23/12/2026)
    Formato: [data, primo, secondo, contorno, pane, frutta, merenda]. Dove il PDF distingue primaria/infanzia è riportata la versione infanzia. */
 const DAYS = [
@@ -664,6 +884,127 @@ const DAYS = [
   ["2026-12-22", "Orzo/farro o altri cereali in passato di verdura", "Formaggio fresco", "Verdura cruda", "Focaccia", "Frutta", "Frutta fresca e grissini"],
   ["2026-12-23", "Verdura cotta", "Cappelletti in brodo", "Patate gratinate al forno", "Pane Comune", "Frutta", "Pandoro"]
 ];
+/* ===== PIATTI — descrizioni generate con l'IA (indicative, non verificate da esperti).
+   Formato: "nome del piatto come nel menu": [com'è fatto, indice in VALS (cosa porta nel piatto)].
+   L'ordine conta: le traduzioni in i18n/*.json seguono lo stesso ordine. */
+const VALS = ["Carboidrati per avere energia fino a sera", "Carboidrati e fibre per un'energia che dura", "Carboidrati per l'energia, con un tocco di formaggio", "Carboidrati per l'energia e un po' di verde", "Carboidrati per l'energia e verdure nascoste", "Carboidrati per l'energia e grassi buoni della frutta secca", "Legumi: proteine vegetali e tanta energia", "Legumi e verdure di stagione in un solo piatto", "Carboidrati per l'energia del pomeriggio", "Carboidrati e proteine del pesce", "Carboidrati e proteine vegetali dei piselli", "Piatto unico: energia e proteine insieme", "Carboidrati delle patate per tanta energia", "Piatto unico: energia e proteine del formaggio", "Piatto unico caldo: energia e proteine del formaggio", "Piatto unico caldo: energia e proteine di uova e formaggio", "Carboidrati per l'energia e verdure di stagione", "Carboidrati per l'energia e verdure a foglia", "Legumi: proteine vegetali e fibre", "Cereali e legumi: una coppia piena di energia", "Cereali e verdure di stagione, caldi e leggeri", "Verdure di stagione e un po' di energia", "Verdure in una forma facile da mangiare", "Proteine leggere della ricotta e verdure", "Proteine leggere della ricotta", "Proteine leggere del pesce", "Proteine del pesce azzurro", "Proteine e ferro della carne", "Proteine leggere della carne bianca", "Proteine della carne bianca e dei piselli", "Proteine e ferro della carne rossa", "Proteine della carne", "Proteine delle uova", "Proteine delle uova e verdure a foglia", "Proteine di uova e formaggio, con verdure", "Proteine delle uova e verdure di stagione", "Proteine e calcio del latte", "Carboidrati e proteine della mozzarella", "Verdure di stagione in una forma morbida", "Verdure di stagione con un tocco di formaggio", "Verdure di stagione: vitamine e fibre", "Vitamine delle verdure e grassi buoni della frutta secca", "Carboidrati delle patate per l'energia", "Energia delle patate e verdure di stagione", "Carboidrati per l'energia", "Carboidrati e fibre", "Vitamine e fibre della frutta di stagione", "Vitamine della frutta e un po' di energia", "Calcio del latte ed energia dei cereali", "Calcio del latte ed energia dei biscotti", "Energia semplice per la merenda", "Energia e grassi buoni dell'olio", "Energia per la merenda", "Una piccola coccola per la merenda", "Energia per la merenda e qualcosa da bere", "Energia per la merenda e un po' di frutta secca", "Una coccola per le feste"];
+const PIATTI = {
+  "Pasta al pomodoro": ["Pasta corta condita con un sugo di pomodoro semplice, cotto piano piano con un filo d'olio. Un grande classico che piace a quasi tutte e tutti.", 0],
+  "Pasta integrale al pomodoro": ["Pasta integrale, dal colore un po' più scuro, con il solito sugo di pomodoro. Ha un sapore leggermente più rustico.", 1],
+  "Pasta olio e parmigiano": ["Pasta in bianco con olio extravergine d'oliva e una spolverata di parmigiano. Semplice, delicata, sempre gradita.", 2],
+  "Pasta al pesto": ["Pasta condita con un pesto verde dal gusto delicato, pensato per i palati più piccoli.", 3],
+  "Pasta al pesto di verdura": ["Pasta condita con un pesto fatto di verdure frullate, verde e cremoso. Un modo furbo per portare le verdure nel primo.", 4],
+  "Pasta al pesto di verdura e frutta secca": ["Pasta con un pesto cremoso di verdure arricchito con un po' di frutta secca tritata finissima.", 5],
+  "Pasta con lenticchie e verdure": ["Pasta corta con lenticchie e piccoli pezzi di verdure, un piatto caldo e saporito della tradizione.", 6],
+  "Pasta al sugo di lenticchie rosse e zucca (bianco)": ["Pasta con un sugo cremoso e arancione fatto di lenticchie rosse e zucca, senza pomodoro. Dolce e vellutato.", 7],
+  "Spaghetti alla pizzaiola": ["Spaghetti spezzati con sugo di pomodoro e un pizzico di origano, il profumo ricorda quello della pizza.", 8],
+  "Spaghetti al tonno": ["Spaghetti spezzati con sugo di pomodoro e tonno sbriciolato. Un primo che porta anche un po' di mare.", 9],
+  "Tagliatelle con sugo di pomodoro, piselli e aromi": ["Tagliatelle all'uovo con sugo di pomodoro, piselli ed erbe aromatiche. Colorate e saporite.", 10],
+  "Tagliatelle al ragù di carne": ["Le tagliatelle della tradizione con il ragù di carne cotto a lungo. Un piatto unico, ricco e familiare.", 11],
+  "Caserecce pasticciate con ragù di carne": ["Pasta corta passata al forno con ragù di carne e una crosticina dorata in superficie.", 11],
+  "Lasagne al ragù di carne e besciamella": ["Strati di sfoglia, ragù di carne e besciamella cotti al forno. Il piatto della festa, anche in mensa.", 11],
+  "Gnocchi di patate al pomodoro": ["Gnocchi morbidi di patate conditi con sugo di pomodoro. Si mangiano anche con la forchetta più piccola.", 12],
+  "Ravioli burro e salvia": ["Ravioli ripieni, probabilmente di ricotta e verdure, conditi con burro e un profumo di salvia.", 13],
+  "Cappelletti in brodo": ["I cappelletti romagnoli, piccoli e ripieni di formaggio, serviti in un brodo caldo.", 14],
+  "Cappelletti in brodo vegetale": ["Cappelletti ripieni di formaggio in un brodo di verdure, caldo e delicato.", 14],
+  "Passatelli in brodo vegetale": ["I passatelli romagnoli, fatti con pangrattato, uova e parmigiano, serviti in brodo di verdure.", 15],
+  "Risotto alle verdure": ["Riso cremoso con piccoli pezzi di verdure di stagione.", 16],
+  "Riso con sugo di verdure (bianco)": ["Riso condito con un sugo di verdure in bianco, cioè senza pomodoro. Delicato e leggero.", 16],
+  "Riso con verdure (in bianco)": ["Riso con verdure tagliate piccole, condito in bianco senza pomodoro.", 16],
+  "Risotto al pomodoro": ["Risotto rosso e cremoso al pomodoro, una via di mezzo tra il riso e la pasta al sugo.", 8],
+  "Risotto al sugo di verdure (rosso)": ["Risotto con un sugo di verdure e pomodoro, rosso e saporito.", 16],
+  "Risotto alla parmigiana": ["Risotto bianco mantecato con parmigiano, cremoso e dal gusto delicato.", 2],
+  "Risotto alla crema di carote": ["Risotto arancione mantecato con una crema di carote, dolce e vellutato.", 16],
+  "Risotto alla zucca": ["Risotto arancione con la zucca, dolce e cremoso: un sapore tipico dell'autunno.", 16],
+  "Risotto con spinaci": ["Risotto verde con spinaci tritati finemente, cremoso e delicato.", 17],
+  "Pastina in passato di legumi misti": ["Pastina piccola in una vellutata calda di legumi misti, come fagioli, ceci e lenticchie.", 18],
+  "Pastina in passato di fagioli": ["Pastina in una vellutata calda di fagioli, morbida e saporita.", 18],
+  "Farro/orzo in passato di legumi": ["Farro oppure orzo in una vellutata calda di legumi. Un piatto antico e sostanzioso.", 19],
+  "Cous cous in passato di legumi": ["Piccoli granelli di cous cous in una vellutata calda di legumi.", 19],
+  "Orzo/farro o altri cereali in passato di verdura": ["Orzo, farro o altri cereali in una vellutata calda di verdure di stagione.", 20],
+  "Pastina in passato di verdura": ["Pastina in una vellutata calda di verdure frullate, morbida e confortante.", 21],
+  "Pastina in minestra di lenticchie": ["Pastina in una minestra calda di lenticchie, semplice e saporita.", 18],
+  "Pastina integrale in minestra di patate": ["Pastina integrale in una minestra calda di patate, morbida e delicata.", 1],
+  "Maltagliati in minestra di ceci": ["Pasta all'uovo tagliata a pezzetti irregolari in una minestra calda di ceci.", 18],
+  "Crocchette di verdura": ["Crocchette dorate al forno fatte con verdure, probabilmente legate con patate o pangrattato.", 22],
+  "Crocchette di verdure": ["Crocchette dorate al forno fatte con verdure, probabilmente legate con patate o pangrattato.", 22],
+  "Crocchette di ricotta e verdura": ["Crocchette morbide di ricotta e verdure, cotte al forno fino a dorarsi.", 23],
+  "Polpettine di ricotta": ["Piccole polpette morbide di ricotta, cotte al forno.", 24],
+  "Pesce gratinato al forno": ["Filetto di pesce bianco senza spine, cotto al forno con una crosticina di pangrattato.", 25],
+  "Pesce in crosta di mais": ["Filetto di pesce bianco senza spine con una panatura croccante di farina di mais, cotto al forno.", 25],
+  "Pesce al forno in crosta di mais": ["Filetto di pesce bianco senza spine con una panatura croccante di farina di mais, cotto al forno.", 25],
+  "Pesce gratinato al forno in crosta di mais": ["Filetto di pesce bianco gratinato al forno con una crosta dorata di farina di mais.", 25],
+  "Pesce con panatura rossa": ["Filetto di pesce bianco con una panatura colorata al pomodoro, cotto al forno.", 25],
+  "Bocconcini di pesce gratinati": ["Piccoli pezzi di pesce bianco gratinati al forno, comodi da mangiare.", 25],
+  "Crocchette di pesce": ["Crocchette dorate al forno fatte con pesce, probabilmente unito a patate.", 25],
+  "Pesce agli agrumi": ["Filetto di pesce bianco cotto al forno con il profumo di arancia e limone.", 25],
+  "Sardoncini al forno": ["Piccoli pesci azzurri del nostro mare, impanati e cotti al forno.", 26],
+  "Svizzera di vitellone": ["Una svizzera di carne di vitellone, cioè un hamburger morbido, cotta senza pane.", 27],
+  "Hamburger": ["Un piccolo hamburger di carne cotto senza pane, morbido e facile da tagliare.", 27],
+  "Pollo a cotoletta": ["Petto di pollo impanato e cotto al forno, croccante fuori e morbido dentro.", 28],
+  "Cotoletta di tacchino": ["Fettina di tacchino impanata e cotta al forno, croccante fuori e morbida dentro.", 28],
+  "Pollo/tacchino al limone": ["Fettine di pollo o tacchino cotte con un leggero profumo di limone.", 28],
+  "Pollo al forno": ["Pollo cotto al forno, dorato e saporito.", 28],
+  "Pollo/tacchino al forno": ["Pollo o tacchino cotto al forno, dorato e saporito.", 28],
+  "Bocconcini di pollo/tacchino al forno": ["Piccoli pezzi di pollo o tacchino cotti al forno, comodi da mangiare.", 28],
+  "Bocconcini di pollo arrosto": ["Piccoli pezzi di pollo arrosto, dorati e morbidi.", 28],
+  "Bocconcini di pollo/tacchino gratinati": ["Piccoli pezzi di pollo o tacchino gratinati al forno con una crosticina dorata.", 28],
+  "Bocconcini di pollo/tacchino gratinati alle erbe aromatiche": ["Piccoli pezzi di pollo o tacchino gratinati al forno con erbe aromatiche profumate.", 28],
+  "Bocconcini di pollo/tacchino con piselli": ["Bocconcini di pollo o tacchino cotti in umido insieme ai piselli.", 29],
+  "Pollo alla cacciatora": ["Pollo cotto lentamente in un sugo di pomodoro con verdure ed erbe aromatiche.", 28],
+  "Polpette al pomodoro": ["Polpette di carne morbide cotte nel sugo di pomodoro.", 27],
+  "Polpette di carne al pomodoro": ["Polpette di carne morbide cotte nel sugo di pomodoro.", 27],
+  "Polpette di carne rossa al pomodoro": ["Polpette di carne rossa, morbide, cotte nel sugo di pomodoro.", 30],
+  "Lombo di maiale al latte": ["Fettine di lombo di maiale cotte nel latte, che le rende tenere e delicate.", 31],
+  "Frittata": ["Frittata cotta al forno, alta e morbida.", 32],
+  "Frittatina": ["Una piccola frittata cotta al forno, morbida e dorata.", 32],
+  "Frittata con spinaci": ["Frittata al forno con spinaci tritati, morbida e verde.", 33],
+  "Frittata con formaggio e spinaci": ["Frittata al forno con spinaci e formaggio, morbida e saporita.", 34],
+  "Frittata di verdure": ["Frittata al forno con verdure di stagione tagliate piccole.", 35],
+  "Formaggio fresco": ["Una porzione di formaggio fresco e morbido, come stracchino, mozzarella o ricotta.", 36],
+  "Pizza margherita": ["Pizza con pomodoro e mozzarella, tagliata a tranci. Sostituisce il pane.", 37],
+  "Sformato di verdure": ["Uno sformato morbido al forno fatto di verdure, probabilmente legate con uova o formaggio.", 38],
+  "Sformato di verdure al forno": ["Uno sformato morbido al forno fatto di verdure, probabilmente legate con uova o formaggio.", 38],
+  "Verdura gratinata al forno con parmigiano e pangrattato": ["Verdure di stagione cotte al forno con una crosticina di parmigiano e pangrattato.", 39],
+  "Verdura cruda": ["Verdure crude di stagione, come carote, insalata o finocchi, tagliate in modo facile da mangiare.", 40],
+  "Verdura cruda con frutta secca": ["Verdure crude di stagione con un po' di frutta secca tritata, come noci o mandorle.", 41],
+  "Verdura cotta": ["Verdure di stagione cotte al vapore o lessate, come fagiolini, carote o zucchine.", 40],
+  "Verdura trifolata": ["Verdure di stagione cotte in padella con un filo d'olio e prezzemolo.", 40],
+  "Verdura gratinata": ["Verdure di stagione cotte al forno con una crosticina dorata.", 40],
+  "Verdure gratinate": ["Verdure di stagione cotte al forno con una crosticina dorata.", 40],
+  "Patate al forno": ["Patate cotte al forno, dorate fuori e morbide dentro.", 42],
+  "Patate gratinate": ["Patate a fette cotte al forno con una crosticina dorata.", 42],
+  "Patate gratinate al forno": ["Patate a fette cotte al forno con una crosticina dorata.", 42],
+  "Patate e zucca gratinati": ["Cubetti di patate e zucca gratinati al forno, dolci e dorati.", 43],
+  "Patate prezzemolate": ["Patate lessate a tocchetti, condite con olio e prezzemolo.", 42],
+  "Piselli all'olio": ["Piselli cotti e conditi con un filo d'olio extravergine.", 18],
+  "Pane Comune": ["Pane bianco comune, da accompagnare al pranzo.", 44],
+  "Pane Integrale": ["Pane integrale, dal sapore un po' più rustico.", 45],
+  "Focaccia": ["Focaccia semplice all'olio, morbida e profumata.", 44],
+  "Frutta": ["Frutta fresca di stagione, come mele, pere o mandarini.", 46],
+  "Yogurt": ["Un vasetto di yogurt, cremoso e fresco.", 36],
+  "Frutta fresca e cracker": ["Frutta fresca di stagione accompagnata da qualche cracker.", 47],
+  "Frutta fresca e crackers": ["Frutta fresca di stagione accompagnata da qualche cracker.", 47],
+  "Frutta fresca e grissini": ["Frutta fresca di stagione con alcuni grissini croccanti.", 47],
+  "Frutta fresca e gallette": ["Frutta fresca di stagione con gallette di riso o mais.", 47],
+  "Frutta fresca e pane": ["Frutta fresca di stagione con una fettina di pane.", 47],
+  "Latte e cereali": ["Una tazza di latte con cereali per la colazione.", 48],
+  "Latte e biscotti": ["Una tazza di latte con qualche biscotto semplice.", 49],
+  "Latte e biscotti con cornflakes": ["Una tazza di latte con biscotti ai cornflakes.", 49],
+  "Pane e marmellata": ["Una fetta di pane con un velo di marmellata.", 50],
+  "Pane e olio": ["Una fetta di pane con un filo d'olio extravergine, la merenda di una volta.", 51],
+  "Pane e mousse al cacao": ["Una fetta di pane con una crema morbida al cacao.", 52],
+  "Pizza al pomodoro": ["Un trancio di pizza rossa con solo pomodoro.", 44],
+  "Dolce": ["Un dolce semplice preparato per la merenda, come una fetta di torta.", 53],
+  "Biscotti al cacao": ["Qualche biscotto semplice al cacao.", 52],
+  "Biscotti con gocce di cioccolato e karkadè": ["Biscotti con gocce di cioccolato e una tisana di karkadè, rossa e leggermente acidula.", 54],
+  "Ciambella e karkadè": ["Una fetta di ciambella fatta in casa con una tisana di karkadè, rossa e leggermente acidula.", 54],
+  "Ciambella carote e noci": ["Una fetta di torta soffice con carote e noci.", 55],
+  "Torta marmorizzata e karkadè": ["Una fetta di torta bianca e al cacao con una tisana di karkadè.", 54],
+  "Pan Brioche": ["Una fetta di pan brioche, soffice e leggermente dolce.", 52],
+  "Pandoro": ["Una fetta di pandoro, il dolce delle feste.", 56]
+};
+const PIATTI_KEYS=Object.keys(PIATTI);
 const KEYS=["primo","secondo","contorno","pane","frutta","merenda"];
 const mondayOf=iso=>{const d=new Date(iso+"T12:00:00");d.setDate(d.getDate()-((d.getDay()+6)%7));return d.toISOString().slice(0,10);};
 /* tipo di menu, dedotto dal nome dei piatti principali */
@@ -685,27 +1026,59 @@ function tipoDi(p){
   const t=["primo","secondo","contorno","pane","frutta"].map(k=>p[k]||"").join(" ");
   return RE_ONNI.test(t)?"onnivoro":RE_VEGE.test(t)?"vegetariano":"vegano";
 }
+
+/* fonte proteica principale del pranzo (indicativa): prima il secondo, poi legumi nel primo/contorno */
+
+function protDi(p){
+  if(!p.secondo) return null;
+  const s=p.secondo, all=[p.primo,p.secondo,p.contorno].join(" ");
+  if(/pesce|tonno|sardoncini/i.test(s)) return "pesce";
+  if(/pollo|tacchino|vitellone|hamburger|maiale|ragù|carne|polpette al/i.test(s)) return "carne";
+  if(/frittat|uov|passatelli/i.test(s)) return "uova";
+  if(/formaggio|ricotta|pizza|cappelletti|ravioli|parmigian/i.test(s)) return "formaggi";
+  if(/legumi|lenticchie|ceci|fagioli|piselli/i.test(all)) return "legumi";
+  if(/sformato/i.test(s)) return "uova";
+  return "verdure";
+}
+/* carattere del pasto: icona + spiegazione nel tooltip */
+const SVGI=(d)=>`<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const MOODS={
+  energia:{
+    i:SVGI('<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>')},
+  legumi:{
+    i:SVGI('<path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>')},
+  caldo:{
+    i:SVGI('<path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><path d="M7 21h10"/><path d="M19.5 12 22 6"/><path d="M16.25 3c.27.1.8.53.75 1.36-.06.83-.93 1.2-1 2.02-.05.78.34 1.24.73 1.62"/><path d="M11.25 3c.27.1.8.53.74 1.36-.05.83-.93 1.2-.98 2.02-.06.78.33 1.24.72 1.62"/><path d="M6.25 3c.27.1.8.53.75 1.36-.05.83-.93 1.2-1 2.02-.05.78.34 1.24.74 1.62"/>')},
+  bilanciato:{
+    i:SVGI('<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>')}
+};
+function moodDi(p){
+  if(!p.secondo) return null;
+  if(isUnico(p)||/pizza margherita/i.test(p.secondo)||/gnocchi/i.test(p.primo||"")||/patate/i.test(p.contorno||"")) return "energia";
+  if(/legumi|lenticchie|ceci|fagioli/i.test(p.primo||"")) return "legumi";
+  if(/passato|minestra|brodo/i.test(p.primo||"")) return "caldo";
+  return "bilanciato";
+}
 const WEEKS=[];
 DAYS.forEach(r=>{
   const piatti={};KEYS.forEach((k,i)=>{if(r[i+1])piatti[k]=r[i+1];});
   const tipo=tipoDi(piatti);
   const w=mondayOf(r[0]);
   let wk=WEEKS.find(x=>x.monday===w);if(!wk){wk={monday:w,days:[]};WEEKS.push(wk);}
-  wk.days.push({date:r[0],tipo,piatti});
+  wk.days.push({date:r[0],tipo,piatti,prot:protDi(piatti),mood:moodDi(piatti)});
 });
 
 const CATS = [
   ["primo","Primo","🍝"],["secondo","Secondo","🍳"],["contorno","Contorno","🥗"],
   ["pane","Pane","🍞"],["frutta","Frutta","🍎"],["merenda","Merenda","🍪"]
 ];
-const GIORNI=["Domenica","Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato"];
-const MESI=["gen","feb","mar","apr","mag","giu","lug","ago","set","ott","nov","dic"];
-const MESI_L=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
-function rangeLong(days){
-  const a=new Date(days[0].date+"T12:00:00"),b=new Date(days[days.length-1].date+"T12:00:00");
-  return a.getMonth()===b.getMonth()?a.getDate()+" – "+b.getDate()+" "+MESI_L[b.getMonth()]+" "+b.getFullYear()
-    :a.getDate()+" "+MESI_L[a.getMonth()]+" – "+b.getDate()+" "+MESI_L[b.getMonth()]+" "+b.getFullYear();
-}
+/* date nella lingua scelta (Intl), con iniziale maiuscola dove serve */
+const cap=x=>x.charAt(0).toLocaleUpperCase(LANG)+x.slice(1);
+const DF=(o,d)=>new Intl.DateTimeFormat(LOCALE[LANG]||LANG,o).format(d);
+const dayName=d=>cap(DF({weekday:"long"},d));
+const monShort=d=>DF({month:"short"},d).replace(".","");
+const dayMon=d=>DF({day:"numeric",month:"long"},d);
+function rangeLong(days){const a=new Date(days[0].date+"T12:00:00"),b=new Date(days[days.length-1].date+"T12:00:00");return new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"short",year:"numeric"}).formatRange(a,b).replace(/(^|[^\d])0(\d)/g,"$1$2");}
 /* porta la card di oggi (se c'è) al primo posto visibile nello scorrimento */
 function focusToday(grid,smooth){
   if(!grid||!grid.offsetParent) return;
@@ -735,26 +1108,33 @@ function calcDate(){
   focusISO=next?next.date:null;
 }
 function relLabel(iso){
-  if(iso===todayISO) return "Oggi";
-  if(iso===addDays(todayISO,1)) return "Domani";
-  if(iso===addDays(todayISO,-1)) return "Ieri";
+  if(iso===todayISO) return "oggi";
+  if(iso===addDays(todayISO,1)) return "domani";
+  if(iso===addDays(todayISO,-1)) return "ieri";
   return "";
 }
 
+const CHEV='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+const INFO='<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20ZM12 10.25a1.1 1.1 0 0 1 1.1 1.1v5.3a1.1 1.1 0 0 1-2.2 0v-5.3a1.1 1.1 0 0 1 1.1-1.1ZM12 6.4a1.35 1.35 0 1 1 0 2.7a1.35 1.35 0 1 1 0-2.7Z"/></svg>';
 function dayCard(d,q=""){
   const dt=new Date(d.date+"T12:00:00");
   const unico=isUnico(d.piatti);
-  const lab={primo:unico?"Antipasto":"Primo",secondo:unico?"Piatto unico":"Secondo"};
-  const items=CATS.filter(([k])=>d.piatti[k]).map(([k,l,e])=>`
-    <li class="it c-${k}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${lab[k]||l}</div><div class="dish">${hl(d.piatti[k],q)}</div></div></li>`).join("");
+  const lab={primo:unico?t("antipasto"):t("primo"),secondo:unico?t("unico"):t("secondo")};
+  const items=CATS.filter(([k])=>d.piatti[k]).map(([k,l,e])=>{
+    const n=d.piatti[k],info=PIATTI[n],nm=dishName(n);
+    return `
+    <li class="it c-${k}" data-dish="${esc(n)}" data-k="${k}" data-cat="${lab[k]||t(k)}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${lab[k]||t(k)}</div><div class="dish">${hl(nm,q)}</div></div>${info?`<button type="button" class="go" aria-label="${esc(t("discover"))}: ${esc(nm)}" aria-haspopup="dialog">${CHEV}</button>`:""}</li>`;}).join("");
   const isFocus=d.date===focusISO, rel=relLabel(d.date);
-  return `<article class="day glass${isFocus?" today":""}" id="d-${d.date}" aria-label="${rel?rel+", ":""}${GIORNI[dt.getDay()]} ${dt.getDate()} ${MESI_L[dt.getMonth()]}">
+  const relT=rel?t(rel):"";
+  return `<article class="day glass${isFocus?" today":""}" id="d-${d.date}" aria-label="${relT?relT+", ":""}${dayName(dt)} ${dayMon(dt)}">
     <div class="day-h">
-      <div class="date" aria-hidden="true"><b>${dt.getDate()}</b><i>${MESI[dt.getMonth()].toUpperCase()}</i></div>
-      <div class="dname">${rel?`<span class="oggi rel-${rel.toLowerCase()}">${rel}</span>`:""}${GIORNI[dt.getDay()]}</div>
-      ${d.tipo?`<span class="badge b-${d.tipo}">${TIPI.find(t=>t[0]===d.tipo)[1].toUpperCase()}</span>`:""}
+      <div class="date" aria-hidden="true"><b>${dt.getDate()}</b><i>${monShort(dt).toLocaleUpperCase(LANG)}</i></div>
+      <div class="dmeta">
+        <div class="dname">${rel?`<span class="oggi rel-${rel}">${relT}</span>`:""}${dayName(dt)}</div>
+      </div>
+      ${d.tipo?`<div class="tags"><span class="badge b-${d.tipo}">${t(d.tipo).toLocaleUpperCase(LANG)}</span>${d.prot?`<span class="badge b-prot" title="${esc(t("protLabel"))}"><span class="sr-only">${esc(t("protLabel"))}: </span>${t("p_"+d.prot).toLocaleUpperCase(LANG)}</span>`:""}${d.mood?`<button type="button" class="mood" data-mood="${d.mood}" aria-expanded="false" aria-label="${esc(t("m_"+d.mood))}: ${esc(t("whatMeans"))}">${MOODS[d.mood].i}</button>`:""}</div>`:""}
     </div>
-    ${items?`<ul class="items">${items}</ul>`:`<p class="noday">In questa giornata il servizio mensa non sarà effettuato</p>`}
+    ${items?`<ul class="items">${items}</ul><div class="day-f"><span>${esc(t("aiFoot"))}</span><button type="button" class="ai-info" data-ai-info aria-haspopup="dialog" aria-label="${esc(t("aiTitle"))}: ${esc(t("whatMeans"))}">${INFO}</button></div>`:`<p class="noday">${esc(t("noday"))}</p>`}
   </article>`;
 }
 
@@ -770,25 +1150,30 @@ if(currentWeekIndex()<0) wk=WEEKS.length-1;
 /* filtri: multiselezione tipo di menu */
 const sel=new Set();
 const ALL_DAYS=WEEKS.flatMap(w=>w.days);
-const passa=d=>!sel.size||sel.has(d.tipo);
+/* filtri: tipo di menu (vegano, vegetariano, onnivoro) e fonte proteica (p_carne, p_pesce...).
+   Nello stesso gruppo vale "oppure", tra i due gruppi vale "e" */
+const PROTS=[["p_carne","🥩"],["p_pesce","🐟"],["p_uova","🥚"],["p_formaggi","🧀"],["p_legumi","🫘"],["p_verdure","🥕"]];
+const passa=d=>{const ti=[...sel].filter(k=>!k.startsWith("p_")),pr=[...sel].filter(k=>k.startsWith("p_"));
+  return (!ti.length||ti.includes(d.tipo))&&(!pr.length||pr.includes("p_"+d.prot));};
+const emojiOf=k=>(TIPI.find(x=>x[0]===k)||PROTS.find(x=>x[0]===k)||[])[k.startsWith("p_")?1:2]||"";
 const CHECK='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 function countTipi(days){const c={};days.forEach(d=>{if(d.tipo)c[d.tipo]=(c[d.tipo]||0)+1;});return c;}
 function renderFilters(){
   const tutti=countTipi(ALL_DAYS);
   const ci=currentWeekIndex();
   const settimana=countTipi(ci>=0?WEEKS[ci].days:[]);
-  const label=!sel.size?"Tipo di menu":sel.size===1?TIPI.find(t=>t[0]===[...sel][0]).slice(1,3).reverse().join(" "):"Tipi di menu";
+  const label=!sel.size?t("menuType"):sel.size===1?emojiOf([...sel][0])+" "+t([...sel][0]):t("menuTypes");
+  const pc={};ALL_DAYS.forEach(d=>{if(d.prot)pc["p_"+d.prot]=(pc["p_"+d.prot]||0)+1;});
+  const opt=(k,e,n)=>{const on=sel.has(k),off=!n&&!on;return `<button class="opt${on?" on":""}" data-f="${k}" aria-pressed="${on}"${off?' disabled aria-disabled="true"':""}><span class="box">${CHECK}</span><span aria-hidden="true">${e}</span> ${t(k)}<span class="n" aria-label="${esc(t("nDays").replace("{n}",n))}">${n}</span></button>`;};
+  const protOpts=`<div class="dd-h">${t("protLabel")}</div>`+PROTS.filter(([k])=>pc[k]).map(([k,e])=>opt(k,e,pc[k])).join("");
   document.querySelectorAll("[data-filters]").forEach(dd=>{
     /* in "Questa settimana" i conteggi sono della settimana: i tipi assenti non sono selezionabili */
     const counts=dd.closest("#view-settimana")?settimana:tutti;
-    const opts=TIPI.filter(([k])=>tutti[k]).map(([k,l,e])=>{
-      const n=counts[k]||0,on=sel.has(k),off=!n&&!on;
-      return `<button class="opt${on?" on":""}" data-f="${k}" aria-pressed="${on}"${off?' disabled aria-disabled="true"':""}><span class="box">${CHECK}</span><span aria-hidden="true">${e}</span> ${l}<span class="n" aria-label="${n} giorni">${n}</span></button>`;
-    }).join("");
+    const opts=`<div class="dd-h">${t("menuType")}</div>`+TIPI.filter(([k])=>tutti[k]).map(([k,l,e])=>opt(k,e,counts[k]||0)).join("")+protOpts;
     const open=dd.classList.contains("open");
     dd.querySelector(".dd-label").textContent=label;
     const c=dd.querySelector(".dd-count");c.hidden=sel.size<1;c.textContent=sel.size;
-    dd.querySelector(".dd-panel").innerHTML=opts+`<div class="dd-foot"><button data-clear>Mostra tutti</button><button class="done" data-close>Fatto</button></div>`;
+    dd.querySelector(".dd-panel").innerHTML=opts+`<div class="dd-foot"><button data-clear>${t("showAll")}</button><button class="done" data-close>${t("done")}</button></div>`;
     dd.querySelector(".dd-panel").hidden=!open;
   });
 }
@@ -808,24 +1193,22 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDD();});
 
 function renderHome(){} /* vista unica: niente più "Questa settimana" */
 
-function fmt(iso){const d=new Date(iso+"T12:00:00");return d.getDate()+" "+MESI[d.getMonth()];}
+function fmt(iso){return DF({day:"numeric",month:"short"},new Date(iso+"T12:00:00"));}
 /* su mobile la barra delle settimane va nella barra in basso, accanto a Oggi */
 const weekNav=document.querySelector(".weeknav"),weekRow=document.querySelector(".week-row"),hdr=document.querySelector(".hdr"),mqBar=matchMedia("(max-width:40rem)");
 function placeWeekNav(){if(mqBar.matches){if(weekNav.parentNode!==hdr)hdr.insertBefore(weekNav,hdr.firstChild);}else if(weekNav.parentNode!==weekRow)weekRow.appendChild(weekNav);}
 /* intervallo della settimana: nella barra in basso in forma breve (9–13 nov) */
-function setRange(){const w=WEEKS[wk].days,a=fmt(w[0].date),b=fmt(w[w.length-1].date);
-  let t=a+" — "+b;
-  if(mqBar.matches){const ma=a.split(" ")[1],mb=b.split(" ")[1];t=ma===mb?a.split(" ")[0]+"–"+b:a+" – "+b;}
-  document.getElementById("range").textContent=t;}
+function setRange(){const w=WEEKS[wk].days,a=new Date(w[0].date+"T12:00:00"),b=new Date(w[w.length-1].date+"T12:00:00");
+  document.getElementById("range").textContent=new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"short"}).formatRange(a,b).replace(/(^|[^\d])0(\d)/g,"$1$2");}
 placeWeekNav();mqBar.addEventListener("change",()=>{placeWeekNav();setRange();});
 function renderCal(){
   const q=document.getElementById("q").value.trim();
   const grid=document.getElementById("calGrid");
   const nav=document.querySelector(".week-row");
   if(q||sel.size){
-    const all=ALL_DAYS.filter(passa).filter(d=>!q||Object.values(d.piatti).some(p=>norm(p).includes(norm(q))));
+    const all=ALL_DAYS.filter(passa).filter(d=>!q||Object.values(d.piatti).some(p=>norm(p).includes(norm(q))||norm(dishName(p)).includes(norm(q))));
     nav.style.display="none";weekNav.style.display="none";
-    grid.innerHTML=all.length?all.map(d=>dayCard(d,q)).join(""):`<div class="empty">Nessun giorno trovato${q?` per “${esc(q)}”`:""}.</div>`;
+    grid.innerHTML=all.length?all.map(d=>dayCard(d,q)).join(""):`<div class="empty">${esc(q?t("notFoundQ").replace("{q}",q):t("notFound"))}</div>`;
     grid.scrollLeft=0;
     requestAnimationFrame(()=>typeof syncTodayBtn==="function"&&syncTodayBtn());
     return;
@@ -897,10 +1280,10 @@ window.addEventListener("resize",()=>requestAnimationFrame(syncTodayBtn));
 /* etichetta del pulsante: Oggi / Domani / nome del giorno */
 function updateTodayBtn(){
   const b=document.getElementById("todayBtn");
-  let t="Oggi";
-  if(focusISO&&focusISO!==todayISO) t=focusISO===addDays(todayISO,1)?"Domani":GIORNI[new Date(focusISO+"T12:00:00").getDay()];
-  b.textContent=t;
-  b.setAttribute("aria-label","Vai al menu di "+(t==="Oggi"||t==="Domani"?t.toLowerCase():t));
+  let x=t("oggi");
+  if(focusISO&&focusISO!==todayISO) x=focusISO===addDays(todayISO,1)?t("domani"):dayName(new Date(focusISO+"T12:00:00"));
+  b.textContent=x;
+  b.setAttribute("aria-label",t("goTo").replace("{x}",x));
 }
 /* ricontrolla ogni minuto: alle 18:15 e a mezzanotte la pagina si aggiorna da sola */
 let lastKey;
@@ -908,6 +1291,62 @@ setInterval(()=>{
   const k=todayISO+focusISO;calcDate();
   if(todayISO+focusISO!==k){renderFilters();renderHome();renderCal();updateTodayBtn();}
 },60000);
+
+
+/* frecce dello slider (desktop): scorrono di una card, si nascondono ai bordi */
+(function(){
+  const g=document.getElementById("calGrid"),p=document.getElementById("slPrev"),n=document.getElementById("slNext");
+  const step=()=>{const c=g.querySelector(".day");return c?c.getBoundingClientRect().width+16:g.clientWidth*.8;};
+  window.syncSlider=()=>{const max=g.scrollWidth-g.clientWidth-2;p.hidden=!(g.scrollLeft>2);n.hidden=!(g.scrollLeft<max)||!g.querySelector(".day");};
+  p.addEventListener("click",()=>g.scrollBy({left:-step(),behavior:"smooth"}));
+  n.addEventListener("click",()=>g.scrollBy({left:step(),behavior:"smooth"}));
+  let raf=0;g.addEventListener("scroll",()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(syncSlider);},{passive:true});
+  addEventListener("resize",()=>requestAnimationFrame(syncSlider));
+  new MutationObserver(()=>requestAnimationFrame(syncSlider)).observe(g,{childList:true});
+})();
+/* ===== modale del piatto, modale IA, tooltip dell'icona del pasto ===== */
+(function(){
+  const dish=document.getElementById("dishDlg"),ai=document.getElementById("aiDlg"),tip=document.getElementById("tip");
+  let tipBtn=null;
+  function open(dlg){if(typeof dlg.showModal==="function"){if(!dlg.open)dlg.showModal();}else dlg.setAttribute("open","");}
+  function close(dlg){if(dlg.open)dlg.close();}
+  function openDish(li){
+    const n=li.dataset.dish,info=PIATTI[n];if(!info)return;
+    const pic=document.getElementById("dishPic");
+    pic.textContent=li.querySelector(".ico").textContent;pic.className="dlg-pic c-"+li.dataset.k;
+    document.getElementById("dishCat").textContent=li.dataset.cat;
+    const nm=dishName(n),orig=document.getElementById("dishOrig");
+    document.getElementById("dishTitle").textContent=nm;
+    orig.hidden=nm===n;orig.textContent=t("inItalian")+" "+n;
+    document.getElementById("dishDesc").textContent=dishDesc(n);
+    document.getElementById("dishVal").textContent=dishVal(n);
+    open(dish);
+  }
+  function hideTip(){if(!tipBtn)return;tip.hidden=true;tipBtn.setAttribute("aria-expanded","false");tipBtn=null;}
+  function showTip(b){
+    const m=MOODS[b.dataset.mood];
+    const mk=b.dataset.mood;
+    tip.innerHTML=`<b>${m.i}${esc(t("m_"+mk))}</b>${esc(t("m_"+mk+"_d"))}<small>${esc(t("tipNote"))}</small>`;
+    tip.hidden=false;b.setAttribute("aria-expanded","true");tipBtn=b;tip.setAttribute("aria-label",t("m_"+mk));
+    const r=b.getBoundingClientRect(),w=tip.offsetWidth,h=tip.offsetHeight;
+    let x=Math.min(Math.max(16,r.left+r.width/2-w/2),innerWidth-w-16);
+    let y=r.bottom+8;if(y+h>innerHeight-16)y=r.top-h-8;
+    tip.style.left=x+"px";tip.style.top=Math.max(8,y)+"px";
+  }
+  document.addEventListener("click",e=>{
+    const m=e.target.closest(".mood");
+    if(m){e.stopPropagation();const same=m===tipBtn;hideTip();if(!same)showTip(m);return;}
+    if(!e.target.closest("#tip"))hideTip();
+    if(e.target.closest("[data-ai-info]")){close(dish);open(ai);return;}
+    if(e.target.closest("[data-close-dlg]")){close(e.target.closest("dialog"));return;}
+    if(e.target.tagName==="DIALOG"){close(e.target);return;} /* clic sullo sfondo */
+    const li=e.target.closest(".it[data-dish]");
+    if(li&&!getSelection().toString())openDish(li);
+  });
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&tipBtn){const b=tipBtn;hideTip();b.focus();}});
+  document.getElementById("calGrid").addEventListener("scroll",hideTip,{passive:true});
+  addEventListener("scroll",hideTip,{passive:true});addEventListener("resize",hideTip);
+})();
 
 /* tema chiaro/scuro (selettore nel footer) */
 const root=document.documentElement;
@@ -936,7 +1375,22 @@ document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",
 /* indice per l'entrata a cascata delle card */
 ["calGrid"].forEach(id=>{const g=document.getElementById(id);
   new MutationObserver(()=>[...g.children].forEach((c,i)=>c.style.setProperty("--i",Math.min(i,8)))).observe(g,{childList:true});});
-calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));
+/* lingua: selettore nel footer e primo disegno della pagina nella lingua scelta */
+(function(){
+  const box=document.getElementById("lng"),btn=document.getElementById("lngBtn"),list=document.getElementById("lngList");
+  list.innerHTML=LANGS.map(([c,n,fl])=>`<button type="button" class="lng-opt" role="option" data-l="${c}" lang="${c}" aria-selected="false"><span class="flag" aria-hidden="true">${fl}</span>${n}</button>`).join("");
+  const toggle=o=>{box.classList.toggle("open",o);list.hidden=!o;btn.setAttribute("aria-expanded",o);if(o)(list.querySelector('[aria-selected="true"]')||list.firstChild).focus();};
+  btn.addEventListener("click",e=>{e.stopPropagation();toggle(list.hidden);});
+  list.addEventListener("click",async e=>{const o=e.target.closest(".lng-opt");if(!o)return;toggle(false);btn.focus();
+    await setLang(o.dataset.l,true);calcDate();updateTodayBtn();renderFilters();renderCal();
+    document.querySelectorAll("#calGrid > *").forEach(c=>c.style.animation="none");});
+  list.addEventListener("keydown",e=>{const os=[...list.children],i=os.indexOf(document.activeElement);
+    if(e.key==="ArrowDown"){e.preventDefault();os[(i+1)%os.length].focus();}
+    else if(e.key==="ArrowUp"){e.preventDefault();os[(i-1+os.length)%os.length].focus();}
+    else if(e.key==="Escape"){toggle(false);btn.focus();}});
+  document.addEventListener("click",e=>{if(!box.contains(e.target))toggle(false);});
+})();
+setLang(pickLang()).then(()=>{calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));});
 
 /* ===== banner "Aggiungi alla schermata Home" =====
    - solo su telefono/tablet e solo se il sito non è già aperto come app
@@ -969,7 +1423,7 @@ calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(locati
   window.addEventListener("appinstalled",()=>{try{localStorage.setItem(NEVER,"1");}catch(e){}hide();});
   const body=document.getElementById("a2hsBody"),tg=[document.getElementById("a2hsToggle"),document.getElementById("a2hsChev")];
   body.inert=true;
-  function toggle(){const o=box.classList.toggle("open");body.inert=!o;tg.forEach(b=>b.setAttribute("aria-expanded",o));tg[1].setAttribute("aria-label",o?"Chiudi le istruzioni":"Mostra come fare");}
+  function toggle(){const o=box.classList.toggle("open");body.inert=!o;tg.forEach(b=>b.setAttribute("aria-expanded",o));tg[1].setAttribute("aria-label",o?t("closeHow"):t("showHow"));}
   tg.forEach(b=>b.addEventListener("click",toggle));
   document.getElementById("a2hsNever").addEventListener("click",()=>{try{localStorage.setItem(NEVER,"1");}catch(e){}hide();});
   /* istruzioni: iPhone/iPad via Condividi; Android senza prompt via menu del browser */
