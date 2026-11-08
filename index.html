@@ -282,6 +282,9 @@ button,a,summary,.arrow,.weeknav{touch-action:manipulation}
 .opt.on .box svg{opacity:1}
 .opt .n{margin-left:auto;font-size:.8125rem;color:var(--fg-2);font-weight:600}
 .opt.on .n{color:var(--sel-fg)}
+.dd-h{padding:.5rem .625rem .25rem;font-size:.6875rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-fg)}
+.dd-h ~ .dd-h{margin-top:.375rem;padding-top:.625rem;border-top:1px solid var(--line)}
+.dd-panel{max-height:min(34rem,70vh);overflow:auto}
 .dd-foot{display:flex;justify-content:space-between;gap:.375rem;margin-top:.375rem;padding-top:.5rem;border-top:1px solid var(--line)}
 .dd-foot button{font-size:.875rem;font-weight:700;min-height:2.5rem;padding:.375rem .75rem;border-radius:1rem;color:var(--fg)}
 .dd-foot button:hover{background:var(--tile)}
@@ -560,6 +563,21 @@ html:has(.dlg[open]){overflow:hidden}
 .lng-opt[aria-selected="true"]{background:var(--sel-bg);color:var(--sel-fg)}
 .lng-opt[aria-selected="true"]::after{content:"✓";margin-inline-start:auto;font-size:.875rem}
 body{overflow-x:clip}
+/* frecce dello slider: solo desktop con mouse, discrete, compaiono passando sopra le card */
+.slider{position:relative}
+.sl-btn{display:none}
+@media (hover:hover) and (pointer:fine) and (min-width:40.01rem){
+  .sl-btn{display:grid;place-items:center;position:absolute;top:50%;z-index:3;width:2.5rem;height:2.5rem;margin-top:-1.25rem;border-radius:999rem;
+    color:var(--fg);background:var(--glass-strong);border:1.5px solid var(--line);box-shadow:var(--card-shadow);
+    -webkit-backdrop-filter:blur(.75rem);backdrop-filter:blur(.75rem);opacity:0;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+  .sl-btn svg{width:1.125rem;height:1.125rem}
+  .sl-prev{left:-1.25rem}.sl-next{right:-1.25rem}
+  .slider:hover .sl-btn,.sl-btn:focus-visible{opacity:.92}
+  .sl-btn:hover{opacity:1;transform:scale(1.06)}
+  .sl-btn:active{transform:scale(.94)}
+  .sl-btn[hidden]{display:none!important}
+}
+@media (prefers-reduced-motion:reduce){.sl-btn{transition:none}}
 @media (max-width:40rem){
   .hero .hero-meta{flex:1;min-width:0}
   .hero p,.hero small{white-space:normal}
@@ -659,7 +677,7 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
       <button class="arrow" id="next" aria-label="Settimana successiva" data-ta="next"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
     </div>
     </div>
-    <div class="grid" id="calGrid" tabindex="0" aria-label="Giorni del menu, scorri in orizzontale" data-ta="gridAria"></div>
+    <div class="slider"><button type="button" class="sl-btn sl-prev" id="slPrev" aria-label="Giorni precedenti" data-ta="slPrev" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div class="grid" id="calGrid" tabindex="0" aria-label="Giorni del menu, scorri in orizzontale" data-ta="gridAria"></div><button type="button" class="sl-btn sl-next" id="slNext" aria-label="Giorni successivi" data-ta="slNext" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div>
   </section>
 </main>
 
@@ -738,6 +756,7 @@ const IT={
   vegano:"Vegano",vegetariano:"Vegetariano",onnivoro:"Onnivoro",
   prev:"Settimana precedente",next:"Settimana successiva",gridAria:"Giorni del menu, scorri in orizzontale",
   oggi:"Oggi",domani:"Domani",ieri:"Ieri",goTo:"Vai al menu di: {x}",
+  slPrev:"Giorni precedenti",slNext:"Giorni successivi",
   primo:"Primo",secondo:"Secondo",contorno:"Contorno",pane:"Pane",frutta:"Frutta",merenda:"Merenda",antipasto:"Antipasto",unico:"Piatto unico",
   noday:"In questa giornata il servizio mensa non sarà effettuato",notFound:"Nessun giorno trovato.",notFoundQ:"Nessun giorno trovato per “{q}”.",
   protLabel:"Fonte proteica principale",p_carne:"Carne",p_pesce:"Pesce",p_uova:"Uova",p_formaggi:"Formaggi",p_legumi:"Legumi",p_verdure:"Verdure",
@@ -1131,21 +1150,26 @@ if(currentWeekIndex()<0) wk=WEEKS.length-1;
 /* filtri: multiselezione tipo di menu */
 const sel=new Set();
 const ALL_DAYS=WEEKS.flatMap(w=>w.days);
-const passa=d=>!sel.size||sel.has(d.tipo);
+/* filtri: tipo di menu (vegano, vegetariano, onnivoro) e fonte proteica (p_carne, p_pesce...).
+   Nello stesso gruppo vale "oppure", tra i due gruppi vale "e" */
+const PROTS=[["p_carne","🥩"],["p_pesce","🐟"],["p_uova","🥚"],["p_formaggi","🧀"],["p_legumi","🫘"],["p_verdure","🥕"]];
+const passa=d=>{const ti=[...sel].filter(k=>!k.startsWith("p_")),pr=[...sel].filter(k=>k.startsWith("p_"));
+  return (!ti.length||ti.includes(d.tipo))&&(!pr.length||pr.includes("p_"+d.prot));};
+const emojiOf=k=>(TIPI.find(x=>x[0]===k)||PROTS.find(x=>x[0]===k)||[])[k.startsWith("p_")?1:2]||"";
 const CHECK='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 function countTipi(days){const c={};days.forEach(d=>{if(d.tipo)c[d.tipo]=(c[d.tipo]||0)+1;});return c;}
 function renderFilters(){
   const tutti=countTipi(ALL_DAYS);
   const ci=currentWeekIndex();
   const settimana=countTipi(ci>=0?WEEKS[ci].days:[]);
-  const label=!sel.size?t("menuType"):sel.size===1?TIPI.find(x=>x[0]===[...sel][0])[2]+" "+t([...sel][0]):t("menuTypes");
+  const label=!sel.size?t("menuType"):sel.size===1?emojiOf([...sel][0])+" "+t([...sel][0]):t("menuTypes");
+  const pc={};ALL_DAYS.forEach(d=>{if(d.prot)pc["p_"+d.prot]=(pc["p_"+d.prot]||0)+1;});
+  const opt=(k,e,n)=>{const on=sel.has(k),off=!n&&!on;return `<button class="opt${on?" on":""}" data-f="${k}" aria-pressed="${on}"${off?' disabled aria-disabled="true"':""}><span class="box">${CHECK}</span><span aria-hidden="true">${e}</span> ${t(k)}<span class="n" aria-label="${esc(t("nDays").replace("{n}",n))}">${n}</span></button>`;};
+  const protOpts=`<div class="dd-h">${t("protLabel")}</div>`+PROTS.filter(([k])=>pc[k]).map(([k,e])=>opt(k,e,pc[k])).join("");
   document.querySelectorAll("[data-filters]").forEach(dd=>{
     /* in "Questa settimana" i conteggi sono della settimana: i tipi assenti non sono selezionabili */
     const counts=dd.closest("#view-settimana")?settimana:tutti;
-    const opts=TIPI.filter(([k])=>tutti[k]).map(([k,l,e])=>{
-      const n=counts[k]||0,on=sel.has(k),off=!n&&!on;
-      return `<button class="opt${on?" on":""}" data-f="${k}" aria-pressed="${on}"${off?' disabled aria-disabled="true"':""}><span class="box">${CHECK}</span><span aria-hidden="true">${e}</span> ${t(k)}<span class="n" aria-label="${esc(t("nDays").replace("{n}",n))}">${n}</span></button>`;
-    }).join("");
+    const opts=`<div class="dd-h">${t("menuType")}</div>`+TIPI.filter(([k])=>tutti[k]).map(([k,l,e])=>opt(k,e,counts[k]||0)).join("")+protOpts;
     const open=dd.classList.contains("open");
     dd.querySelector(".dd-label").textContent=label;
     const c=dd.querySelector(".dd-count");c.hidden=sel.size<1;c.textContent=sel.size;
@@ -1269,6 +1293,17 @@ setInterval(()=>{
 },60000);
 
 
+/* frecce dello slider (desktop): scorrono di una card, si nascondono ai bordi */
+(function(){
+  const g=document.getElementById("calGrid"),p=document.getElementById("slPrev"),n=document.getElementById("slNext");
+  const step=()=>{const c=g.querySelector(".day");return c?c.getBoundingClientRect().width+16:g.clientWidth*.8;};
+  window.syncSlider=()=>{const max=g.scrollWidth-g.clientWidth-2;p.hidden=!(g.scrollLeft>2);n.hidden=!(g.scrollLeft<max)||!g.querySelector(".day");};
+  p.addEventListener("click",()=>g.scrollBy({left:-step(),behavior:"smooth"}));
+  n.addEventListener("click",()=>g.scrollBy({left:step(),behavior:"smooth"}));
+  let raf=0;g.addEventListener("scroll",()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(syncSlider);},{passive:true});
+  addEventListener("resize",()=>requestAnimationFrame(syncSlider));
+  new MutationObserver(()=>requestAnimationFrame(syncSlider)).observe(g,{childList:true});
+})();
 /* ===== modale del piatto, modale IA, tooltip dell'icona del pasto ===== */
 (function(){
   const dish=document.getElementById("dishDlg"),ai=document.getElementById("aiDlg"),tip=document.getElementById("tip");

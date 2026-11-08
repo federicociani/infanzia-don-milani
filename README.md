@@ -4,7 +4,7 @@ Pagina statica (`index.html` più le traduzioni in `i18n/`) con il menu della me
 
 - **Questa settimana**: i pasti della settimana in corso, con la card di oggi evidenziata
 - **Menu completo**: tutte le settimane dal 15/09 al 23/12/2026, con ricerca per piatto e ritorno rapido alla settimana corrente
-- Filtro multiplo per tipo di menu (pesce, carne, uova, formaggi, pizza, piatto unico, verdure)
+- Filtro multiplo per tipo di menu (vegano, vegetariano, onnivoro) e per fonte proteica principale (carne, pesce, uova, formaggi, legumi)
 - Tema chiaro/scuro, entrambi verificati per contrasto WCAG AA
 - Su mobile la barra di navigazione è in basso e le card scorrono in orizzontale, con oggi sempre per primo
 - Per ogni piatto una scheda (freccia a destra del nome) con descrizione semplice e cosa porta nel piatto
