@@ -1253,7 +1253,7 @@ const weekNav=document.querySelector(".weeknav"),weekRow=document.querySelector(
 function placeWeekNav(){if(mqBar.matches){if(weekNav.parentNode!==hdr)hdr.insertBefore(weekNav,hdr.firstChild);}else if(weekNav.parentNode!==weekRow)weekRow.appendChild(weekNav);}
 /* intervallo della settimana: nella barra in basso in forma breve (9–13 nov) */
 function setRange(){const w=WEEKS[wk].days,a=new Date(w[0].date+"T12:00:00"),b=new Date(w[w.length-1].date+"T12:00:00");
-  document.getElementById("range").textContent=new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"short"}).formatRange(a,b).replace(/(^|[^\d])0(\d)/g,"$1$2");}
+  document.getElementById("range").textContent=new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"long"}).formatRange(a,b).replace(/(^|[^\d])0(\d)/g,"$1$2").replace(/\s*[–-]\s*/," – ");}
 placeWeekNav();mqBar.addEventListener("change",()=>{placeWeekNav();setRange();});
 function renderCal(){
   const q=document.getElementById("q").value.trim();
