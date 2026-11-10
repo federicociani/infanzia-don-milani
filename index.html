@@ -522,6 +522,11 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
 .dlg-x svg{width:1.125rem;height:1.125rem}
 .dlg-pic{height:7.5rem;display:grid;place-items:center;font-size:3.5rem;background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,.1)),var(--c,var(--tile))}
 .dark .dlg-pic{background:linear-gradient(160deg,rgba(255,255,255,.3),rgba(255,255,255,.04)),color-mix(in srgb,var(--c,#888) 45%,transparent)}
+.ico.pic{padding:0;overflow:hidden;background:var(--surface-2);width:3rem;height:3rem;border-radius:.875rem}
+.ico.pic img{width:100%;height:100%;object-fit:cover;display:block}
+.day.today .ico.pic{background:var(--surface-2)!important}
+.dlg-pic.has-pic,.dark .dlg-pic.has-pic{height:auto;aspect-ratio:4/3;padding:0;overflow:hidden;background:var(--surface-2)}
+.dlg-pic.has-pic img{width:100%;height:100%;object-fit:cover;display:block}
 .dlg-orig{margin:-.5rem 0 .875rem;font-size:.8125rem;color:var(--muted-fg)}
 .dlg-orig[hidden]{display:none}
 .dlg-b{padding:1.25rem 1.375rem 1.375rem}
@@ -537,6 +542,11 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
 .dlg-ai .ai-ico{width:2.75rem;height:2.75rem;border-radius:.875rem;display:grid;place-items:center;background:var(--sel-bg);color:var(--sel-fg);margin-bottom:.875rem}
 .dlg-ai .ai-ico svg{width:1.375rem;height:1.375rem}
 .dlg-ai p + p{margin-top:.625rem}
+.dlg-new .new-list{list-style:none;margin:1rem 0 0;padding:0;display:flex;flex-direction:column;gap:.75rem}
+.dlg-new .new-list li{display:flex;gap:.75rem;align-items:flex-start}
+.dlg-new .new-list li > span{font-size:1.25rem;line-height:1.3;flex:none;width:1.75rem;text-align:center}
+.dlg-new .new-list p{margin:0;font-size:.9375rem;line-height:1.45}
+.dlg-new .new-note{margin-top:1rem;font-size:.8125rem;color:var(--muted-fg)}
 .dlg-ok{margin-top:1.25rem;width:100%;min-height:2.75rem;border-radius:1rem;background:var(--fg);color:var(--bg);text-transform:uppercase;font-size:.875rem;letter-spacing:.0625rem}
 @media (max-width:40rem){
   .dlg{margin:auto 0 0;width:100%;max-width:100%;border-radius:1.5rem 1.5rem 0 0;border-width:1.5px 0 0;max-height:92dvh;padding-bottom:env(safe-area-inset-bottom)}
@@ -719,6 +729,24 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
     <button class="dlg-ok" data-close-dlg data-t="ok">Ho capito</button>
   </div>
 </dialog>
+<!-- modale "Novità" (prima visita dopo l'aggiornamento) -->
+<dialog class="dlg dlg-ai dlg-new" id="newDlg" aria-labelledby="newTitle">
+  <button class="dlg-x" data-close-dlg aria-label="Chiudi" data-ta="close"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="dlg-b">
+    <div class="ai-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9Z"/><path d="M19 15l.8 1.9 1.9.8-1.9.8L19 20.5l-.8-1.9-1.9-.8 1.9-.8Z"/></svg></div>
+    <h2 id="newTitle" data-t="newTitle"></h2>
+    <p data-t="newIntro"></p>
+    <ul class="new-list">
+      <li><span aria-hidden="true">🌍</span><p data-th="newLang"></p></li>
+      <li><span aria-hidden="true">📖</span><p data-th="newDesc"></p></li>
+      <li><span aria-hidden="true">📸</span><p data-th="newPic"></p></li>
+      <li><span aria-hidden="true">🥦</span><p data-th="newType"></p></li>
+      <li><span aria-hidden="true">⚖️</span><p data-th="newMood"></p></li>
+    </ul>
+    <p class="new-note" data-t="newNote"></p>
+    <button class="dlg-ok" data-close-dlg data-t="newOk"></button>
+  </div>
+</dialog>
 <div class="tip" id="tip" role="dialog" aria-modal="false" hidden></div>
 <!-- Banner "Aggiungi alla schermata Home" (solo mobile) -->
 <div class="a2hs" id="a2hs" role="region" aria-label="Aggiungi alla schermata Home" data-ta="a2hsTitle" hidden>
@@ -750,6 +778,15 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
 const LANGS=[["it","Italiano","🇮🇹"],["en","English","🇬🇧"],["es","Español","🇪🇸"],["pt","Português","🇵🇹"],["fr","Français","🇫🇷"],["de","Deutsch","🇩🇪"],["ro","Română","🇷🇴"],["sq","Shqip","🇦🇱"],["ru","Русский","🇷🇺"],["ar","العربية","🇲🇦"],["zh","中文","🇨🇳"]];
 const LOCALE={it:"it-IT",en:"en-GB",es:"es-ES",pt:"pt-PT",fr:"fr-FR",de:"de-DE",ro:"ro-RO",sq:"sq-AL",ru:"ru-RU",ar:"ar",zh:"zh-CN"};
 const IT={
+  newTitle:"Novità sulla pagina",
+  newIntro:"Abbiamo aggiunto alcune cose per rendere il menu più facile da leggere:",
+  newLang:"<b>Lingue</b> – il menu è disponibile in 11 lingue: scegli la tua dal selettore in alto.",
+  newDesc:"<b>Descrizioni</b> – tocca un piatto per scoprire com'è fatto.",
+  newPic:"<b>Foto dei piatti</b> – immagini indicative di come appare il piatto (in arrivo per tutti i giorni).",
+  newType:"<b>Tipo di pasto e fonte proteica</b> – su ogni giorno vedi se è vegano, vegetariano o onnivoro e la fonte proteica principale.",
+  newMood:"<b>Carattere del pasto</b> – un'icona ti dice se è un pasto bilanciato, energetico, leggero…",
+  newNote:"Descrizioni, foto e indicazioni sono generate con l'intelligenza artificiale e sono solo orientative: vale sempre il menu ufficiale del Comune.",
+  newOk:"Ho capito",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
   search:"Cerca...",searchLabel:"Cerca un piatto",clear:"Cancella la ricerca",
   menuType:"Tipo di menu",menuTypes:"Tipi di menu",filterAria:"Filtra per tipo di menu",showAll:"Mostra tutti",done:"Fatto",nDays:"{n} giorni",
@@ -1068,6 +1105,11 @@ DAYS.forEach(r=>{
   wk.days.push({date:r[0],tipo,piatti,prot:protDi(piatti),mood:moodDi(piatti)});
 });
 
+/* foto indicative dei piatti (generate con Gemini, in img/piatti/<slug>.webp e <slug>-t.webp per la miniatura) */
+const FOTO=new Set(["Cotoletta di tacchino", "Cous cous in passato di legumi", "Crocchette di verdure", "Formaggio fresco", "Frittata", "Frutta", "Frutta fresca e cracker", "Frutta fresca e gallette", "Frutta fresca e grissini", "Orzo/farro o altri cereali in passato di verdura", "Pane Comune", "Pane Integrale", "Pane e olio", "Pasta al pesto di verdura e frutta secca", "Pasta al pomodoro", "Pasta con lenticchie e verdure", "Pastina in passato di verdura", "Pesce al forno in crosta di mais", "Pollo alla cacciatora", "Risotto con spinaci", "Tagliatelle al ragù di carne", "Torta marmorizzata e karkadè", "Verdura cotta", "Verdura cruda", "Verdura gratinata", "Yogurt"]);
+const fotoSlug=n=>n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const fotoSrc=(n,thumb)=>FOTO.has(n)?"img/piatti/"+fotoSlug(n)+(thumb?"-t":"")+".webp":"";
+
 const CATS = [
   ["primo","Primo","🍝"],["secondo","Secondo","🍳"],["contorno","Contorno","🥗"],
   ["pane","Pane","🍞"],["frutta","Frutta","🍎"],["merenda","Merenda","🍪"]
@@ -1123,7 +1165,7 @@ function dayCard(d,q=""){
   const items=CATS.filter(([k])=>d.piatti[k]).map(([k,l,e])=>{
     const n=d.piatti[k],info=PIATTI[n],nm=dishName(n);
     return `
-    <li class="it c-${k}" data-dish="${esc(n)}" data-k="${k}" data-cat="${lab[k]||t(k)}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${lab[k]||t(k)}</div><div class="dish">${hl(nm,q)}</div></div>${info?`<button type="button" class="go" aria-label="${esc(t("discover"))}: ${esc(nm)}" aria-haspopup="dialog">${CHEV}</button>`:""}</li>`;}).join("");
+    <li class="it c-${k}" data-dish="${esc(n)}" data-k="${k}" data-cat="${lab[k]||t(k)}">${FOTO.has(n)?`<span class="ico pic" aria-hidden="true"><img src="${fotoSrc(n,1)}" alt="" width="56" height="56" loading="lazy" decoding="async"></span>`:`<span class="ico" aria-hidden="true">${e}</span>`}<div><div class="lbl">${lab[k]||t(k)}</div><div class="dish">${hl(nm,q)}</div></div>${info?`<button type="button" class="go" aria-label="${esc(t("discover"))}: ${esc(nm)}" aria-haspopup="dialog">${CHEV}</button>`:""}</li>`;}).join("");
   const isFocus=d.date===focusISO, rel=relLabel(d.date);
   const relT=rel?t(rel):"";
   return `<article class="day glass${isFocus?" today":""}" id="d-${d.date}" aria-label="${relT?relT+", ":""}${dayName(dt)} ${dayMon(dt)}">
@@ -1313,7 +1355,7 @@ setInterval(()=>{
   function openDish(li){
     const n=li.dataset.dish,info=PIATTI[n];if(!info)return;
     const pic=document.getElementById("dishPic");
-    pic.textContent=li.querySelector(".ico").textContent;pic.className="dlg-pic c-"+li.dataset.k;
+    if(FOTO.has(n)){pic.innerHTML=`<img src="${fotoSrc(n)}" alt="" width="480" height="480">`;pic.className="dlg-pic has-pic";}else{pic.textContent=li.querySelector(".ico").textContent;pic.className="dlg-pic c-"+li.dataset.k;}
     document.getElementById("dishCat").textContent=li.dataset.cat;
     const nm=dishName(n),orig=document.getElementById("dishOrig");
     document.getElementById("dishTitle").textContent=nm;
@@ -1348,6 +1390,16 @@ setInterval(()=>{
   addEventListener("scroll",hideTip,{passive:true});addEventListener("resize",hideTip);
 })();
 
+
+/* modale "Novità": si apre una sola volta per dispositivo, dopo che la lingua è pronta */
+window.showNewsOnce=function(){
+  const KEY="mensa-news-2026-11";let seen=false;try{seen=localStorage.getItem(KEY)==="1";}catch(e){}
+  if(seen)return;
+  const d=document.getElementById("newDlg");if(!d)return;
+  const mark=()=>{try{localStorage.setItem(KEY,"1");}catch(e){}};
+  d.addEventListener("close",mark,{once:true});
+  setTimeout(()=>{if(typeof d.showModal==="function"){if(!d.open)d.showModal();}else d.setAttribute("open","");},900);
+};
 /* tema chiaro/scuro (selettore nel footer) */
 const root=document.documentElement;
 let saved=null;try{saved=localStorage.getItem("mensa-theme");}catch(e){}
@@ -1390,7 +1442,7 @@ document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",
     else if(e.key==="Escape"){toggle(false);btn.focus();}});
   document.addEventListener("click",e=>{if(!box.contains(e.target))toggle(false);});
 })();
-setLang(pickLang()).then(()=>{calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));});
+setLang(pickLang()).then(()=>{calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));if(window.showNewsOnce)showNewsOnce();});
 
 /* ===== banner "Aggiungi alla schermata Home" =====
    - solo su telefono/tablet e solo se il sito non è già aperto come app
