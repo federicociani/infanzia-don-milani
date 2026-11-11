@@ -1106,7 +1106,7 @@ DAYS.forEach(r=>{
 });
 
 /* foto indicative dei piatti (generate con Gemini, in img/piatti/<slug>.webp e <slug>-t.webp per la miniatura) */
-const FOTO=new Set(["Biscotti con gocce di cioccolato e karkadè", "Bocconcini di pollo arrosto", "Cappelletti in brodo", "Cotoletta di tacchino", "Cous cous in passato di legumi", "Crocchette di pesce", "Crocchette di ricotta e verdura", "Crocchette di verdure", "Focaccia", "Formaggio fresco", "Frittata", "Frittata di verdure", "Frutta", "Frutta fresca e cracker", "Frutta fresca e gallette", "Frutta fresca e grissini", "Frutta fresca e pane", "Latte e cereali", "Lombo di maiale al latte", "Orzo/farro o altri cereali in passato di verdura", "Pan Brioche", "Pane Comune", "Pane Integrale", "Pane e marmellata", "Pane e olio", "Pasta al pesto di verdura e frutta secca", "Pasta al pomodoro", "Pasta al sugo di lenticchie rosse e zucca (bianco)", "Pasta con lenticchie e verdure", "Pasta olio e parmigiano", "Pastina in passato di legumi misti", "Pastina in passato di verdura", "Patate al forno", "Pesce agli agrumi", "Pesce al forno in crosta di mais", "Pizza margherita", "Pollo alla cacciatora", "Pollo/tacchino al forno", "Risotto al pomodoro", "Risotto al sugo di verdure (rosso)", "Risotto con spinaci", "Sformato di verdure al forno", "Spaghetti al tonno", "Tagliatelle al ragù di carne", "Torta marmorizzata e karkadè", "Verdura cotta", "Verdura cruda", "Verdura cruda con frutta secca", "Verdura gratinata", "Yogurt"]);
+const FOTO=new Set(["Biscotti con gocce di cioccolato e karkadè", "Bocconcini di pollo arrosto", "Cappelletti in brodo", "Cotoletta di tacchino", "Cous cous in passato di legumi", "Crocchette di pesce", "Crocchette di ricotta e verdura", "Crocchette di verdure", "Focaccia", "Formaggio fresco", "Frittata", "Frittata di verdure", "Frutta", "Frutta fresca e cracker", "Frutta fresca e gallette", "Frutta fresca e grissini", "Frutta fresca e pane", "Latte e cereali", "Lombo di maiale al latte", "Orzo/farro o altri cereali in passato di verdura", "Pan Brioche", "Pane Comune", "Pane Integrale", "Pane e marmellata", "Pane e olio", "Pasta al pesto di verdura e frutta secca", "Pasta al pomodoro", "Pasta al sugo di lenticchie rosse e zucca (bianco)", "Pasta con lenticchie e verdure", "Pasta olio e parmigiano", "Pastina in passato di legumi misti", "Pastina in passato di verdura", "Patate al forno", "Patate gratinate", "Pesce agli agrumi", "Pesce al forno in crosta di mais", "Pesce gratinato al forno", "Pizza margherita", "Pollo alla cacciatora", "Pollo/tacchino al forno", "Ravioli burro e salvia", "Risotto al pomodoro", "Risotto al sugo di verdure (rosso)", "Risotto con spinaci", "Sformato di verdure al forno", "Spaghetti al tonno", "Tagliatelle al ragù di carne", "Torta marmorizzata e karkadè", "Verdura cotta", "Verdura cruda", "Verdura cruda con frutta secca", "Verdura gratinata", "Yogurt"]);
 const fotoSlug=n=>n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 /* piatti quasi identici (scritti in modo diverso nel PDF) usano la stessa foto */
 const FOTO_ALIAS={
@@ -1117,7 +1117,11 @@ const FOTO_ALIAS={
   "Frittatina":"Frittata",
   "Pasta al pesto di verdura":"Pasta al pesto di verdura e frutta secca",
   "Pasta integrale al pomodoro":"Pasta al pomodoro",
-  "Farro/orzo in passato di legumi":"Orzo/farro o altri cereali in passato di verdura"
+  "Farro/orzo in passato di legumi":"Orzo/farro o altri cereali in passato di verdura",
+  "Patate gratinate al forno":"Patate gratinate",
+  "Sformato di verdure":"Sformato di verdure al forno",
+  "Bocconcini di pollo/tacchino al forno":"Bocconcini di pollo arrosto",
+  "Pollo al forno":"Pollo/tacchino al forno"
 };
 Object.keys(FOTO_ALIAS).forEach(k=>FOTO.add(k));
 const fotoSrc=(n,thumb)=>FOTO.has(n)?"img/piatti/"+fotoSlug(FOTO_ALIAS[n]||n)+(thumb?"-t":"")+".webp":"";
