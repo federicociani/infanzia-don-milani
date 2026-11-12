@@ -788,15 +788,20 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
   <div class="dlg-b">
     <div class="ai-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9Z"/><path d="M19 15l.8 1.9 1.9.8-1.9.8L19 20.5l-.8-1.9-1.9-.8 1.9-.8Z"/></svg></div>
     <h2 id="newTitle" data-t="newTitle"></h2>
-    <p data-t="newIntro"></p>
-    <ul class="new-list">
+    <p id="newIntro" data-t="newIntro"></p>
+    <ul class="new-list" id="newListMenu">
       <li><span aria-hidden="true">🌍</span><p data-th="newLang"></p></li>
       <li><span aria-hidden="true">📖</span><p data-th="newDesc"></p></li>
       <li><span aria-hidden="true">📸</span><p data-th="newPic"></p></li>
       <li><span aria-hidden="true">🥦</span><p data-th="newType"></p></li>
       <li><span aria-hidden="true">⚖️</span><p data-th="newMood"></p></li>
     </ul>
-    <p class="new-note" data-t="newNote"></p>
+    <ul class="new-list" id="newListAtt" hidden>
+      <li><span aria-hidden="true">📅</span><p data-th="newAttCal"></p></li>
+      <li><span aria-hidden="true">❤️</span><p data-th="newAttInfo"></p></li>
+      <li><span aria-hidden="true">🔄</span><p data-th="newAttSwitch"></p></li>
+    </ul>
+    <p class="new-note" id="newNote" data-t="newNote"></p>
     <button class="dlg-ok" data-close-dlg data-t="newOk"></button>
   </div>
 </dialog>
@@ -831,7 +836,7 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 const LANGS=[["it","Italiano","🇮🇹"],["en","English","🇬🇧"],["es","Español","🇪🇸"],["pt","Português","🇵🇹"],["fr","Français","🇫🇷"],["de","Deutsch","🇩🇪"],["ro","Română","🇷🇴"],["sq","Shqip","🇦🇱"],["ru","Русский","🇷🇺"],["ar","العربية","🇲🇦"],["zh","中文","🇨🇳"]];
 const LOCALE={it:"it-IT",en:"en-GB",es:"es-ES",pt:"pt-PT",fr:"fr-FR",de:"de-DE",ro:"ro-RO",sq:"sq-AL",ru:"ru-RU",ar:"ar",zh:"zh-CN"};
 const IT={
-  newTitle:"Novità sulla pagina",
+  newTitle:"Novità sul menu",
   newIntro:"Abbiamo aggiunto alcune cose per rendere il menu più facile da leggere:",
   newLang:"<b>Lingue</b> – il menu è disponibile in 11 lingue: scegli la tua dal selettore in alto.",
   newDesc:"<b>Descrizioni</b> – tocca un piatto per scoprire com'è fatto.",
@@ -840,6 +845,12 @@ const IT={
   newMood:"<b>Carattere del pasto</b> – un'icona ti dice se è un pasto bilanciato, energetico, leggero…",
   newNote:"Descrizioni, foto e indicazioni sono generate con l'intelligenza artificiale e sono solo orientative: vale sempre il menu ufficiale del Comune.",
   newOk:"Ho capito",
+  newAttTitle:"Novità: attività ed eventi",
+  newAttIntro:"Oltre al menu, qui trovi anche le attività e gli eventi della scuola:",
+  newAttCal:"<b>In calendario</b> – feste, uscite, foto di Natale e appuntamenti, in ordine di data.",
+  newAttInfo:"<b>Da sapere</b> – cosa portare, cosa controllare e le raccomandazioni delle maestre.",
+  newAttSwitch:"<b>Menu o Attività</b> – passa dall'uno all'altro con le due voci in alto.",
+  newAttNote:"Le informazioni arrivano dagli incontri con le maestre e possono cambiare: vale sempre quanto comunica la scuola.",
   tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"In calendario",attInfo:"Da sapere",attPast:"Già passati",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
   search:"Cerca...",searchLabel:"Cerca un piatto",clear:"Cancella la ricerca",
@@ -1358,12 +1369,14 @@ const ATT=[
   {d:"2026-11-23",t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Coccinelle e Fenicotteri."],["👕","Abbigliamento","Vestire i bambini con colori neutri."],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano."]]},
   {d:"2026-11-26",t:"Addobbi a scuola",it:[["🎄","Cosa succede","Si addobberà la scuola."],["🍊","Da portare","Una buccia d’arancia essiccata per le decorazioni natalizie."]]},
   {d:"2026-12-12",e:"2026-12-13",t:"Bancarella di Natale",b:"Da confermare",it:[["🧁","Come contribuire","Preparare dolci da vendere, oppure portare oggettistica se qualcuno ne ha."],["📅","Data","Indicativamente il 12/13 dicembre, ancora da confermare."]]},
+  {d:"2026-12-15",t:"Canti in piazzetta",b:"Ore 16:30",it:[["🎶","Appuntamento","Canti di Natale in piazzetta alle 16:30."]]},
   {d:"2026-12-18",t:"Festa di Natale",b:"Ore 14:30",it:[["🎭","Musical in palestra","Le maestre hanno iniziato le prove del musical, mantenendo i gruppi. A breve comunicheranno le parti da imparare a memoria e le indicazioni sull’abbigliamento."],["🎨","Scenografie","Il tema sarà ispirato a Christmas Carol. Servono genitori disponibili ad aiutare a realizzare e dipingere le scenografie: chi può dare una mano è il benvenuto!"],["🧹","Pulizia palestra","Dopo la recita servirà la collaborazione di alcuni genitori per sistemare e pulire la palestra."]]},
   {d:"2027-02-01",m:1,x:"🚒",t:"Progetto Protezione Civile",b:"Da febbraio",it:[["🤝","Incontri","Da febbraio inizieranno 4/5 incontri con i volontari."],["☀️","Con il caldo","Quando il tempo sarà più caldo verranno anche con i loro mezzi, per farli conoscere ai bambini."]]},
   {d:"2027-02-01",e:"2027-06-30",m:1,x:"🐟",t:"Progetti Pingelap e Pesciolino Blu",b:"Febbraio – giugno",it:[["🧩","Attività","Proseguiranno le attività previste per i diversi gruppi, a partire da febbraio e fino a giugno."]]},
   {d:"2027-05-24",t:"Gita di fine anno",it:[["🌱","Dove","Azienda Agricola Clorofilla, a Mercato Saraceno."],["🧪","Programma","Laboratorio al mattino, con rotazione dei gruppi, e poi pranzo con menù dedicato (non è previsto il pasto a sacco preparato dalla scuola)."],["💶","Costi","20 € a bambino per il pranzo in agriturismo. Per il trasporto sono stati richiesti alcuni preventivi, indicativamente tra 15 e 17 €."],["💪","Raccolta fondi","Siamo fiduciosi di riuscire a raccogliere i fondi necessari attraverso le varie iniziative!"]]},
   {x:"❤️",t:"Dalle maestre",it:[["😊","Come stanno i bambini","Molto bene: sono sereni, felici e ben inseriti."],["👧","Piccoli gruppi","Il metodo di lavoro a piccoli gruppi (10/12 bambini) sta funzionando molto bene: le porte delle sezioni sono aperte e i bambini possono conoscere le diverse insegnanti, imparando anche ad autoregolarsi e ad autogestirsi."],["🌰","Esperienze","Sono tutti molto bravi e stanno facendo tante belle esperienze: la gita delle castagne è stata un successo."]]},
-  {x:"🎅",t:"Natale: altre iniziative",it:[["🎟️","Lotteria di Natale","Si raccolgono eventuali premi, buoni o donazioni da parte di chi ne avesse la possibilità."],["🎁","Babbo Natale a scuola","Arriverà a trovare i bambini! Le maestre chiedono un regalo per sezione."],["🧢","Cappellini","Acquisteremo i cappellini di Natale."]]},
+  {x:"🎟️",t:"Super Lotteria di Natale",it:[["🎄","Di cosa si tratta","Una Lotteria di Natale per raccogliere fondi a sostegno delle attività e dei progetti dedicati ai nostri bambini."],["🤝","Chi cerchiamo","Attività, commercianti e persone disponibili a donare buoni regalo, voucher o piccoli premi: parrucchieri, estetiste, bar, ristoranti, pizzerie, negozi, hotel, stabilimenti balneari, palestre, piscine, parchi divertimento, enoteche, fioristi e tanto altro!"],["❤️","Come aiutare","Ogni contributo, anche piccolo, sarà preziosissimo. Se avete un’attività o conoscete qualcuno che potrebbe aiutarci, fatevi avanti e condividete il post. Grazie di cuore a tutti per il vostro sostegno!"]]},
+  {x:"🎅",t:"Natale: altre iniziative",it:[["🎁","Babbo Natale a scuola","Arriverà a trovare i bambini! Le maestre chiedono un regalo per sezione."],["🧢","Cappellini","Acquisteremo i cappellini di Natale."]]},
   {x:"📰",t:"Notizie",it:[["🏆","Premi Conad","Sono arrivati i premi della raccolta dello scorso anno: sono stati acquistati materiale didattico e costruzioni luminose. Le maestre ringraziano tutte le famiglie per la collaborazione."],["🎒","Materiale scolastico","A fine quadrimestre verrà dato il materiale di ogni bambino, invece di consegnarlo tutto a fine anno."]]},
   {x:"👕",t:"Cose da controllare e portare",it:[["🍂","Cambio stagione","Fare il cambio stagione nei sacchettini dei bambini, verificando che ci siano vestiti adatti."],["🧥","Felpe rimaste a scuola","Alcune felpe sono rimaste a scuola e non si capisce di chi siano: controllate se ne manca qualcuna ai vostri bimbi."],["👚","Ricambi in più","Le maestre chiedono se qualcuno ha vestiti di ricambio in più da poter lasciare a scuola."],["🥾","Stivaletti e mantellina","Controllare che ogni bambino li abbia per le uscite e le attività all’aperto."]]},
   {x:"📌",t:"Piccole raccomandazioni",it:[["⏰","Orari","Rispettare gli orari di ingresso e uscita."],["✅","Pasto","Ricordarsi di mettere la crocetta per il pasto."],["📞","Uscita anticipata","Avvisare telefonicamente la scuola e concordare l’orario, evitando di presentarsi senza preavviso."],["🕘","Ritardo","In caso di ritardo, avvisare la scuola."]]}
@@ -1429,6 +1442,7 @@ function show(v){
   document.getElementById("view-tutto").classList.add("active");
   applyView();
   if(changed)window.scrollTo(0,0);
+  if(window.showNewsOnce)showNewsOnce(nv);
   if(nv==="menu")requestAnimationFrame(()=>{focusToday(document.getElementById("calGrid"));typeof syncTodayBtn==="function"&&syncTodayBtn();});
 }
 window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
@@ -1544,11 +1558,26 @@ setInterval(()=>{
 
 
 /* modale "Novità": si apre una sola volta per dispositivo, dopo che la lingua è pronta */
-window.showNewsOnce=function(){
-  const KEY="mensa-news-2026-11";let seen=false;try{seen=localStorage.getItem(KEY)==="1";}catch(e){}
+/* due novità distinte: una per il menu, una per attività ed eventi; ognuna si mostra una volta sola */
+const NEWS={
+  menu:{key:"mensa-news-2026-11",title:"newTitle",intro:"newIntro",note:"newNote"},
+  attivita:{key:"mensa-news-att-2026-11",title:"newAttTitle",intro:"newAttIntro",note:"newAttNote"}
+};
+window.showNewsOnce=function(kind){
+  const n=NEWS[kind==="attivita"?"attivita":"menu"];
+  let seen=false;try{seen=localStorage.getItem(n.key)==="1";}catch(e){}
   if(seen)return;
-  const d=document.getElementById("newDlg");if(!d)return;
-  const mark=()=>{try{localStorage.setItem(KEY,"1");}catch(e){}};
+  const d=document.getElementById("newDlg");if(!d||d.open)return;
+  document.getElementById("newTitle").dataset.t=n.title;
+  document.getElementById("newIntro").dataset.t=n.intro;
+  document.getElementById("newNote").dataset.t=n.note;
+  document.getElementById("newTitle").textContent=t(n.title);
+  document.getElementById("newIntro").textContent=t(n.intro);
+  document.getElementById("newNote").textContent=t(n.note);
+  const att=n.key===NEWS.attivita.key;
+  document.getElementById("newListMenu").hidden=att;
+  document.getElementById("newListAtt").hidden=!att;
+  const mark=()=>{try{localStorage.setItem(n.key,"1");}catch(e){}};
   d.addEventListener("close",mark,{once:true});
   setTimeout(()=>{if(typeof d.showModal==="function"){if(!d.open)d.showModal();}else d.setAttribute("open","");},900);
 };
@@ -1594,7 +1623,7 @@ document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",
     else if(e.key==="Escape"){toggle(false);btn.focus();}});
   document.addEventListener("click",e=>{if(!box.contains(e.target))toggle(false);});
 })();
-setLang(pickLang()).then(()=>{calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));if(window.showNewsOnce)showNewsOnce();});
+setLang(pickLang()).then(()=>{calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));if(window.showNewsOnce)showNewsOnce(VIEW);});
 
 /* ===== banner "Aggiungi alla schermata Home" =====
    - solo su telefono/tablet e solo se il sito non è già aperto come app
