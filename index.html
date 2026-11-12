@@ -41,23 +41,23 @@ _iub.csConfiguration = {
 <meta name="apple-mobile-web-app-title" content="Mensa Don Milani">
 <meta name="application-name" content="Mensa Don Milani">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="description" content="Il menu della mensa della Scuola dell'Infanzia “Don Milani” di Cervia, giorno per giorno: oggi, questa settimana e tutto il periodo. Pagina non ufficiale.">
+<meta name="description" content="Il menu della mensa giorno per giorno e le attività ed eventi della Scuola dell'Infanzia “Don Milani” di Cervia. Pagina non ufficiale.">
 <link rel="canonical" href="https://federicociani.github.io/infanzia-don-milani/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
-<meta property="og:site_name" content="Menu Mensa">
-<meta property="og:title" content="Menu Mensa – Scuola dell'Infanzia “Don Milani”">
-<meta property="og:description" content="Il menu giorno per giorno, per l&#39;anno scolastico 2026 – 2027, della Scuola dell&#39;Infanzia &quot;Don Milani&quot; di Cervia.">
+<meta property="og:site_name" content="Mensa Don Milani">
+<meta property="og:title" content="Mensa, Attività ed Eventi – Scuola dell'Infanzia “Don Milani”">
+<meta property="og:description" content="Il menu della mensa giorno per giorno, le attività e gli eventi della Scuola dell&#39;Infanzia &quot;Don Milani&quot; di Cervia, anno scolastico 2026 – 2027.">
 <meta property="og:url" content="https://federicociani.github.io/infanzia-don-milani/">
 <meta property="og:image" content="https://federicociani.github.io/infanzia-don-milani/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="600">
 <meta property="og:image:alt" content="Bambini e animaletti in plastilina che festeggiano in classe, con la scritta Eventi Attività sulla lavagna">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Menu Mensa – Scuola dell'Infanzia “Don Milani”">
-<meta name="twitter:description" content="Il menu giorno per giorno, per l&#39;anno scolastico 2026 – 2027, della Scuola dell&#39;Infanzia &quot;Don Milani&quot; di Cervia.">
+<meta name="twitter:title" content="Mensa, Attività ed Eventi – Scuola dell'Infanzia “Don Milani”">
+<meta name="twitter:description" content="Il menu della mensa giorno per giorno, le attività e gli eventi della Scuola dell&#39;Infanzia &quot;Don Milani&quot; di Cervia, anno scolastico 2026 – 2027.">
 <meta name="twitter:image" content="https://federicociani.github.io/infanzia-don-milani/og-image.jpg">
-<title>Menu Mensa – Scuola dell'Infanzia "Don Milani"</title>
+<title>Mensa, Attività ed Eventi – Scuola dell'Infanzia "Don Milani"</title>
 <!-- font ospitati sul sito (niente Google Fonts): Inter e Bricolage Grotesque, licenza SIL OFL -->
 <link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
@@ -851,6 +851,7 @@ const IT={
   newAttInfo:"<b>Da sapere</b> – cosa portare, cosa controllare e le raccomandazioni delle maestre.",
   newAttSwitch:"<b>Menu o Attività</b> – passa dall'uno all'altro con le due voci in alto.",
   newAttNote:"Le informazioni arrivano dagli incontri con le maestre e possono cambiare: vale sempre quanto comunica la scuola.",
+  siteTitle:"Mensa, Attività ed Eventi",menuDoc:"Menu Mensa",
   tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"In calendario",attInfo:"Da sapere",attPast:"Già passati",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
   search:"Cerca...",searchLabel:"Cerca un piatto",clear:"Cancella la ricerca",
@@ -883,7 +884,7 @@ const IT={
 };
 let LANG="it",TR=null; /* TR = {ui, vals, dishes} della lingua scelta */
 const t=k=>(TR&&TR.ui[k])||IT[k]||k;
-let VIEW="menu";
+let VIEW="menu",VIEW_PICKED=false;
 const dishIdx=n=>PIATTI_KEYS.indexOf(n);
 const dishName=n=>{const i=dishIdx(n);return TR&&i>=0&&TR.dishes[i]?TR.dishes[i][0]:n;};
 const dishDesc=n=>{const i=dishIdx(n);return TR&&TR.dishes[i]?TR.dishes[i][1]:PIATTI[n][0];};
@@ -1432,12 +1433,13 @@ function applyView(){
   document.getElementById("pane-att").hidden=!att;
   const h=document.getElementById("calTitle");h.dataset.th=att?"attTitle":"heroTitle";h.innerHTML=t(h.dataset.th);
   document.getElementById("period").textContent=att?attUpdated():rangeLong(ALL_DAYS);
-  document.title=(att?t("attDoc"):t("heroTitle").replace(/<br>/g," "))+" – Scuola dell'Infanzia \"Don Milani\"";
+  document.title=(VIEW_PICKED?(att?t("attDoc"):t("menuDoc")):t("siteTitle"))+" – Scuola dell'Infanzia \"Don Milani\"";
   vsw.querySelectorAll(".tab").forEach(a=>{const on=a.dataset.v===VIEW;a.classList.toggle("active",on);if(on)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
   if(att)renderAtt();
 }
 function show(v){
   const nv=v==="attivita"?"attivita":"menu",changed=nv!==VIEW;
+  if(v==="attivita"||v==="menu")VIEW_PICKED=true;
   VIEW=nv;
   document.getElementById("view-tutto").classList.add("active");
   applyView();
