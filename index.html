@@ -637,6 +637,33 @@ html.standalone #view-tutto .hero{position:static;width:auto;height:auto;margin:
 html.standalone #view-tutto .hero h1,html.standalone #view-tutto .hero p{display:none}
 html.standalone #view-tutto .hero-meta{padding-left:0;border-left:0}
 html.standalone #view-tutto .hero small{font-size:.75rem}
+/* ===== switch Menu / Attività ===== */
+nav.vsw{pointer-events:auto;flex:none;border-radius:1.25rem;background:var(--glass-strong);border:1px solid var(--line);box-shadow:var(--card-shadow),inset 0 1px 0 var(--hi)}
+nav.vsw .tab{min-height:2.25rem;padding:.375rem 1rem;border-radius:.9375rem;text-decoration:none;font-size:.75rem;letter-spacing:.0625rem;font-weight:600;text-transform:uppercase}
+.vsw-row{display:flex;justify-content:center;margin:0 0 1.25rem}
+.vsw-row:empty{display:none}
+.vsw-row nav.vsw{width:100%}.vsw-row nav.vsw .tab{flex:1;justify-content:center;min-height:2.5rem}
+html.v-att header .weeknav,html.v-att header .today-btn{display:none}
+@media (max-width:40rem){html.v-att header{display:none}html.v-att footer{padding-bottom:2rem}}
+[hidden].pane{display:none}
+/* attività: stesse card del menu, in griglia */
+.att-h{font-size:.75rem;color:var(--fg-2);font-weight:600;text-transform:uppercase;letter-spacing:.0625rem;margin:0 .5rem 1rem;animation:softIn .9s var(--ease) .15s backwards}
+.att-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;align-items:start;margin-bottom:2.5rem}
+@media (max-width:53.75rem){.att-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:40rem){.att-grid{grid-template-columns:minmax(0,1fr)}}
+.att .dmeta{flex:1;min-width:0}
+.att .dname{line-height:1.2}
+.att .dname small{display:block;margin-top:.1875rem;font-family:var(--font-body,inherit);font-size:.75rem;font-weight:normal;letter-spacing:.025rem;color:var(--muted-fg)}
+.att .date.emo b{font-size:1.75rem}
+.att .date b{white-space:nowrap}
+.att .it{align-items:flex-start}
+.att .dish{font-weight:normal;font-size:.9375rem;line-height:1.45}
+.att .lbl{margin-bottom:.125rem}
+.att .badge{display:inline-block;margin-top:.375rem;white-space:nowrap}
+.att .dname{overflow-wrap:normal;word-break:normal}
+.att.past{opacity:.55}
+.att-grid .day{animation:cardIn 1s var(--ease) backwards;animation-delay:calc(.2s + var(--i,0) * .06s)}
+@media (prefers-reduced-motion:reduce){.att-grid .day,.att-h{animation:fadeOnly .3s ease backwards}}
 </style>
 <!-- Hotjar (Site ID 6844086): parte solo dopo il consenso ai cookie di misurazione (iubenda) -->
 <script type="text/plain" class="_iub_cs_activate-inline" data-iub-purposes="4">
@@ -649,6 +676,14 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
         a.appendChild(r);
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>
+<!-- Microsoft Clarity (z8xwarghap): parte solo dopo il consenso ai cookie di misurazione (iubenda) -->
+<script type="text/plain" class="_iub_cs_activate-inline" data-iub-purposes="4">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "z8xwarghap");
+</script>
 </head>
 <body>
 <div class="sb-scrim" aria-hidden="true"></div>
@@ -657,6 +692,7 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
 
 <header>
   <div class="wrap"><div class="hdr">
+    <nav class="vsw" id="vsw" aria-label="Sezioni" data-ta="sections"><a class="tab active" href="#menu" data-v="menu" aria-current="page"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><span data-t="tabMenu">Menu</span></a><a class="tab" href="#attivita" data-v="attivita"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg><span data-t="tabAtt">Attività</span></a></nav>
     <button class="today-btn" id="todayBtn" aria-label="Vai al menu di oggi" disabled>Oggi</button>
   </div></div>
 </header>
@@ -666,11 +702,13 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
 
   <!-- MENU COMPLETO -->
   <section class="view wrap active" id="view-tutto" aria-labelledby="calTitle">
+    <div class="vsw-row" id="vswRow"></div>
     <div class="hero">
       <h1 id="calTitle" data-th="heroTitle">Menu<br>Mensa</h1>
       <div class="hero-meta"><p data-th="school">Scuola dell'Infanzia<br>“Don Milani” a Cervia</p><small id="period">15 set – 23 dic 2026</small></div>
       <div class="lng" id="lng"><button type="button" class="lng-btn ctl" id="lngBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="lngList"><span class="flag" id="lngFlag" aria-hidden="true">🇮🇹</span><span class="code" id="lngCode">IT</span><span class="sr-only" data-t="lang">Lingua</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="lng-panel" id="lngList" role="listbox" data-ta="lang" aria-label="Lingua" hidden></div></div>
     </div>
+    <div class="pane" id="pane-menu">
     <div class="search-row">
     <div class="search ctl">
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -688,6 +726,8 @@ html.standalone #view-tutto .hero small{font-size:.75rem}
     </div>
     </div>
     <div class="slider"><button type="button" class="sl-btn sl-prev" id="slPrev" aria-label="Giorni precedenti" data-ta="slPrev" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div class="grid" id="calGrid" tabindex="0" aria-label="Giorni del menu, scorri in orizzontale" data-ta="gridAria"></div><button type="button" class="sl-btn sl-next" id="slNext" aria-label="Giorni successivi" data-ta="slNext" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div>
+    </div>
+    <div class="pane" id="pane-att" hidden></div>
   </section>
 </main>
 
@@ -787,6 +827,7 @@ const IT={
   newMood:"<b>Carattere del pasto</b> – un'icona ti dice se è un pasto bilanciato, energetico, leggero…",
   newNote:"Descrizioni, foto e indicazioni sono generate con l'intelligenza artificiale e sono solo orientative: vale sempre il menu ufficiale del Comune.",
   newOk:"Ho capito",
+  tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attCal:"In calendario",attInfo:"Da sapere",attPast:"Già passati",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
   search:"Cerca...",searchLabel:"Cerca un piatto",clear:"Cancella la ricerca",
   menuType:"Tipo di menu",menuTypes:"Tipi di menu",filterAria:"Filtra per tipo di menu",showAll:"Mostra tutti",done:"Fatto",nDays:"{n} giorni",
@@ -818,6 +859,7 @@ const IT={
 };
 let LANG="it",TR=null; /* TR = {ui, vals, dishes} della lingua scelta */
 const t=k=>(TR&&TR.ui[k])||IT[k]||k;
+let VIEW="menu";
 const dishIdx=n=>PIATTI_KEYS.indexOf(n);
 const dishName=n=>{const i=dishIdx(n);return TR&&i>=0&&TR.dishes[i]?TR.dishes[i][0]:n;};
 const dishDesc=n=>{const i=dishIdx(n);return TR&&TR.dishes[i]?TR.dishes[i][1]:PIATTI[n][0];};
@@ -835,7 +877,8 @@ function applyStatic(){
   document.querySelectorAll("[data-tp]").forEach(e=>e.placeholder=t(e.dataset.tp));
   document.querySelectorAll("[data-ta]").forEach(e=>{e.setAttribute("aria-label",t(e.dataset.ta));if(e.hasAttribute("title"))e.title=t(e.dataset.ta);});
   document.querySelectorAll("[data-steps]").forEach(e=>{const k=e.dataset.k1;e.innerHTML=esc(t(e.dataset.steps)).replace("{i}",`<span class="k">${e.dataset.i1}${k?" "+esc(t(k)):""}</span>`);});
-  const p=document.getElementById("period");if(p)p.textContent=rangeLong(ALL_DAYS);
+  const p=document.getElementById("period");if(p)p.textContent=VIEW==="attivita"?attUpdated():rangeLong(ALL_DAYS);
+  if(typeof ATT!=="undefined")applyView();
   const L=LANGS.find(l=>l[0]===LANG);document.getElementById("lngFlag").textContent=L[2];document.getElementById("lngCode").textContent=LANG.toUpperCase();
   document.querySelectorAll(".lng-opt").forEach(o=>o.setAttribute("aria-selected",o.dataset.l===LANG));
 }
@@ -1292,11 +1335,77 @@ document.getElementById("q").addEventListener("input",renderCal);
   x.addEventListener("click",()=>{q.value="";sync();renderCal();q.focus();});
 })();
 
-/* vista unica */
-function show(){
-  document.getElementById("view-tutto").classList.add("active");
-  requestAnimationFrame(()=>focusToday(document.getElementById("calGrid")));
+/* ===== ATTIVITÀ ED EVENTI (dal verbale dell'incontro con le maestre, novembre 2026) =====
+   d = data (o inizio), e = fine, m = solo mese; senza data → card informativa con emoji. it = [emoji, etichetta, testo] */
+const ATT_UPDATED="2026-11-12";
+const ATT=[
+  {d:"2026-11-13",t:"Scuola chiusa",it:[["🚪","Promemoria","Venerdì 13 novembre la scuola resterà chiusa."]]},
+  {d:"2026-11-16",t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Farfalle e Gattini."],["👕","Abbigliamento","Vestire i bambini con colori neutri."],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano, a partire dal primo gruppo."]]},
+  {d:"2026-11-22",e:"2026-11-23",t:"Consiglio di Istituto",it:[["🗳️","Votazioni","Il 22 e 23 ci saranno le votazioni per il rinnovo del Consiglio."]]},
+  {d:"2026-11-23",t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Coccinelle e Fenicotteri."],["👕","Abbigliamento","Vestire i bambini con colori neutri."],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano."]]},
+  {d:"2026-11-26",t:"Addobbi a scuola",it:[["🎄","Cosa succede","Si addobberà la scuola."],["🍊","Da portare","Una buccia d’arancia essiccata per le decorazioni natalizie."]]},
+  {d:"2026-12-12",e:"2026-12-13",t:"Bancarella di Natale",b:"Da confermare",it:[["🧁","Come contribuire","Preparare dolci da vendere, oppure portare oggettistica se qualcuno ne ha."],["📅","Data","Indicativamente il 12/13 dicembre, ancora da confermare."]]},
+  {d:"2026-12-18",t:"Festa di Natale",b:"Ore 14:30",it:[["🎭","Musical in palestra","Le maestre hanno iniziato le prove del musical, mantenendo i gruppi. A breve comunicheranno le parti da imparare a memoria e le indicazioni sull’abbigliamento."],["🎨","Scenografie","Il tema sarà ispirato a Christmas Carol. Servono genitori disponibili ad aiutare a realizzare e dipingere le scenografie: chi può dare una mano è il benvenuto!"],["🧹","Pulizia palestra","Dopo la recita servirà la collaborazione di alcuni genitori per sistemare e pulire la palestra."]]},
+  {d:"2027-02-01",m:1,x:"🚒",t:"Progetto Protezione Civile",b:"Da febbraio",it:[["🤝","Incontri","Da febbraio inizieranno 4/5 incontri con i volontari."],["☀️","Con il caldo","Quando il tempo sarà più caldo verranno anche con i loro mezzi, per farli conoscere ai bambini."]]},
+  {d:"2027-02-01",e:"2027-06-30",m:1,x:"🐟",t:"Progetti Pingelap e Pesciolino Blu",b:"Febbraio – giugno",it:[["🧩","Attività","Proseguiranno le attività previste per i diversi gruppi, a partire da febbraio e fino a giugno."]]},
+  {d:"2027-05-24",t:"Gita di fine anno",it:[["🌱","Dove","Azienda Agricola Clorofilla, a Mercato Saraceno."],["🧪","Programma","Laboratorio al mattino, con rotazione dei gruppi, e poi pranzo con menù dedicato (non è previsto il pasto a sacco preparato dalla scuola)."],["💶","Costi","20 € a bambino per il pranzo in agriturismo. Per il trasporto sono stati richiesti alcuni preventivi, indicativamente tra 15 e 17 €."],["💪","Raccolta fondi","Siamo fiduciosi di riuscire a raccogliere i fondi necessari attraverso le varie iniziative!"]]},
+  {x:"❤️",t:"Dalle maestre",it:[["😊","Come stanno i bambini","Molto bene: sono sereni, felici e ben inseriti."],["👧","Piccoli gruppi","Il metodo di lavoro a piccoli gruppi (10/12 bambini) sta funzionando molto bene: le porte delle sezioni sono aperte e i bambini possono conoscere le diverse insegnanti, imparando anche ad autoregolarsi e ad autogestirsi."],["🌰","Esperienze","Sono tutti molto bravi e stanno facendo tante belle esperienze: la gita delle castagne è stata un successo."]]},
+  {x:"🎅",t:"Natale: altre iniziative",it:[["🎟️","Lotteria di Natale","Si raccolgono eventuali premi, buoni o donazioni da parte di chi ne avesse la possibilità."],["🎁","Babbo Natale a scuola","Arriverà a trovare i bambini! Le maestre chiedono un regalo per sezione."],["🧢","Cappellini","Acquisteremo i cappellini di Natale."]]},
+  {x:"📰",t:"Notizie",it:[["🏆","Premi Conad","Sono arrivati i premi della raccolta dello scorso anno: sono stati acquistati materiale didattico e costruzioni luminose. Le maestre ringraziano tutte le famiglie per la collaborazione."],["🎒","Materiale scolastico","A fine quadrimestre verrà dato il materiale di ogni bambino, invece di consegnarlo tutto a fine anno."]]},
+  {x:"👕",t:"Cose da controllare e portare",it:[["🍂","Cambio stagione","Fare il cambio stagione nei sacchettini dei bambini, verificando che ci siano vestiti adatti."],["🧥","Felpe rimaste a scuola","Alcune felpe sono rimaste a scuola e non si capisce di chi siano: controllate se ne manca qualcuna ai vostri bimbi."],["👚","Ricambi in più","Le maestre chiedono se qualcuno ha vestiti di ricambio in più da poter lasciare a scuola."],["🥾","Stivaletti e mantellina","Controllare che ogni bambino li abbia per le uscite e le attività all’aperto."]]},
+  {x:"📌",t:"Piccole raccomandazioni",it:[["⏰","Orari","Rispettare gli orari di ingresso e uscita."],["✅","Pasto","Ricordarsi di mettere la crocetta per il pasto."],["📞","Uscita anticipata","Avvisare telefonicamente la scuola e concordare l’orario, evitando di presentarsi senza preavviso."],["🕘","Ritardo","In caso di ritardo, avvisare la scuola."]]}
+];
+function attUpdated(){return t("attUpd").replace("{d}",new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"long",year:"numeric"}).format(new Date(ATT_UPDATED+"T12:00:00")));}
+function localISO(){const n=new Date();return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");}
+function attCard(a,i,now){
+  const L=LOCALE[LANG]||LANG,dt=a.d?new Date(a.d+"T12:00:00"):null,de=a.e?new Date(a.e+"T12:00:00"):null;
+  const mon=dt?new Intl.DateTimeFormat(L,{month:"short"}).format(dt).replace(".","").toLocaleUpperCase(LANG):"";
+  const box=!dt?`<div class="date emo" aria-hidden="true"><b>${a.x}</b></div>`
+    :a.m?`<div class="date emo" aria-hidden="true"><b>${a.x}</b><i>${mon}</i></div>`
+    :`<div class="date" aria-hidden="true"><b>${dt.getDate()}${de?"–"+de.getDate():""}</b><i>${mon}</i></div>`;
+  let sub="";
+  if(dt&&!a.m){const wd=x=>new Intl.DateTimeFormat(L,{weekday:"long"}).format(x);sub=de?wd(dt)+" – "+wd(de):wd(dt);}
+  if(dt&&dt.getFullYear()!==new Date(now+"T12:00:00").getFullYear()) sub=(sub?sub+" · ":"")+dt.getFullYear();
+  const end=a.e||a.d,past=dt&&end<now,today=dt&&!a.m&&a.d<=now&&now<=end;
+  return `<article class="day glass att${today?" today":""}${past?" past":""}" style="--i:${i}">
+    <div class="day-h">${box}
+      <div class="dmeta"><div class="dname">${esc(a.t)}${sub?`<small>${esc(sub)}</small>`:""}</div>${a.b?`<span class="badge b-prot">${esc(a.b).toLocaleUpperCase("it")}</span>`:""}</div>
+    </div>
+    <ul class="items">${a.it.map(([e,l,x],k)=>`<li class="it c-${["primo","secondo","contorno","pane","frutta"][k%5]}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${esc(l)}</div><div class="dish">${esc(x)}</div></div></li>`).join("")}</ul>
+  </article>`;
 }
+function renderAtt(){
+  const now=localISO(),dated=ATT.filter(a=>a.d),info=ATT.filter(a=>!a.d);
+  const up=dated.filter(a=>(a.e||a.d)>=now),past=dated.filter(a=>(a.e||a.d)<now);
+  const sec=(k,list)=>list.length?`<h2 class="att-h">${esc(t(k))}</h2><div class="att-grid" lang="it">${list.map((a,i)=>attCard(a,i,now)).join("")}</div>`:"";
+  document.getElementById("pane-att").innerHTML=sec("attCal",up)+sec("attInfo",info)+sec("attPast",past);
+}
+/* lo switch sta in alto a destra su desktop, sopra il titolo su mobile */
+const vsw=document.getElementById("vsw"),vswRow=document.getElementById("vswRow");
+function placeVsw(){const hd=document.querySelector(".hdr");if(matchMedia("(max-width:40rem)").matches){if(vsw.parentNode!==vswRow)vswRow.appendChild(vsw);}else if(vsw.parentNode!==hd)hd.insertBefore(vsw,hd.firstChild);}
+placeVsw();matchMedia("(max-width:40rem)").addEventListener("change",placeVsw);
+/* titolo, schede e contenuto seguono la vista attiva */
+function applyView(){
+  const att=VIEW==="attivita";
+  document.documentElement.classList.toggle("v-att",att);
+  document.getElementById("pane-menu").hidden=att;
+  document.getElementById("pane-att").hidden=!att;
+  const h=document.getElementById("calTitle");h.dataset.th=att?"attTitle":"heroTitle";h.innerHTML=t(h.dataset.th);
+  document.getElementById("period").textContent=att?attUpdated():rangeLong(ALL_DAYS);
+  document.title=(att?t("attDoc"):t("heroTitle").replace(/<br>/g," "))+" – Scuola dell'Infanzia \"Don Milani\"";
+  vsw.querySelectorAll(".tab").forEach(a=>{const on=a.dataset.v===VIEW;a.classList.toggle("active",on);if(on)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
+  if(att)renderAtt();
+}
+function show(v){
+  const nv=v==="attivita"?"attivita":"menu",changed=nv!==VIEW;
+  VIEW=nv;
+  document.getElementById("view-tutto").classList.add("active");
+  applyView();
+  if(changed)window.scrollTo(0,0);
+  if(nv==="menu")requestAnimationFrame(()=>{focusToday(document.getElementById("calGrid"));typeof syncTodayBtn==="function"&&syncTodayBtn();});
+}
+window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-view]");if(!b)return;
   const v=b.dataset.view;
