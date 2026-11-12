@@ -491,8 +491,10 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
 .b-prot{color:var(--fg-2);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line)}
 .day.today .b-prot{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .dark .day.today .b-prot{background:rgba(255,255,255,.6);color:#130f2e;box-shadow:inset 0 0 0 1px rgba(19,15,46,.2)}
+.cardx{display:flex;gap:.25rem;align-items:center}
 .shr{width:1.875rem;height:1.875rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);transition:background .35s var(--ease),color .35s var(--ease),transform .3s var(--ease)}
 .shr svg{width:.9375rem;height:.9375rem}
+.shr.cal svg{width:1rem;height:1rem}
 .shr:hover{color:var(--fg);transform:scale(1.08)}
 .shr:active{transform:scale(.94)}
 .day.today .shr{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
@@ -861,7 +863,7 @@ const IT={
   newAttInfo:"<b>Da sapere</b> – cosa portare, cosa controllare e le raccomandazioni delle maestre.",
   newAttSwitch:"<b>Menu o Attività</b> – passa dall'uno all'altro con le due voci in alto.",
   newAttNote:"Le informazioni arrivano dagli incontri con le maestre e possono cambiare: vale sempre quanto comunica la scuola.",
-  shareCard:"Condividi il testo",copied:"Testo copiato",menu:"Menu",
+  shareCard:"Condividi il testo",addCal:"Aggiungi al calendario",calDone:"Evento scaricato",copied:"Testo copiato",menu:"Menu",
   siteTitle:"Mensa, Attività ed Eventi",menuDoc:"Menu Mensa",
   tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"In calendario",attInfo:"Da sapere",attPast:"Già passati",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
@@ -1253,7 +1255,8 @@ function relLabel(iso){
 
 /* pulsante di condivisione su ogni card: condivide (o copia) solo il testo */
 const SHARE_ICO='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m8 7 4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
-const SHR=id=>`<button type="button" class="shr" data-share="${id}" aria-label="${esc(t("shareCard"))}" title="${esc(t("shareCard"))}">${SHARE_ICO}</button>`;
+const CAL_ICO='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M3 10h18"/><path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h7"/><path d="M19 16v6"/><path d="M16 19h6"/></svg>';
+const SHR=(id,cal)=>`<div class="cardx">${cal?`<button type="button" class="shr cal" data-cal="${cal}" aria-label="${esc(t("addCal"))}" title="${esc(t("addCal"))}">${CAL_ICO}</button>`:""}<button type="button" class="shr" data-share="${id}" aria-label="${esc(t("shareCard"))}" title="${esc(t("shareCard"))}">${SHARE_ICO}</button></div>`;
 const CHEV='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
 const INFO='<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20ZM12 10.25a1.1 1.1 0 0 1 1.1 1.1v5.3a1.1 1.1 0 0 1-2.2 0v-5.3a1.1 1.1 0 0 1 1.1-1.1ZM12 6.4a1.35 1.35 0 1 1 0 2.7a1.35 1.35 0 1 1 0-2.7Z"/></svg>';
 function dayCard(d,q=""){
@@ -1384,8 +1387,8 @@ const ATT=[
   {d:"2026-11-23",t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Coccinelle e Fenicotteri."],["👕","Abbigliamento","Vestire i bambini con colori neutri."],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano."]]},
   {d:"2026-11-26",t:"Addobbi a scuola",it:[["🎄","Cosa succede","Si addobberà la scuola."],["🍊","Da portare","Una buccia d’arancia essiccata per le decorazioni natalizie."]]},
   {d:"2026-12-12",e:"2026-12-13",t:"Bancarella di Natale",b:"Da confermare",it:[["🧁","Come contribuire","Preparare dolci da vendere, oppure portare oggettistica se qualcuno ne ha."],["📅","Data","Indicativamente il 12/13 dicembre, ancora da confermare."]]},
-  {d:"2026-12-15",t:"Canti in piazzetta",b:"Ore 16:30",it:[["🎶","Appuntamento","Canti di Natale in piazzetta alle 16:30."]]},
-  {d:"2026-12-18",t:"Festa di Natale",b:"Ore 14:30",it:[["🎭","Musical in palestra","Le maestre hanno iniziato le prove del musical, mantenendo i gruppi. A breve comunicheranno le parti da imparare a memoria e le indicazioni sull’abbigliamento."],["🎨","Scenografie","Il tema sarà ispirato a Christmas Carol. Servono genitori disponibili ad aiutare a realizzare e dipingere le scenografie: chi può dare una mano è il benvenuto!"],["🧹","Pulizia palestra","Dopo la recita servirà la collaborazione di alcuni genitori per sistemare e pulire la palestra."]]},
+  {d:"2026-12-15",h:"16:30",dur:60,t:"Canti in piazzetta",b:"Ore 16:30",it:[["🎶","Appuntamento","Canti di Natale in piazzetta alle 16:30."]]},
+  {d:"2026-12-18",h:"14:30",dur:120,t:"Festa di Natale",b:"Ore 14:30",it:[["🎭","Musical in palestra","Le maestre hanno iniziato le prove del musical, mantenendo i gruppi. A breve comunicheranno le parti da imparare a memoria e le indicazioni sull’abbigliamento."],["🎨","Scenografie","Il tema sarà ispirato a Christmas Carol. Servono genitori disponibili ad aiutare a realizzare e dipingere le scenografie: chi può dare una mano è il benvenuto!"],["🧹","Pulizia palestra","Dopo la recita servirà la collaborazione di alcuni genitori per sistemare e pulire la palestra."]]},
   {d:"2027-02-01",m:1,x:"🚒",t:"Progetto Protezione Civile",b:"Da febbraio",it:[["🤝","Incontri","Da febbraio inizieranno 4/5 incontri con i volontari."],["☀️","Con il caldo","Quando il tempo sarà più caldo verranno anche con i loro mezzi, per farli conoscere ai bambini."]]},
   {d:"2027-02-01",e:"2027-06-30",m:1,x:"🐟",t:"Progetti Pingelap e Pesciolino Blu",b:"Febbraio – giugno",it:[["🧩","Attività","Proseguiranno le attività previste per i diversi gruppi, a partire da febbraio e fino a giugno."]]},
   {d:"2027-05-24",t:"Gita di fine anno",it:[["🌱","Dove","Azienda Agricola Clorofilla, a Mercato Saraceno."],["🧪","Programma","Laboratorio al mattino, con rotazione dei gruppi, e poi pranzo con menù dedicato (non è previsto il pasto a sacco preparato dalla scuola)."],["💶","Costi","20 € a bambino per il pranzo in agriturismo. Per il trasporto sono stati richiesti alcuni preventivi, indicativamente tra 15 e 17 €."],["💪","Raccolta fondi","Siamo fiduciosi di riuscire a raccogliere i fondi necessari attraverso le varie iniziative!"]]},
@@ -1415,7 +1418,7 @@ function attCard(a,i,now){
   return `<article class="day glass att${today?" today":""}${past?" past":""}" style="--i:${i}">
     <div class="day-h">${box}
       <div class="dmeta"><div class="dname">${esc(a.t)}${sub?`<small>${esc(sub)}</small>`:""}</div></div>
-      <div class="tags">${SHR("att:"+ATT.indexOf(a))}${a.b?`<span class="badge b-prot">${esc(a.b).toLocaleUpperCase("it")}</span>`:""}</div>
+      <div class="tags">${SHR("att:"+ATT.indexOf(a),a.d&&!a.m?"att:"+ATT.indexOf(a):"")}${a.b?`<span class="badge b-prot">${esc(a.b).toLocaleUpperCase("it")}</span>`:""}</div>
     </div>
     <ul class="items">${a.it.map(([e,l,x],k)=>`<li class="it c-${["primo","secondo","contorno","pane","frutta"][k%5]}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${esc(l)}</div><div class="dish">${esc(x)}</div></div></li>`).join("")}</ul>
   </article>`;
@@ -1547,6 +1550,48 @@ function shareTextFor(id){
   const testa=[a.t,quando,a.b].filter(Boolean).join(" · ");
   return `${testa}\n${SCHOOL}\n\n${a.it.map(([,l,x])=>`${l}: ${x}`).join("\n")}`;
 }
+/* file .ics per gli eventi con una data certa */
+function icsFor(i){
+  const a=ATT[i];if(!a||!a.d||a.m)return null;
+  const esq=x=>String(x).replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\r?\n/g,"\\n");
+  const fold=l=>{/* piegatura a 75 byte, come vuole lo standard */
+    const b=new TextEncoder(),out=[];let r="",n=0,max=73;
+    for(const ch of l){const k=b.encode(ch).length;if(n+k>max){out.push(r);r=" ";n=1;max=74;}r+=ch;n+=k;}
+    out.push(r);return out.join("\r\n");};
+  const ymd=x=>x.replace(/-/g,"");
+  const add=(x,n)=>{const d=new Date(x+"T12:00:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10);};
+  const corpo=a.it.map(([,l,x])=>l+": "+x).join("\n");
+  let dt;
+  if(a.h){
+    const [H,M]=a.h.split(":").map(Number);
+    const fine=new Date(2026,0,1,H,M+(a.dur||90));
+    const p=n=>String(n).padStart(2,"0");
+    dt=`DTSTART;TZID=Europe/Rome:${ymd(a.d)}T${p(H)}${p(M)}00\r\nDTEND;TZID=Europe/Rome:${ymd(a.d)}T${p(fine.getHours())}${p(fine.getMinutes())}00`;
+  }else{
+    dt=`DTSTART;VALUE=DATE:${ymd(a.d)}\r\nDTEND;VALUE=DATE:${ymd(add(a.e||a.d,1))}`;
+  }
+  const tz=a.h?["BEGIN:VTIMEZONE","TZID:Europe/Rome","BEGIN:DAYLIGHT","TZOFFSETFROM:+0100","TZOFFSETTO:+0200","TZNAME:CEST","DTSTART:19700329T020000","RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU","END:DAYLIGHT","BEGIN:STANDARD","TZOFFSETFROM:+0200","TZOFFSETTO:+0100","TZNAME:CET","DTSTART:19701025T030000","RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU","END:STANDARD","END:VTIMEZONE"]:[];
+  const righe=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Don Milani Cervia//Attivita//IT","CALSCALE:GREGORIAN","METHOD:PUBLISH",...tz,"BEGIN:VEVENT",
+    "UID:att-"+i+"-"+ymd(a.d)+"@infanzia-don-milani",
+    "DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z",
+    ...dt.split("\r\n"),
+    fold("SUMMARY:"+esq(a.t+" – Don Milani")),
+    fold("DESCRIPTION:"+esq(corpo)),
+    fold("LOCATION:"+esq("Scuola dell'Infanzia \"Don Milani\", Cervia")),
+    "END:VEVENT","END:VCALENDAR"];
+  return {testo:righe.join("\r\n")+"\r\n",nome:(a.t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"evento")+".ics"};
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-cal]");if(!b)return;
+  e.preventDefault();e.stopPropagation();
+  const f=icsFor(+b.dataset.cal.slice(4));if(!f)return;
+  const blob=new Blob([f.testo],{type:"text/calendar;charset=utf-8"});
+  const url=URL.createObjectURL(blob),link=document.createElement("a");
+  link.href=url;link.download=f.nome;link.rel="noopener";
+  document.body.appendChild(link);link.click();link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),4000);
+  toast(t("calDone"));
+});
 function toast(msg){
   let el=document.getElementById("toast");
   if(!el){el=document.createElement("div");el.id="toast";el.className="toast";el.setAttribute("role","status");document.body.appendChild(el);}
