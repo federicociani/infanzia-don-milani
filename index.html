@@ -644,13 +644,23 @@ nav.vsw .tab{min-height:2.25rem;padding:.375rem 1rem;border-radius:.9375rem;text
 .vsw-row:empty{display:none}
 .vsw-row nav.vsw{width:100%}.vsw-row nav.vsw .tab{flex:1;justify-content:center;min-height:2.5rem}
 html.v-att header .weeknav,html.v-att header .today-btn{display:none}
-@media (max-width:40rem){html.v-att header{display:none}html.v-att footer{padding-bottom:2rem}}
+header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
+@media (max-width:40rem){
+  header{flex-direction:column;align-items:center;gap:.5rem}
+  footer{padding-bottom:calc(9.75rem + env(safe-area-inset-bottom))}
+  html.v-att header > .wrap{display:none}
+  html.v-att footer{padding-bottom:calc(5.5rem + env(safe-area-inset-bottom))}
+  .a2hs{bottom:calc(7.75rem + env(safe-area-inset-bottom))}
+  html.v-att .a2hs{bottom:calc(4.25rem + env(safe-area-inset-bottom))}
+  header .vsw-row nav.vsw{box-shadow:0 .75rem 1.75rem -.75rem rgba(0,0,0,.45),inset 0 1px 0 var(--hi)}
+}
+/* lingua nel footer: il pannello si apre verso l'alto */
+.prefs .lng-panel{top:auto;bottom:calc(100% + .5rem)}
+@media (max-width:40rem){.prefs .lng-panel,[dir=rtl] .prefs .lng-panel{right:auto;left:50%;margin-left:-6.75rem}}
 [hidden].pane{display:none}
 /* attività: stesse card del menu, in griglia */
 .att-h{font-size:.75rem;color:var(--fg-2);font-weight:600;text-transform:uppercase;letter-spacing:.0625rem;margin:0 .5rem 1rem;animation:softIn .9s var(--ease) .15s backwards}
-.att-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;align-items:start;margin-bottom:2.5rem}
-@media (max-width:53.75rem){.att-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:40rem){.att-grid{grid-template-columns:minmax(0,1fr)}}
+.att-sec{margin-bottom:1.5rem}
 .att .dmeta{flex:1;min-width:0}
 .att .dname{line-height:1.2}
 .att .dname small{display:block;margin-top:.1875rem;font-family:var(--font-body,inherit);font-size:.75rem;font-weight:normal;letter-spacing:.025rem;color:var(--muted-fg)}
@@ -662,8 +672,8 @@ html.v-att header .weeknav,html.v-att header .today-btn{display:none}
 .att .badge{display:block;width:fit-content;align-self:flex-start;margin-top:.375rem;white-space:nowrap}
 .att .dname{overflow-wrap:normal;word-break:normal}
 .att.past{opacity:.55}
-.att-grid .day{animation:cardIn 1s var(--ease) backwards;animation-delay:calc(.2s + var(--i,0) * .06s)}
-@media (prefers-reduced-motion:reduce){.att-grid .day,.att-h{animation:fadeOnly .3s ease backwards}}
+.att-sec .day{animation:cardIn 1s var(--ease) backwards;animation-delay:calc(.2s + var(--i,0) * .06s)}
+@media (prefers-reduced-motion:reduce){.att-sec .day,.att-h{animation:fadeOnly .3s ease backwards}}
 </style>
 <!-- Hotjar (Site ID 6844086): parte solo dopo il consenso ai cookie di misurazione (iubenda) -->
 <script type="text/plain" class="_iub_cs_activate-inline" data-iub-purposes="4">
@@ -692,9 +702,10 @@ html.v-att header .weeknav,html.v-att header .today-btn{display:none}
 
 <header>
   <div class="wrap"><div class="hdr">
-    <nav class="vsw" id="vsw" aria-label="Sezioni" data-ta="sections"><a class="tab active" href="#menu" data-v="menu" aria-current="page"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><span data-t="tabMenu">Menu</span></a><a class="tab" href="#attivita" data-v="attivita"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg><span data-t="tabAtt">Attività</span></a></nav>
     <button class="today-btn" id="todayBtn" aria-label="Vai al menu di oggi" disabled>Oggi</button>
+    <nav class="vsw" id="vsw" aria-label="Sezioni" data-ta="sections"><a class="tab active" href="#menu" data-v="menu" aria-current="page"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><span data-t="tabMenu">Menu</span></a><a class="tab" href="#attivita" data-v="attivita"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg><span data-t="tabAtt">Attività</span></a></nav>
   </div></div>
+  <div class="vsw-row" id="vswRow"></div>
 </header>
 
 <main>
@@ -702,11 +713,9 @@ html.v-att header .weeknav,html.v-att header .today-btn{display:none}
 
   <!-- MENU COMPLETO -->
   <section class="view wrap active" id="view-tutto" aria-labelledby="calTitle">
-    <div class="vsw-row" id="vswRow"></div>
     <div class="hero">
       <h1 id="calTitle" data-th="heroTitle">Menu<br>Mensa</h1>
       <div class="hero-meta"><p data-th="school">Scuola dell'Infanzia<br>“Don Milani” a Cervia</p><small id="period">15 set – 23 dic 2026</small></div>
-      <div class="lng" id="lng"><button type="button" class="lng-btn ctl" id="lngBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="lngList"><span class="flag" id="lngFlag" aria-hidden="true">🇮🇹</span><span class="code" id="lngCode">IT</span><span class="sr-only" data-t="lang">Lingua</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="lng-panel" id="lngList" role="listbox" data-ta="lang" aria-label="Lingua" hidden></div></div>
     </div>
     <div class="pane" id="pane-menu">
     <div class="search-row">
@@ -735,6 +744,7 @@ html.v-att header .weeknav,html.v-att header .today-btn{display:none}
   <div class="foot glass">
     <div><!-- feedback nascosto per ora --><div class="fb" hidden><span data-t="fbQ">Un problema, un’idea o un parere?</span><a class="opinion-btn" href="https://surveys.hotjar.com/d14f3328-33a0-4ef2-aa57-7c8750f0fe92" target="_blank" rel="noopener"><span data-t="fbBtn">Invia un feedback</span><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></div><details class="info"><summary><span data-t="moreInfo">Maggiori informazioni</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><p><span data-t="unofficial">Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale:</span> <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink"><span data-t="pdf">apri il PDF ufficiale del Comune</span><svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></p></details><span class="legal"><a href="https://www.iubenda.com/privacy-policy/19004044" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.iubenda.com/privacy-policy/19004044/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> · <a href="#" class="iubenda-cs-preferences-link" data-t="cookies">Preferenze cookie</a></span></div>
     <div class="prefs">
+    <div class="lng" id="lng"><button type="button" class="lng-btn ctl" id="lngBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="lngList"><span class="flag" id="lngFlag" aria-hidden="true">🇮🇹</span><span class="code" id="lngCode">IT</span><span class="sr-only" data-t="lang">Lingua</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="lng-panel" id="lngList" role="listbox" data-ta="lang" aria-label="Lingua" hidden></div></div>
     <div class="themes" role="group" aria-label="Tema" data-ta="theme">
       <button data-theme="light" aria-label="Tema chiaro" title="Tema chiaro" data-ta="themeLight"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.28 5.28l1.42 1.42M17.3 17.3l1.42 1.42M5.28 18.72l1.42-1.42M17.3 6.7l1.42-1.42"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5" fill="currentColor" stroke="none"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.28 5.28l1.42 1.42M17.3 17.3l1.42 1.42M5.28 18.72l1.42-1.42M17.3 6.7l1.42-1.42"/></svg></button>
       <button data-theme="dark" aria-label="Tema scuro" title="Tema scuro" data-ta="themeDark"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7Z"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a6.8 6.8 0 0 0 10.7 10.7Z"/></svg></button>
@@ -827,7 +837,7 @@ const IT={
   newMood:"<b>Carattere del pasto</b> – un'icona ti dice se è un pasto bilanciato, energetico, leggero…",
   newNote:"Descrizioni, foto e indicazioni sono generate con l'intelligenza artificiale e sono solo orientative: vale sempre il menu ufficiale del Comune.",
   newOk:"Ho capito",
-  tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attCal:"In calendario",attInfo:"Da sapere",attPast:"Già passati",
+  tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"In calendario",attInfo:"Da sapere",attPast:"Già passati",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
   search:"Cerca...",searchLabel:"Cerca un piatto",clear:"Cancella la ricerca",
   menuType:"Tipo di menu",menuTypes:"Tipi di menu",filterAria:"Filtra per tipo di menu",showAll:"Mostra tutti",done:"Fatto",nDays:"{n} giorni",
@@ -1355,7 +1365,11 @@ const ATT=[
   {x:"👕",t:"Cose da controllare e portare",it:[["🍂","Cambio stagione","Fare il cambio stagione nei sacchettini dei bambini, verificando che ci siano vestiti adatti."],["🧥","Felpe rimaste a scuola","Alcune felpe sono rimaste a scuola e non si capisce di chi siano: controllate se ne manca qualcuna ai vostri bimbi."],["👚","Ricambi in più","Le maestre chiedono se qualcuno ha vestiti di ricambio in più da poter lasciare a scuola."],["🥾","Stivaletti e mantellina","Controllare che ogni bambino li abbia per le uscite e le attività all’aperto."]]},
   {x:"📌",t:"Piccole raccomandazioni",it:[["⏰","Orari","Rispettare gli orari di ingresso e uscita."],["✅","Pasto","Ricordarsi di mettere la crocetta per il pasto."],["📞","Uscita anticipata","Avvisare telefonicamente la scuola e concordare l’orario, evitando di presentarsi senza preavviso."],["🕘","Ritardo","In caso di ritardo, avvisare la scuola."]]}
 ];
-function attUpdated(){return t("attUpd").replace("{d}",new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"long",year:"numeric"}).format(new Date(ATT_UPDATED+"T12:00:00")));}
+function attUpdated(){
+  const L=LOCALE[LANG]||LANG,last=ATT.reduce((m,a)=>{const x=a.e||a.d||"";return x>m?x:m;},""),ld=new Date(last+"T12:00:00");
+  const o=ld.getFullYear()===new Date(ATT_UPDATED+"T12:00:00").getFullYear()?{month:"long"}:{month:"long",year:"numeric"};
+  return t("attUpd").replace("{d}",new Intl.DateTimeFormat(L,{day:"numeric",month:"long",year:"numeric"}).format(new Date(ATT_UPDATED+"T12:00:00")))+" – "+t("attUntil").replace("{m}",new Intl.DateTimeFormat(L,o).format(ld));
+}
 function localISO(){const n=new Date();return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");}
 function attCard(a,i,now){
   const L=LOCALE[LANG]||LANG,dt=a.d?new Date(a.d+"T12:00:00"):null,de=a.e?new Date(a.e+"T12:00:00"):null;
@@ -1377,12 +1391,22 @@ function attCard(a,i,now){
 function renderAtt(){
   const now=localISO(),dated=ATT.filter(a=>a.d),info=ATT.filter(a=>!a.d);
   const up=dated.filter(a=>(a.e||a.d)>=now),past=dated.filter(a=>(a.e||a.d)<now);
-  const sec=(k,list)=>list.length?`<h2 class="att-h">${esc(t(k))}</h2><div class="att-grid" lang="it">${list.map((a,i)=>attCard(a,i,now)).join("")}</div>`:"";
-  document.getElementById("pane-att").innerHTML=sec("attCal",up)+sec("attInfo",info)+sec("attPast",past);
+  const sec=(k,list)=>list.length?`<section class="att-sec"><h2 class="att-h">${esc(t(k))}</h2><div class="slider"><button type="button" class="sl-btn sl-prev" aria-label="${esc(t("slPrev"))}" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div class="grid" tabindex="0" lang="it" aria-label="${esc(t(k))}">${list.map((a,i)=>attCard(a,i,now)).join("")}</div><button type="button" class="sl-btn sl-next" aria-label="${esc(t("slNext"))}" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div></section>`:"";
+  const pane=document.getElementById("pane-att");
+  pane.innerHTML=sec("attCal",up)+sec("attInfo",info)+sec("attPast",past);
+  pane.querySelectorAll(".slider").forEach(sl=>{
+    const g=sl.querySelector(".grid"),p=sl.querySelector(".sl-prev"),n=sl.querySelector(".sl-next");
+    const step=()=>{const c=g.querySelector(".day");return c?c.getBoundingClientRect().width+16:g.clientWidth*.8;};
+    const sync=()=>{const max=g.scrollWidth-g.clientWidth-2;p.hidden=!(g.scrollLeft>2);n.hidden=!(g.scrollLeft<max);};
+    p.addEventListener("click",()=>g.scrollBy({left:-step(),behavior:"smooth"}));
+    n.addEventListener("click",()=>g.scrollBy({left:step(),behavior:"smooth"}));
+    g.addEventListener("scroll",()=>requestAnimationFrame(sync),{passive:true});
+    requestAnimationFrame(sync);
+  });
 }
 /* lo switch sta in alto a destra su desktop, sopra il titolo su mobile */
 const vsw=document.getElementById("vsw"),vswRow=document.getElementById("vswRow");
-function placeVsw(){const hd=document.querySelector(".hdr");if(matchMedia("(max-width:40rem)").matches){if(vsw.parentNode!==vswRow)vswRow.appendChild(vsw);}else if(vsw.parentNode!==hd)hd.insertBefore(vsw,hd.firstChild);}
+function placeVsw(){const hd=document.querySelector(".hdr");if(matchMedia("(max-width:40rem)").matches){if(vsw.parentNode!==vswRow)vswRow.appendChild(vsw);}else if(vsw.parentNode!==hd)hd.appendChild(vsw);}
 placeVsw();matchMedia("(max-width:40rem)").addEventListener("change",placeVsw);
 /* titolo, schede e contenuto seguono la vista attiva */
 function applyView(){
