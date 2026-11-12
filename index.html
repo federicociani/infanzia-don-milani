@@ -491,6 +491,16 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
 .b-prot{color:var(--fg-2);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line)}
 .day.today .b-prot{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .dark .day.today .b-prot{background:rgba(255,255,255,.6);color:#130f2e;box-shadow:inset 0 0 0 1px rgba(19,15,46,.2)}
+.shr{width:1.875rem;height:1.875rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);transition:background .35s var(--ease),color .35s var(--ease),transform .3s var(--ease)}
+.shr svg{width:.9375rem;height:.9375rem}
+.shr:hover{color:var(--fg);transform:scale(1.08)}
+.shr:active{transform:scale(.94)}
+.day.today .shr{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.dark .day.today .shr{background:rgba(255,255,255,.6);color:#130f2e;box-shadow:inset 0 0 0 1px rgba(19,15,46,.2)}
+.toast{position:fixed;left:50%;bottom:calc(5.5rem + env(safe-area-inset-bottom));transform:translate(-50%,.75rem);z-index:60;padding:.625rem 1rem;border-radius:999rem;background:var(--surface);border:1.5px solid var(--line);box-shadow:0 1rem 2rem -.75rem rgba(8,11,20,.5);font-size:.8125rem;font-weight:600;color:var(--fg);opacity:0;pointer-events:none;transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (min-width:40.0625rem){.toast{bottom:2rem}}
+@media (prefers-reduced-motion:reduce){.shr,.toast{transition:opacity .2s}}
 .mood{width:1.75rem;height:1.75rem;border-radius:999rem;display:grid;place-items:center;color:var(--accent);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);position:relative}
 .mood::after{content:"";position:absolute;inset:-.5rem}
 .mood svg{width:.9375rem;height:.9375rem}
@@ -672,7 +682,7 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .att .it{align-items:flex-start}
 .att .dish{font-weight:normal;font-size:.9375rem;line-height:1.45}
 .att .lbl{margin-bottom:.125rem}
-.att .badge{display:block;width:fit-content;align-self:flex-start;margin-top:.375rem;white-space:nowrap}
+.att .badge{white-space:nowrap}
 .att .dname{overflow-wrap:normal;word-break:normal}
 .att.past{opacity:.55}
 .att-sec .day{animation:cardIn 1s var(--ease) backwards;animation-delay:calc(.2s + var(--i,0) * .06s)}
@@ -851,6 +861,7 @@ const IT={
   newAttInfo:"<b>Da sapere</b> – cosa portare, cosa controllare e le raccomandazioni delle maestre.",
   newAttSwitch:"<b>Menu o Attività</b> – passa dall'uno all'altro con le due voci in alto.",
   newAttNote:"Le informazioni arrivano dagli incontri con le maestre e possono cambiare: vale sempre quanto comunica la scuola.",
+  shareCard:"Condividi il testo",copied:"Testo copiato",menu:"Menu",
   siteTitle:"Mensa, Attività ed Eventi",menuDoc:"Menu Mensa",
   tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"In calendario",attInfo:"Da sapere",attPast:"Già passati",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
@@ -1240,6 +1251,9 @@ function relLabel(iso){
   return "";
 }
 
+/* pulsante di condivisione su ogni card: condivide (o copia) solo il testo */
+const SHARE_ICO='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m8 7 4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
+const SHR=id=>`<button type="button" class="shr" data-share="${id}" aria-label="${esc(t("shareCard"))}" title="${esc(t("shareCard"))}">${SHARE_ICO}</button>`;
 const CHEV='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
 const INFO='<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd"><path d="M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20ZM12 10.25a1.1 1.1 0 0 1 1.1 1.1v5.3a1.1 1.1 0 0 1-2.2 0v-5.3a1.1 1.1 0 0 1 1.1-1.1ZM12 6.4a1.35 1.35 0 1 1 0 2.7a1.35 1.35 0 1 1 0-2.7Z"/></svg>';
 function dayCard(d,q=""){
@@ -1258,7 +1272,7 @@ function dayCard(d,q=""){
       <div class="dmeta">
         <div class="dname">${rel?`<span class="oggi rel-${rel}">${relT}</span>`:""}${dayName(dt)}</div>
       </div>
-      ${d.tipo?`<div class="tags"><span class="badge b-${d.tipo}">${t(d.tipo).toLocaleUpperCase(LANG)}</span>${d.prot?`<span class="badge b-prot" title="${esc(t("protLabel"))}"><span class="sr-only">${esc(t("protLabel"))}: </span>${t("p_"+d.prot).toLocaleUpperCase(LANG)}</span>`:""}${d.mood?`<button type="button" class="mood" data-mood="${d.mood}" aria-expanded="false" aria-label="${esc(t("m_"+d.mood))}: ${esc(t("whatMeans"))}">${MOODS[d.mood].i}</button>`:""}</div>`:""}
+      <div class="tags">${SHR(`day:${d.date}`)}${d.tipo?`<span class="badge b-${d.tipo}">${t(d.tipo).toLocaleUpperCase(LANG)}</span>${d.prot?`<span class="badge b-prot" title="${esc(t("protLabel"))}"><span class="sr-only">${esc(t("protLabel"))}: </span>${t("p_"+d.prot).toLocaleUpperCase(LANG)}</span>`:""}${d.mood?`<button type="button" class="mood" data-mood="${d.mood}" aria-expanded="false" aria-label="${esc(t("m_"+d.mood))}: ${esc(t("whatMeans"))}">${MOODS[d.mood].i}</button>`:""}`:""}</div>
     </div>
     ${items?`<ul class="items">${items}</ul><div class="day-f"><span>${esc(t("aiFoot"))}</span><button type="button" class="ai-info" data-ai-info aria-haspopup="dialog" aria-label="${esc(t("aiTitle"))}: ${esc(t("whatMeans"))}">${INFO}</button></div>`:`<p class="noday">${esc(t("noday"))}</p>`}
   </article>`;
@@ -1400,7 +1414,8 @@ function attCard(a,i,now){
   const end=a.e||a.d,past=dt&&end<now,today=dt&&!a.m&&a.d<=now&&now<=end;
   return `<article class="day glass att${today?" today":""}${past?" past":""}" style="--i:${i}">
     <div class="day-h">${box}
-      <div class="dmeta"><div class="dname">${esc(a.t)}${sub?`<small>${esc(sub)}</small>`:""}</div>${a.b?`<span class="badge b-prot">${esc(a.b).toLocaleUpperCase("it")}</span>`:""}</div>
+      <div class="dmeta"><div class="dname">${esc(a.t)}${sub?`<small>${esc(sub)}</small>`:""}</div></div>
+      <div class="tags">${SHR("att:"+ATT.indexOf(a))}${a.b?`<span class="badge b-prot">${esc(a.b).toLocaleUpperCase("it")}</span>`:""}</div>
     </div>
     <ul class="items">${a.it.map(([e,l,x],k)=>`<li class="it c-${["primo","secondo","contorno","pane","frutta"][k%5]}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${esc(l)}</div><div class="dish">${esc(x)}</div></div></li>`).join("")}</ul>
   </article>`;
@@ -1514,6 +1529,43 @@ setInterval(()=>{
   addEventListener("resize",()=>requestAnimationFrame(syncSlider));
   new MutationObserver(()=>requestAnimationFrame(syncSlider)).observe(g,{childList:true});
 })();
+/* ===== condivisione del testo di una card ===== */
+function shareTextFor(id){
+  const SCHOOL="Scuola dell'Infanzia \"Don Milani\" – Cervia";
+  if(id.startsWith("day:")){
+    const d=ALL_DAYS.find(x=>x.date===id.slice(4));if(!d)return "";
+    const dt=new Date(d.date+"T12:00:00"),unico=isUnico(d.piatti);
+    const lab={primo:unico?t("antipasto"):t("primo"),secondo:unico?t("unico"):t("secondo")};
+    const righe=CATS.filter(([k])=>d.piatti[k]).map(([k])=>`${lab[k]||t(k)}: ${dishName(d.piatti[k])}`);
+    if(!righe.length)return `${t("menu")} · ${dayName(dt)} ${dayMon(dt)}\n${SCHOOL}\n\n${t("noday")}`;
+    return `${t("menu")} · ${dayName(dt)} ${dayMon(dt)}\n${SCHOOL}\n\n${righe.join("\n")}`;
+  }
+  const a=ATT[+id.slice(4)];if(!a)return "";
+  const L=LOCALE[LANG]||LANG;let quando="";
+  if(a.d){const f=x=>new Intl.DateTimeFormat(L,{day:"numeric",month:"long"}).format(new Date(x+"T12:00:00"));
+    quando=a.e&&a.e!==a.d?f(a.d)+" – "+f(a.e):f(a.d);}
+  const testa=[a.t,quando,a.b].filter(Boolean).join(" · ");
+  return `${testa}\n${SCHOOL}\n\n${a.it.map(([,l,x])=>`${l}: ${x}`).join("\n")}`;
+}
+function toast(msg){
+  let el=document.getElementById("toast");
+  if(!el){el=document.createElement("div");el.id="toast";el.className="toast";el.setAttribute("role","status");document.body.appendChild(el);}
+  el.textContent=msg;requestAnimationFrame(()=>el.classList.add("on"));
+  clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove("on"),2200);
+}
+document.addEventListener("click",async e=>{
+  const b=e.target.closest("[data-share]");if(!b)return;
+  e.preventDefault();e.stopPropagation();
+  const testo=shareTextFor(b.dataset.share);if(!testo)return;
+  try{
+    if(navigator.share){await navigator.share({text:testo});return;}
+  }catch(err){if(err&&err.name==="AbortError")return;}
+  try{await navigator.clipboard.writeText(testo);toast(t("copied"));}
+  catch(err){
+    const ta=document.createElement("textarea");ta.value=testo;ta.style.position="fixed";ta.style.opacity="0";
+    document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast(t("copied"));}catch(e2){}ta.remove();
+  }
+});
 /* ===== modale del piatto, modale IA, tooltip dell'icona del pasto ===== */
 (function(){
   const dish=document.getElementById("dishDlg"),ai=document.getElementById("aiDlg"),tip=document.getElementById("tip");
