@@ -684,7 +684,7 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .att .it{align-items:flex-start}
 .att .dish{font-weight:normal;font-size:.9375rem;line-height:1.45}
 .att .lbl{margin-bottom:.125rem}
-.att .badge{white-space:nowrap}
+.att .badge{display:inline-flex;width:fit-content;margin-top:.5rem;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .att .dname{overflow-wrap:normal;word-break:normal}
 .att.past{opacity:.55}
 .att-sec .day{animation:cardIn 1s var(--ease) backwards;animation-delay:calc(.2s + var(--i,0) * .06s)}
@@ -1417,8 +1417,8 @@ function attCard(a,i,now){
   const end=a.e||a.d,past=dt&&end<now,today=dt&&!a.m&&a.d<=now&&now<=end;
   return `<article class="day glass att${today?" today":""}${past?" past":""}" style="--i:${i}">
     <div class="day-h">${box}
-      <div class="dmeta"><div class="dname">${esc(a.t)}${sub?`<small>${esc(sub)}</small>`:""}</div></div>
-      <div class="tags">${SHR("att:"+ATT.indexOf(a),a.d&&!a.m?"att:"+ATT.indexOf(a):"")}${a.b?`<span class="badge b-prot">${esc(a.b).toLocaleUpperCase("it")}</span>`:""}</div>
+      <div class="dmeta"><div class="dname">${esc(a.t)}${sub?`<small>${esc(sub)}</small>`:""}</div>${a.b?`<span class="badge b-prot">${esc(a.b).toLocaleUpperCase("it")}</span>`:""}</div>
+      <div class="tags">${SHR("att:"+ATT.indexOf(a),a.d&&!a.m?"att:"+ATT.indexOf(a):"")}</div>
     </div>
     <ul class="items">${a.it.map(([e,l,x],k)=>`<li class="it c-${["primo","secondo","contorno","pane","frutta"][k%5]}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${esc(l)}</div><div class="dish">${esc(x)}</div></div></li>`).join("")}</ul>
   </article>`;
