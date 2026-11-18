@@ -710,7 +710,6 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .st{padding:.75rem .875rem;border-radius:1rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line)}
 .st b{display:block;font-family:var(--font-display);font-size:1.5rem;line-height:1.1;color:var(--accent)}
 .st span{display:block;margin-top:.25rem;font-size:.75rem;line-height:1.35;color:var(--muted-fg)}
-.st-per{margin-top:.125rem;font-size:.8125rem;color:var(--muted-fg)}
 .st-chart{display:flex;align-items:flex-end;gap:.375rem;height:9rem;margin-top:.75rem}
 .st-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
 .st-bar b{font-size:.75rem;font-weight:700;color:var(--fg-2)}
@@ -953,8 +952,7 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
       <div class="st"><b>72%</b><span data-t="statT4"></span></div>
     </div>
     <h3 data-t="statChart"></h3>
-    <p class="st-per">12 – 18/11/2026</p>
-    <div class="st-chart" aria-hidden="true">
+    <div class="st-chart" role="img" data-ta="statChartAlt">
       <div class="st-bar" style="--v:92"><b>92</b><i></i></div>
       <div class="st-bar" style="--v:22"><b>22</b><i></i></div>
       <div class="st-bar" style="--v:8"><b>8</b><i></i></div>
@@ -964,7 +962,6 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
       <div class="st-bar part" style="--v:6"><b>6</b><i></i></div>
     </div>
     <div class="st-days" aria-hidden="true"><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span></div>
-    <p class="st-per" data-t="statChartAlt"></p>
     <h3 data-t="statReadT"></h3>
     <ul class="st-read">
       <li><span aria-hidden="true">👀</span><p data-th="statRead1"></p></li>
