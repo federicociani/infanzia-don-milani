@@ -681,6 +681,10 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .prefs .themes,.prefs .lng-btn{height:3.25rem;min-height:3.25rem}
 .prefs .themes button{min-height:0;height:100%}
 @media (max-width:40rem){.prefs .lng-panel,[dir=rtl] .prefs .lng-panel{right:auto;left:50%;margin-left:-6.75rem}}
+/* 14 lingue: due colonne, così ci stanno tutte senza scorrere */
+#lngList{width:min(19rem,calc(100vw - 2rem));display:grid;grid-template-columns:1fr 1fr;gap:.125rem;align-content:start}
+#lngList .lng-opt{font-size:.875rem}
+@media (max-width:40rem){.prefs{position:relative}.prefs #lng{position:static}.prefs #lngList,[dir=rtl] .prefs #lngList{left:50%;right:auto;margin-left:calc(min(19rem,100vw - 2rem) * -.5)}}
 [hidden].pane{display:none}
 /* attività: stesse card del menu, in griglia */
 .att-h{font-size:.75rem;color:var(--fg-2);font-weight:600;text-transform:uppercase;letter-spacing:.0625rem;margin:0 .5rem 1rem;animation:softIn .9s var(--ease) .15s backwards}
