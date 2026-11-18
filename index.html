@@ -525,7 +525,7 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
 .tip b svg{width:1rem;height:1rem;color:var(--accent)}
 .tip small{display:block;margin-top:.5rem;color:var(--muted-fg);font-size:.75rem;letter-spacing:.025rem}
 /* modali */
-.dlg{margin:auto;border:1.5px solid var(--line);border-radius:1.5rem;padding:0;width:min(26rem,calc(100vw - 2rem));max-height:calc(100dvh - 2rem);overflow:auto;
+.dlg{inset:0;margin:auto;border:1.5px solid var(--line);border-radius:1.5rem;padding:0;width:min(26rem,calc(100% - 2rem));max-height:calc(100dvh - 2rem);overflow:auto;
   background:var(--surface);color:var(--fg);box-shadow:0 2rem 4rem -1.5rem rgba(8,11,20,.6)}
 .dlg::backdrop{background:rgba(8,11,20,.45);-webkit-backdrop-filter:blur(.375rem);backdrop-filter:blur(.375rem)}
 .dlg[open]{animation:dlgIn .5s var(--ease)}
@@ -697,8 +697,7 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .info-cta a{display:inline-flex;align-items:center;gap:.375rem;min-height:2.5rem;padding:.5rem .875rem;border-radius:1rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);color:var(--fg);font-size:.8125rem;font-weight:600}
 .info-cta a:hover{background:var(--tile)}
 .info-cta svg{width:1rem;height:1rem;flex:none}
-.dlg-stat{width:min(34rem,calc(100vw - 2rem))}
-.dlg-info{width:min(34rem,calc(100vw - 2rem))}
+@media (min-width:40.0625rem){.dlg-stat,.dlg-info{width:min(34rem,calc(100% - 2rem))}}
 .dlg-stat .new-note,.dlg-info .new-note{display:block;margin-top:1.25rem;font-size:.8125rem;line-height:1.5;color:var(--muted-fg)}
 .st-read{list-style:none;margin:.5rem 0 0;padding:0;display:flex;flex-direction:column;gap:.625rem}
 .st-read li{display:flex;gap:.625rem;align-items:flex-start}
@@ -723,7 +722,6 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .att-row .dd-label{display:inline;position:static;width:auto;height:auto;clip:auto;overflow:visible}
 .att-row[hidden]{display:none}
 .att-row .dd{flex:none}
-@media (max-width:40rem){.att-row .dd,.att-row .dd-btn{width:100%}}
 .att-sec{margin-bottom:1.5rem}
 .att-toggle{display:flex;align-items:center;gap:.375rem;background:none;border:0;cursor:pointer;color:var(--fg-2);transition:color .3s var(--ease)}
 .att-toggle:hover{color:var(--fg)}
@@ -927,6 +925,7 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
         <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/></svg><span data-t="infoMenuPdf"></span><span class="sr-only" data-t="newTab"></span></a>
         <a href="doc/elezioni-consiglio-istituto-2026.pdf" download><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/></svg><span data-t="infoVotePdf"></span></a>
         <a href="#statistiche"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span data-t="statLink"></span></a>
+        <a href="#novita" id="newsOpen"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9Z"/><path d="M19 15l.6 1.5 1.5.6-1.5.6-.6 1.5-.6-1.5-1.5-.6 1.5-.6Z"/></svg><span data-t="newsLink"></span></a>
       </div>
     </section>
 
@@ -1024,7 +1023,7 @@ const IT={
   newInfo:"<b>Dati utili</b> – il pulsante con la “i” in alto raccoglie telefoni, orari della segreteria e documenti.",
   newStat:"<b>Statistiche di utilizzo</b> – dal fondo pagina si vede, in chiaro, quanto la pagina viene usata.",
   newAttNote:"Le informazioni arrivano dagli incontri con le maestre e possono cambiare: vale sempre quanto comunica la scuola.",
-  infoTitle:"Info utili",
+  infoTitle:"Info utili",newsLink:"Novità",
   infoIntro:"I riferimenti della scuola e i documenti che servono più spesso, tutti in un posto.",
   infoSchoolT:"Scuola dell'Infanzia “Don Milani”",
   infoSecT:"Segreteria — I.C. Cervia 2",
@@ -1733,7 +1732,11 @@ function openInfo(){
   try{if(window.clarity)clarity("event","dati-utili");}catch(e){}
 }
 document.getElementById("infoBtn").addEventListener("click",openInfo);
-infoDlg.addEventListener("click",e=>{if(e.target.closest('a[href="#statistiche"]')){infoDlg.close();}});
+infoDlg.addEventListener("click",e=>{
+  if(e.target.closest('a[href="#statistiche"]')){infoDlg.close();return;}
+  const n=e.target.closest('a[href="#novita"]');
+  if(n){e.preventDefault();infoDlg.close();setTimeout(()=>showNewsOnce(VIEW,true),150);}
+});
 infoDlg.addEventListener("close",()=>{if(location.hash==="#dati-utili")history.replaceState(null,"",location.pathname+location.search);});
 function route(h){
   if(h==="dati-utili"){openInfo();return;}
@@ -1934,14 +1937,17 @@ document.addEventListener("click",async e=>{
 
 /* modale "Novità": si apre una sola volta per dispositivo, dopo che la lingua è pronta */
 /* due novità distinte: una per il menu, una per attività ed eventi; ognuna si mostra una volta sola */
+/* Versione del changelog: basta cambiarla per rimostrare le novità a tutti,
+   anche a chi aveva già chiuso la finestra la volta prima. */
+const NEWS_V="2026-11-18";
 const NEWS={
-  menu:{key:"mensa-news-2026-11-18",title:"newTitle",intro:"newIntro",note:"newNote"},
-  attivita:{key:"mensa-news-att-2026-11-18",title:"newAttTitle",intro:"newAttIntro",note:"newAttNote"}
+  menu:{key:"mensa-news-menu",title:"newTitle",intro:"newIntro",note:"newNote"},
+  attivita:{key:"mensa-news-att",title:"newAttTitle",intro:"newAttIntro",note:"newAttNote"}
 };
-window.showNewsOnce=function(kind){
+window.showNewsOnce=function(kind,forza){
   const n=NEWS[kind==="attivita"?"attivita":"menu"];
-  let seen=false;try{seen=localStorage.getItem(n.key)==="1";}catch(e){}
-  if(seen)return;
+  let seen=false;try{seen=localStorage.getItem(n.key)===NEWS_V;}catch(e){}
+  if(seen&&!forza)return;
   const d=document.getElementById("newDlg");if(!d||d.open)return;
   document.getElementById("newTitle").dataset.t=n.title;
   document.getElementById("newIntro").dataset.t=n.intro;
@@ -1952,9 +1958,9 @@ window.showNewsOnce=function(kind){
   const att=n.key===NEWS.attivita.key;
   document.getElementById("newListMenu").hidden=att;
   document.getElementById("newListAtt").hidden=!att;
-  const mark=()=>{try{localStorage.setItem(n.key,"1");}catch(e){}};
+  const mark=()=>{try{localStorage.setItem(n.key,NEWS_V);}catch(e){}};
   d.addEventListener("close",mark,{once:true});
-  setTimeout(()=>{if(typeof d.showModal==="function"){if(!d.open)d.showModal();}else d.setAttribute("open","");},900);
+  setTimeout(()=>{if(typeof d.showModal==="function"){if(!d.open)d.showModal();}else d.setAttribute("open","");},forza?0:900);
 };
 /* tema chiaro/scuro (selettore nel footer) */
 const root=document.documentElement;
