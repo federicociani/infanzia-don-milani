@@ -691,7 +691,9 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .info-r{display:flex;gap:.75rem;align-items:baseline;padding:.375rem 0;font-size:.9375rem;line-height:1.5}
 .info-r dt{flex:none;width:6.5rem;font-size:.75rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-fg)}
 .info-r dd{margin:0;color:var(--fg-2);min-width:0;overflow-wrap:break-word}
-.info-r a{color:var(--accent);text-decoration:underline;text-underline-offset:.1875rem}
+.dlg-info a{text-decoration:none}
+.info-r a{color:var(--accent)}
+.info-r a:hover{text-decoration:underline;text-underline-offset:.1875rem}
 .info-r a:hover{color:var(--fg)}
 .info-cta{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
 .info-cta a{display:inline-flex;align-items:center;gap:.375rem;min-height:2.5rem;padding:.5rem .875rem;border-radius:1rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);color:var(--fg);font-size:.8125rem;font-weight:600}
@@ -718,7 +720,8 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .st-days{display:flex;gap:.375rem;margin-top:.375rem}
 .st-days span{flex:1;text-align:center;font-size:.6875rem;color:var(--muted-fg);min-width:0}
 .stat-link{display:inline-flex;align-items:center;gap:.25rem}
-.att-row{justify-content:flex-end;margin-bottom:1rem}
+.att-row{justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:1rem}
+.att-row #period{flex:1;min-width:0;text-align:left;text-transform:uppercase;font-size:.6875rem;letter-spacing:.06em;line-height:1.45;color:var(--muted-fg)}
 .att-row .dd-label{display:inline;position:static;width:auto;height:auto;clip:auto;overflow:visible}
 .att-row[hidden]{display:none}
 .att-row .dd{flex:none}
@@ -1696,6 +1699,9 @@ function applyView(){
   document.getElementById("pane-menu").hidden=att;
   document.getElementById("pane-att").hidden=!att;
   document.getElementById("attRow").hidden=!att;
+  const per=document.getElementById("period"),riga=document.getElementById("attRow"),meta=document.querySelector(".hero-meta");
+  if(att){if(per.parentNode!==riga)riga.insertBefore(per,riga.firstChild);}
+  else if(per.parentNode!==meta)meta.appendChild(per);
   const h=document.getElementById("calTitle");h.dataset.th=att?"attTitle":"heroTitle";h.innerHTML=t(h.dataset.th);
   document.getElementById("period").textContent=att?attUpdated():rangeLong(ALL_DAYS);
   document.title=(VIEW_PICKED?(att?t("attDoc"):t("menuDoc")):t("siteTitle"))+" – Scuola dell'Infanzia \"Don Milani\"";
