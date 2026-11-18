@@ -732,6 +732,8 @@ html.v-info #period{display:none}
 .st-bar.part i{background:repeating-linear-gradient(135deg,var(--accent) 0 .25rem,var(--primary) .25rem .5rem)}
 .st-days{display:flex;gap:.375rem;margin-top:.375rem}
 .st-days span{flex:1;text-align:center;font-size:.6875rem;color:var(--muted-fg);min-width:0}
+.unofficial{font-size:.75rem;line-height:1.55;color:var(--muted-fg)}
+.unofficial a{color:var(--fg-2);text-decoration:underline;text-underline-offset:.1875rem}
 .stat-link{display:inline-flex;align-items:center;gap:.25rem}
 .att-row{justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:1rem}
 .att-row #period{flex:1;min-width:0;text-align:left;text-transform:uppercase;font-size:.6875rem;letter-spacing:.06em;line-height:1.45;color:var(--muted-fg)}
@@ -755,7 +757,13 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
 .att .dname small{display:block;margin-top:.1875rem;font-family:var(--font-body,inherit);font-size:.75rem;font-weight:normal;letter-spacing:.025rem;color:var(--muted-fg)}
 .att .date.emo b{font-size:1.75rem}
 .att .date b{white-space:nowrap}
-.att .it{align-items:flex-start}
+.att .it{align-items:flex-start;cursor:default;border-radius:0;margin:0;padding:0}
+.att .it:hover{background:none}
+.att .cardx{gap:.375rem}
+.att .shr{width:2.25rem;height:2.25rem}
+.att .shr svg{width:1.0625rem;height:1.0625rem}
+.att .shr.cal svg{width:1.125rem;height:1.125rem}
+.att-row .dd-label{text-transform:capitalize}
 .att .dish{font-weight:normal;font-size:.9375rem;line-height:1.45}
 .att .lbl{margin-bottom:.125rem}
 .badge i{font-style:normal;opacity:.5;margin:0 .25rem}
@@ -838,7 +846,7 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
 
 <footer>
   <div class="foot glass">
-    <div><!-- feedback nascosto per ora --><div class="fb" hidden><span data-t="fbQ">Un problema, un’idea o un parere?</span><a class="opinion-btn" href="https://surveys.hotjar.com/d14f3328-33a0-4ef2-aa57-7c8750f0fe92" target="_blank" rel="noopener"><span data-t="fbBtn">Invia un feedback</span><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></div><details class="info"><summary><span data-t="moreInfo">Maggiori informazioni</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><p><span data-t="unofficial">Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale:</span> <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink"><span data-t="pdf">apri il PDF ufficiale del Comune</span><svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></p></details><p class="stat-row"><a class="stat-link" href="#statistiche" data-t="statLink">Statistiche di utilizzo</a></p><span class="legal"><a href="https://www.iubenda.com/privacy-policy/19004044" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.iubenda.com/privacy-policy/19004044/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> · <a href="#" class="iubenda-cs-preferences-link" data-t="cookies">Preferenze cookie</a></span></div>
+    <div><!-- feedback nascosto per ora --><div class="fb" hidden><span data-t="fbQ">Un problema, un’idea o un parere?</span><a class="opinion-btn" href="https://surveys.hotjar.com/d14f3328-33a0-4ef2-aa57-7c8750f0fe92" target="_blank" rel="noopener"><span data-t="fbBtn">Invia un feedback</span><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></div><p class="unofficial"><span data-t="unofficial">Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale:</span> <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink"><span data-t="pdf">apri il PDF ufficiale del Comune</span><svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></p><span class="legal"><a href="https://www.iubenda.com/privacy-policy/19004044" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.iubenda.com/privacy-policy/19004044/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> · <a href="#" class="iubenda-cs-preferences-link" data-t="cookies">Preferenze cookie</a></span></div>
     <div class="prefs">
     <div class="lng" id="lng"><button type="button" class="lng-btn ctl" id="lngBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="lngList"><span class="flag" id="lngFlag" aria-hidden="true">🇮🇹</span><span class="code" id="lngCode">IT</span><span class="sr-only" data-t="lang">Lingua</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="lng-panel" id="lngList" role="listbox" data-ta="lang" aria-label="Lingua" hidden></div></div>
     <div class="themes" role="group" aria-label="Tema" data-ta="theme">
@@ -1094,7 +1102,7 @@ const IT={
   statWhy:"Per capire se questa pagina serve davvero alle famiglie. Se i numeri lo confermano, l'idea è proporla alla scuola perché un domani diventi un canale ufficiale, invece di restare un'iniziativa di qualche genitore.",
   statNote:"Dati raccolti con Microsoft Clarity. L'ultimo giorno del grafico è parziale.",
   statShare:"Condividi",
-  shareCard:"Condividi il testo",secLabel:"Sezione",secAria:"Filtra per sezione",secPanel:"Sezioni",secHint:"Filtra per sezione",attach:"Allegato",addCal:"Aggiungi al calendario",calDone:"Evento scaricato",copied:"Testo copiato",menu:"Menu",
+  shareCard:"Condividi il testo",site:"Sito",secLabel:"Sezione",secAria:"Filtra per sezione",secPanel:"Sezioni",secHint:"Filtra per sezione",attach:"Allegato",addCal:"Aggiungi al calendario",calDone:"Evento scaricato",copied:"Testo copiato",menu:"Menu",
   siteTitle:"Mensa, Attività ed Eventi",menuDoc:"Menu Mensa",
   tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"Calendario",attNext:"Prossimi",attInfo:"Da sapere",attPast:"Passati",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
@@ -1390,16 +1398,17 @@ function protDi(p){
   return "verdure";
 }
 /* carattere del pasto: icona + spiegazione nel tooltip */
+const SVGF=(d)=>`<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">${d}</svg>`;
 const SVGI=(d)=>`<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 const MOODS={
   energia:{
-    i:SVGI('<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>')},
+    i:SVGF('<path d="M13.6 1.3a.6.6 0 0 1 1 .65L12.5 9H19.6a1 1 0 0 1 .73 1.68l-10 10.9a.6.6 0 0 1-1-.62L11.5 14H4.4a1 1 0 0 1-.73-1.68Z"/>')},
   legumi:{
-    i:SVGI('<path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>')},
+    i:SVGF('<path d="M20 2.2c-6.7 0-12.2 3.4-12.2 10 0 1.3.2 2.5.7 3.6l-2.9 2.9a1 1 0 1 0 1.4 1.4l2.9-2.9c1.1.5 2.3.7 3.6.7 6.6 0 10-5.5 10-12.2a3.5 3.5 0 0 0-3.5-3.5Zm-2 4.6a1 1 0 0 1 .3 1.4c-1.7 2.6-4 4.9-6.6 6.6a1 1 0 1 1-1.1-1.7c2.4-1.5 4.5-3.6 6-6a1 1 0 0 1 1.4-.3Z"/>')},
   caldo:{
-    i:SVGI('<path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><path d="M7 21h10"/><path d="M19.5 12 22 6"/><path d="M16.25 3c.27.1.8.53.75 1.36-.06.83-.93 1.2-1 2.02-.05.78.34 1.24.73 1.62"/><path d="M11.25 3c.27.1.8.53.74 1.36-.05.83-.93 1.2-.98 2.02-.06.78.33 1.24.72 1.62"/><path d="M6.25 3c.27.1.8.53.75 1.36-.05.83-.93 1.2-1 2.02-.05.78.34 1.24.74 1.62"/>')},
+    i:SVGF('<path d="M2.6 11h18.8a1 1 0 0 1 1 1.1A10 10 0 0 1 12 21a10 10 0 0 1-10.4-8.9 1 1 0 0 1 1-1.1Z"/><path d="M7 21.6h10a1 1 0 0 1 0 2H7a1 1 0 0 1 0-2Z"/><path d="M8.4 3.1c.5.5.5 1.2 0 1.7-.4.4-.4.9 0 1.3.5.5.5 1.2 0 1.7a1.2 1.2 0 0 1-1.8 0 3 3 0 0 1 0-4.7 1.2 1.2 0 0 1 1.8 0Zm4.6 0c.5.5.5 1.2 0 1.7-.4.4-.4.9 0 1.3.5.5.5 1.2 0 1.7a1.2 1.2 0 0 1-1.7 0 3 3 0 0 1 0-4.7 1.2 1.2 0 0 1 1.7 0Zm4.6 0c.5.5.5 1.2 0 1.7-.4.4-.4.9 0 1.3.5.5.5 1.2 0 1.7a1.2 1.2 0 0 1-1.7 0 3 3 0 0 1 0-4.7 1.2 1.2 0 0 1 1.7 0Z"/>')},
   bilanciato:{
-    i:SVGI('<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>')}
+    i:SVGF('<path d="M12 2a1 1 0 0 1 1 1v1.3c1.8.3 4 1 5.6 1.4a1 1 0 0 1 .3.1H21a1 1 0 1 1 0 2h-.4l2.3 6.2A1 1 0 0 1 22 15h-6a1 1 0 0 1-.9-1.4L17.4 7.4c-1.4-.4-3.1-1-4.4-1.2V20h3a1 1 0 1 1 0 2H8a1 1 0 1 1 0-2h3V6.2c-1.3.2-3 .8-4.4 1.2L8.9 13.6A1 1 0 0 1 8 15H2a1 1 0 0 1-.9-1.4L3.4 7.4H3a1 1 0 0 1 0-2h2.1a1 1 0 0 1 .3-.1C7 4.9 9.2 4.2 11 3.9V3a1 1 0 0 1 1-1Z"/>')}
 };
 function moodDi(p){
   if(!p.secondo) return null;
@@ -1640,23 +1649,23 @@ function renderSez(){
 }
 const ATT_UPDATED="2026-11-18";
 const ATT=[
-  {d:"2026-11-13",t:"Scuola chiusa",it:[["🚪","Promemoria","Venerdì 13 novembre la scuola resterà chiusa."]]},
-  {d:"2026-11-16",s:["farfalle","gattini"],t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Farfalle e Gattini."],["👕","Abbigliamento","Vestire i bambini con colori neutri."],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano, a partire dal primo gruppo."]]},
-  {d:"2026-11-22",e:"2026-11-23",t:"Consiglio di Istituto",b:"Si vota",pdf:{f:"doc/elezioni-consiglio-istituto-2026.pdf",t:"Invito dell'Istituto (PDF)"},it:[["🗳️","Votazioni","Elezioni per il rinnovo del Consiglio di Istituto dell'I.C. Cervia 2."],["🕗","Quando si vota","Domenica 22 novembre dalle 8:00 alle 12:00 e lunedì 23 novembre dalle 8:00 alle 13:30."],["📍","Dove si vota","I genitori della \"Don Milani\" votano al seggio n. 3, Scuola Primaria \"G. Mazzini\", Via J. Gora 2/r, Milano Marittima."],["✍️","Come si vota","Una croce sul numero romano della lista, oppure fino a due preferenze fra i candidati di quella lista. Chi ha più figli vota una volta sola, nella scuola del figlio minore."]]},
-  {d:"2026-11-23",s:["coccinelle","fenicotteri"],t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Coccinelle e Fenicotteri."],["👕","Abbigliamento","Vestire i bambini con colori neutri."],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano."]]},
-  {d:"2026-11-26",t:"Addobbi a scuola",it:[["🎄","Cosa succede","Si addobberà la scuola."],["🍊","Da portare","Una buccia d’arancia essiccata per le decorazioni natalizie."]]},
-  {d:"2026-12-12",e:"2026-12-13",t:"Bancarella di Natale",b:"Da confermare",it:[["🧁","Come contribuire","Preparare dolci da vendere, oppure portare oggettistica se qualcuno ne ha."],["📅","Data","Indicativamente il 12/13 dicembre, ancora da confermare."]]},
-  {d:"2026-12-15",h:"16:30",dur:60,t:"Canti in piazzetta",b:"Ore 16:30",it:[["🎶","Appuntamento","Canti di Natale in piazzetta alle 16:30."]]},
-  {d:"2026-12-18",h:"14:30",dur:120,t:"Festa di Natale",b:"Ore 14:30",it:[["🎭","Musical in palestra","Le maestre hanno iniziato le prove del musical, mantenendo i gruppi. A breve comunicheranno le parti da imparare a memoria e le indicazioni sull’abbigliamento."],["🎨","Scenografie","Il tema sarà ispirato a Christmas Carol. Servono genitori disponibili ad aiutare a realizzare e dipingere le scenografie: chi può dare una mano è il benvenuto!"],["🧹","Pulizia palestra","Dopo la recita servirà la collaborazione di alcuni genitori per sistemare e pulire la palestra."]]},
-  {d:"2027-02-01",m:1,x:"🚒",t:"Progetto Protezione Civile",b:"Da febbraio",it:[["🤝","Incontri","Da febbraio inizieranno 4/5 incontri con i volontari."],["☀️","Con il caldo","Quando il tempo sarà più caldo verranno anche con i loro mezzi, per farli conoscere ai bambini."]]},
-  {d:"2027-02-01",e:"2027-06-30",m:1,x:"🐟",t:"Progetti Pingelap e Pesciolino Blu",b:"Febbraio – giugno",it:[["🧩","Attività","Proseguiranno le attività previste per i diversi gruppi, a partire da febbraio e fino a giugno."]]},
-  {d:"2027-05-24",t:"Gita di fine anno",it:[["🌱","Dove","Azienda Agricola Clorofilla, a Mercato Saraceno."],["🧪","Programma","Laboratorio al mattino, con rotazione dei gruppi, e poi pranzo con menù dedicato (non è previsto il pasto a sacco preparato dalla scuola)."],["💶","Costi","20 € a bambino per il pranzo in agriturismo. Per il trasporto sono stati richiesti alcuni preventivi, indicativamente tra 15 e 17 €."],["💪","Raccolta fondi","Siamo fiduciosi di riuscire a raccogliere i fondi necessari attraverso le varie iniziative!"]]},
-  {x:"❤️",t:"Dalle maestre",it:[["😊","Come stanno i bambini","Molto bene: sono sereni, felici e ben inseriti."],["👧","Piccoli gruppi","Il metodo di lavoro a piccoli gruppi (10/12 bambini) sta funzionando molto bene: le porte delle sezioni sono aperte e i bambini possono conoscere le diverse insegnanti, imparando anche ad autoregolarsi e ad autogestirsi."],["🌰","Esperienze","Sono tutti molto bravi e stanno facendo tante belle esperienze: la gita delle castagne è stata un successo."]]},
-  {x:"🎟️",t:"Super Lotteria di Natale",it:[["🎄","Di cosa si tratta","Una Lotteria di Natale per raccogliere fondi a sostegno delle attività e dei progetti dedicati ai nostri bambini."],["🤝","Chi cerchiamo","Attività, commercianti e persone disponibili a donare buoni regalo, voucher o piccoli premi: parrucchieri, estetiste, bar, ristoranti, pizzerie, negozi, hotel, stabilimenti balneari, palestre, piscine, parchi divertimento, enoteche, fioristi e tanto altro!"],["❤️","Come aiutare","Ogni contributo, anche piccolo, sarà preziosissimo. Se avete un’attività o conoscete qualcuno che potrebbe aiutarci, fatevi avanti e condividete il post. Grazie di cuore a tutti per il vostro sostegno!"]]},
-  {x:"🎅",t:"Natale: altre iniziative",it:[["🎁","Babbo Natale a scuola","Arriverà a trovare i bambini! Le maestre chiedono un regalo per sezione."],["🧢","Cappellini","Acquisteremo i cappellini di Natale."]]},
-  {x:"📰",t:"Notizie",it:[["🏆","Premi Conad","Sono arrivati i premi della raccolta dello scorso anno: sono stati acquistati materiale didattico e costruzioni luminose. Le maestre ringraziano tutte le famiglie per la collaborazione."],["🎒","Materiale scolastico","A fine quadrimestre verrà dato il materiale di ogni bambino, invece di consegnarlo tutto a fine anno."]]},
-  {x:"👕",t:"Cose da controllare e portare",it:[["🍂","Cambio stagione","Fare il cambio stagione nei sacchettini dei bambini, verificando che ci siano vestiti adatti."],["🧥","Felpe rimaste a scuola","Alcune felpe sono rimaste a scuola e non si capisce di chi siano: controllate se ne manca qualcuna ai vostri bimbi."],["👚","Ricambi in più","Le maestre chiedono se qualcuno ha vestiti di ricambio in più da poter lasciare a scuola."],["🥾","Stivaletti e mantellina","Controllare che ogni bambino li abbia per le uscite e le attività all’aperto."]]},
-  {x:"📌",t:"Piccole raccomandazioni",it:[["⏰","Orari","Rispettare gli orari di ingresso e uscita."],["✅","Pasto","Ricordarsi di mettere la crocetta per il pasto."],["📞","Uscita anticipata","Avvisare telefonicamente la scuola e concordare l’orario, evitando di presentarsi senza preavviso."],["🕘","Ritardo","In caso di ritardo, avvisare la scuola."]]}
+  {d:"2026-11-13",t:"Scuola chiusa",it:[["🚪","Promemoria","Venerdì 13 novembre la scuola resterà chiusa"]]},
+  {d:"2026-11-16",s:["farfalle","gattini"],t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Farfalle e Gattini"],["👕","Abbigliamento","Vestire i bambini con colori neutri"],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano, a partire dal primo gruppo"]]},
+  {d:"2026-11-22",e:"2026-11-23",t:"Consiglio di Istituto",b:"Si vota",pdf:{f:"doc/elezioni-consiglio-istituto-2026.pdf",t:"Invito dell'Istituto (PDF)"},it:[["🗳️","Votazioni","Elezioni per il rinnovo del Consiglio di Istituto dell'I.C. Cervia 2"],["🕗","Quando si vota","Domenica 22 novembre dalle 8:00 alle 12:00 e lunedì 23 novembre dalle 8:00 alle 13:30"],["📍","Dove si vota","I genitori della \"Don Milani\" votano al seggio n. 3, Scuola Primaria \"G. Mazzini\", Via J. Gora 2/r, Milano Marittima"],["✍️","Come si vota","Una croce sul numero romano della lista, oppure fino a due preferenze fra i candidati di quella lista. Chi ha più figli vota una volta sola, nella scuola del figlio minore"]]},
+  {d:"2026-11-23",s:["coccinelle","fenicotteri"],t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Coccinelle e Fenicotteri"],["👕","Abbigliamento","Vestire i bambini con colori neutri"],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano"]]},
+  {d:"2026-11-26",t:"Addobbi a scuola",it:[["🎄","Cosa succede","Si addobberà la scuola"],["🍊","Da portare","Una buccia d’arancia essiccata per le decorazioni natalizie"]]},
+  {d:"2026-12-12",e:"2026-12-13",t:"Bancarella di Natale",b:"Da confermare",it:[["🧁","Come contribuire","Preparare dolci da vendere, oppure portare oggettistica se qualcuno ne ha"],["📅","Data","Indicativamente il 12/13 dicembre, ancora da confermare"]]},
+  {d:"2026-12-15",h:"16:30",dur:60,t:"Canti in piazzetta",b:"Ore 16:30",it:[["🎶","Appuntamento","Canti di Natale in piazzetta alle 16:30"]]},
+  {d:"2026-12-18",h:"14:30",dur:120,t:"Festa di Natale",b:"Ore 14:30",it:[["🎭","Musical in palestra","Le maestre hanno iniziato le prove del musical, mantenendo i gruppi. A breve comunicheranno le parti da imparare a memoria e le indicazioni sull’abbigliamento"],["🎨","Scenografie","Il tema sarà ispirato a Christmas Carol. Servono genitori disponibili ad aiutare a realizzare e dipingere le scenografie: chi può dare una mano è il benvenuto!"],["🧹","Pulizia palestra","Dopo la recita servirà la collaborazione di alcuni genitori per sistemare e pulire la palestra"]]},
+  {d:"2027-02-01",m:1,x:"🚒",t:"Progetto Protezione Civile",b:"Da febbraio",it:[["🤝","Incontri","Da febbraio inizieranno 4/5 incontri con i volontari"],["☀️","Con il caldo","Quando il tempo sarà più caldo verranno anche con i loro mezzi, per farli conoscere ai bambini"]]},
+  {d:"2027-02-01",e:"2027-06-30",m:1,x:"🐟",t:"Progetti Pingelap e Pesciolino Blu",b:"Febbraio – giugno",it:[["🧩","Attività","Proseguiranno le attività previste per i diversi gruppi, a partire da febbraio e fino a giugno"]]},
+  {d:"2027-05-24",t:"Gita di fine anno",web:{u:"https://aziendagricolaclorofilla.it/",t:"aziendagricolaclorofilla.it"},it:[["🌱","Dove","Azienda Agricola Clorofilla, via Barbotto 3172, Mercato Saraceno (FC)"],["🧪","Programma","Laboratorio al mattino, con rotazione dei gruppi, e poi pranzo con menù dedicato (non è previsto il pasto a sacco preparato dalla scuola)"],["💶","Costi","20 € a bambino per il pranzo in agriturismo. Per il trasporto sono stati richiesti alcuni preventivi, indicativamente tra 15 e 17 €"],["💪","Raccolta fondi","Siamo fiduciosi di riuscire a raccogliere i fondi necessari attraverso le varie iniziative!"]]},
+  {x:"❤️",t:"Dalle maestre",it:[["😊","Come stanno i bambini","Molto bene: sono sereni, felici e ben inseriti"],["👧","Piccoli gruppi","Il metodo di lavoro a piccoli gruppi (10/12 bambini) sta funzionando molto bene: le porte delle sezioni sono aperte e i bambini possono conoscere le diverse insegnanti, imparando anche ad autoregolarsi e ad autogestirsi"],["🌰","Esperienze","Sono tutti molto bravi e stanno facendo tante belle esperienze: la gita delle castagne è stata un successo"]]},
+  {x:"🎟️",t:"Super Lotteria di Natale",it:[["🎄","Di cosa si tratta","Una Lotteria di Natale per raccogliere fondi a sostegno delle attività e dei progetti dedicati ai nostri bambini"],["🤝","Chi cerchiamo","Attività, commercianti e persone disponibili a donare buoni regalo, voucher o piccoli premi: parrucchieri, estetiste, bar, ristoranti, pizzerie, negozi, hotel, stabilimenti balneari, palestre, piscine, parchi divertimento, enoteche, fioristi e tanto altro!"],["❤️","Come aiutare","Ogni contributo, anche piccolo, sarà preziosissimo. Se avete un’attività o conoscete qualcuno che potrebbe aiutarci, fatevi avanti e condividete il post. Grazie di cuore a tutti per il vostro sostegno!"]]},
+  {x:"🎅",t:"Natale: altre iniziative",it:[["🎁","Babbo Natale a scuola","Arriverà a trovare i bambini! Le maestre chiedono un regalo per sezione"],["🧢","Cappellini","Acquisteremo i cappellini di Natale"]]},
+  {x:"📰",t:"Notizie",it:[["🏆","Premi Conad","Sono arrivati i premi della raccolta dello scorso anno: sono stati acquistati materiale didattico e costruzioni luminose. Le maestre ringraziano tutte le famiglie per la collaborazione"],["🎒","Materiale scolastico","A fine quadrimestre verrà dato il materiale di ogni bambino, invece di consegnarlo tutto a fine anno"]]},
+  {x:"👕",t:"Cose da controllare e portare",it:[["🍂","Cambio stagione","Fare il cambio stagione nei sacchettini dei bambini, verificando che ci siano vestiti adatti"],["🧥","Felpe rimaste a scuola","Alcune felpe sono rimaste a scuola e non si capisce di chi siano: controllate se ne manca qualcuna ai vostri bimbi"],["👚","Ricambi in più","Le maestre chiedono se qualcuno ha vestiti di ricambio in più da poter lasciare a scuola"],["🥾","Stivaletti e mantellina","Controllare che ogni bambino li abbia per le uscite e le attività all’aperto"]]},
+  {x:"📌",t:"Piccole raccomandazioni",it:[["⏰","Orari","Rispettare gli orari di ingresso e uscita"],["✅","Pasto","Ricordarsi di mettere la crocetta per il pasto"],["📞","Uscita anticipata","Avvisare telefonicamente la scuola e concordare l’orario, evitando di presentarsi senza preavviso"],["🕘","Ritardo","In caso di ritardo, avvisare la scuola"]]}
 ];
 function attUpdated(){
   const L=LOCALE[LANG]||LANG,last=ATT.reduce((m,a)=>{const x=a.e||a.d||"";return x>m?x:m;},""),ld=new Date(last+"T12:00:00");
@@ -1690,7 +1699,7 @@ function attCard(a,i,now){
       <div class="dmeta"><div class="dname">${esc(a.t)}${sub?`<small>${esc(sub)}</small>`:""}</div>${a.b?`<span class="badge b-prot">${esc(a.b).toLocaleUpperCase("it")}</span>`:""}</div>
       <div class="tags">${SHR("att:"+ATT.indexOf(a),a.d&&!a.m?"att:"+ATT.indexOf(a):"")}</div>
     </div>
-    <ul class="items">${a.pdf?`<li class="it c-pdf"><span class="ico" aria-hidden="true">📄</span><div><div class="lbl">${esc(t("attach"))}</div><a class="dish att-pdf" href="${a.pdf.f}" download>${esc(a.pdf.t)}<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a></div></li>`:""}${a.it.map(([e,l,x],k)=>`<li class="it c-${["primo","secondo","contorno","pane","frutta"][k%5]}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${esc(l)}</div><div class="dish">${esc(x)}</div></div></li>`).join("")}</ul>
+    <ul class="items">${a.web?`<li class="it c-pdf"><span class="ico" aria-hidden="true">🔗</span><div><div class="lbl">${esc(t("site"))}</div><a class="dish att-pdf" href="${a.web.u}" target="_blank" rel="noopener">${esc(a.web.t)}<svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M8 6h8.6a1 1 0 0 1 1 1V15.6a1 1 0 1 1-2 0V9.4l-7.9 7.9a1 1 0 0 1-1.4-1.4L14.2 8H8a1 1 0 0 1 0-2Z"/></svg><span class="sr-only" data-t="newTab"></span></a></div></li>`:""}${a.pdf?`<li class="it c-pdf"><span class="ico" aria-hidden="true">📄</span><div><div class="lbl">${esc(t("attach"))}</div><a class="dish att-pdf" href="${a.pdf.f}" download>${esc(a.pdf.t)}<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a></div></li>`:""}${a.it.map(([e,l,x],k)=>`<li class="it c-${["primo","secondo","contorno","pane","frutta"][k%5]}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${esc(l)}</div><div class="dish">${esc(x)}</div></div></li>`).join("")}</ul>
   </article>`;
 }
 function renderAtt(){
@@ -2118,7 +2127,15 @@ setLang(pickLang()).then(()=>{calcDate();updateTodayBtn();renderFilters();render
   box.hidden=false;document.documentElement.classList.add("has-a2hs");
 })();
 document.querySelectorAll(".iubenda-cs-preferences-link").forEach(l=>l.addEventListener("click",e=>e.preventDefault()));
-if("serviceWorker" in navigator&&location.protocol==="https:"){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}
+if("serviceWorker" in navigator&&location.protocol==="https:"){
+  const avevaSW=!!navigator.serviceWorker.controller;let ricaricato=false;
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{if(avevaSW&&!ricaricato){ricaricato=true;location.reload();}});
+  window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(reg=>{
+    reg.update();
+    setInterval(()=>reg.update(),30*60*1000);
+    document.addEventListener("visibilitychange",()=>{if(!document.hidden)reg.update();});
+  }).catch(()=>{}));
+}
 </script>
 
 </body>
