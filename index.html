@@ -276,8 +276,9 @@ button,a,summary,.arrow,.weeknav{touch-action:manipulation}
 @keyframes pop{from{opacity:0;transform:translateY(-.25rem) scale(.98)}to{opacity:1;transform:none}}
 .opt{display:flex;align-items:center;gap:.625rem;width:100%;min-height:2.75rem;padding:.5625rem .625rem;border-radius:.75rem;font-size:.9375rem;font-weight:600;text-align:left;color:var(--fg)}
 .opt:hover:not(:disabled){background:var(--tile)}
+.opt + .opt{margin-top:.25rem}
 .opt:disabled{opacity:.4;cursor:not-allowed}
-.opt .box{width:1.25rem;height:1.25rem;border-radius:.375rem;flex:none;display:grid;place-items:center;box-shadow:inset 0 0 0 .125rem var(--border);transition:background .15s}
+.opt .box{width:1.25rem;height:1.25rem;border-radius:.375rem;flex:none;display:grid;place-items:center;background:#fff;box-shadow:inset 0 0 0 .125rem var(--border);transition:background .15s}
 .opt .box svg{width:.8125rem;height:.8125rem;opacity:0;color:var(--bg)}
 .opt.on{background:var(--sel-bg);color:var(--sel-fg)}
 .opt.on .box{background:var(--accent);box-shadow:none}
@@ -364,8 +365,8 @@ html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp
 .foot .info p{margin:.25rem 0 .5rem}
 .foot .legal{display:inline-block;margin-top:.375rem;font-size:.75rem}
 .foot .legal a{font-weight:500;color:var(--fg-2)}
-.foot a .ext{display:inline-block;width:.875rem;height:.875rem;margin-left:.125rem;vertical-align:-.125rem;transition:transform .2s}
-.foot a:hover .ext{transform:translate(.125rem,-.125rem)}
+.ext{display:inline-block;width:.875rem;height:.875rem;flex:none;margin-left:.125rem;vertical-align:-.125rem;transition:transform .2s}
+a:hover > .ext{transform:translate(.125rem,-.125rem)}
 .themes{display:flex;gap:.125rem;padding:.25rem;border-radius:.875rem;background:var(--surface);border:1.5px solid var(--line);flex:none}
 .themes button{display:flex;align-items:center;gap:.375rem;min-height:2.5rem;padding:.4375rem .75rem;border-radius:.625rem;font-size:.875rem;font-weight:600;color:var(--fg-2);transition:background .25s,color .25s}
 .themes button svg{width:1.125rem;height:1.125rem;display:block}
@@ -443,7 +444,7 @@ footer{animation:softIn 1s var(--ease) .45s backwards}
 .dd-btn .chev{transition:transform .45s var(--ease)}
 .dd-panel{animation:panelIn .45s var(--ease)}
 @keyframes panelIn{from{opacity:0;transform:translateY(-.5rem) scale(.97);filter:blur(.25rem)}}
-.foot a .ext{transition:transform .45s var(--ease)}
+.ext{transition:transform .45s var(--ease)}
 .day.flash{animation:flash 1.8s var(--ease-io)}
 @keyframes flash{0%,100%{outline:.375rem solid transparent;outline-offset:.5rem}30%{outline:.375rem solid rgba(var(--primary-rgb),.45);outline-offset:.25rem}}
 .bg-food span b{animation-timing-function:var(--ease-io)}
@@ -495,10 +496,10 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
 .b-prot{color:var(--fg-2);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line)}
 .day.today .b-prot{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .dark .day.today .b-prot{background:rgba(255,255,255,.6);color:#130f2e;box-shadow:inset 0 0 0 1px rgba(19,15,46,.2)}
-.cardx{display:flex;gap:.25rem;align-items:center}
-.shr{width:1.875rem;height:1.875rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);transition:background .35s var(--ease),color .35s var(--ease),transform .3s var(--ease)}
-.shr svg{width:.9375rem;height:.9375rem}
-.shr.cal svg{width:1rem;height:1rem}
+.cardx{display:flex;align-items:center}
+.shr{width:2.25rem;height:2.25rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);transition:background .35s var(--ease),color .35s var(--ease),transform .3s var(--ease)}
+.shr svg{width:1.0625rem;height:1.0625rem}
+.shr.cal svg{width:1.125rem;height:1.125rem}
 .shr:hover{color:var(--fg);transform:scale(1.08)}
 .shr:active{transform:scale(.94)}
 .day.today .shr{background:rgba(255,255,255,.14);color:var(--fg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
@@ -515,7 +516,7 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
 .dark .day.today .mood[aria-expanded="true"]{background:#130f2e;color:#ece9ff}
 .mood:focus-visible{outline-offset:.1875rem}
 .day-f{display:flex;align-items:center;gap:.5rem;padding:.875rem;border-top:1px solid var(--line);color:var(--muted-fg);position:relative;text-transform:uppercase;letter-spacing:.0625rem;font-size:.65rem}
-:lang(zh) .day-f,:lang(ar) .day-f{letter-spacing:0}
+:lang(zh) .day-f,:lang(ar) .day-f,:lang(ur) .day-f,:lang(bn) .day-f{letter-spacing:0}
 .day-f > span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .day-f .mood{margin:0}
 .mood-l{cursor:pointer}
@@ -632,7 +633,7 @@ body{overflow-x:clip}
 [dir=rtl] .it:hover .go{transform:translateX(-.125rem)}
 [dir=rtl] .dlg-x{right:auto;left:.75rem}
 [dir=rtl] .dname .oggi{margin:0}
-:lang(zh) .lbl,:lang(zh) .badge,:lang(ar) .lbl,:lang(ar) .badge{letter-spacing:0}
+:lang(zh) .lbl,:lang(zh) .badge,:lang(ar) .lbl,:lang(ar) .badge,:lang(ur) .lbl,:lang(ur) .badge,:lang(bn) .lbl,:lang(bn) .badge{letter-spacing:0}
 @media (prefers-contrast:more){
   :root{--glass:var(--surface);--glass-strong:var(--surface);--line:rgba(8,11,20,.6)}
   .dark{--glass:var(--surface);--glass-strong:var(--surface);--line:rgba(230,228,255,.7)}
@@ -743,6 +744,11 @@ html.v-info #period{display:none}
 .end-note{display:flex;gap:.625rem;align-items:flex-start;margin:0 0 1rem;padding:.875rem 1rem;border-radius:1.125rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);font-size:.875rem;line-height:1.5;color:var(--fg-2);animation:softIn .9s var(--ease) .1s backwards}
 .end-note[hidden]{display:none}
 .end-note b{font-weight:700;color:var(--fg)}
+/* menu finito: in pagina resta solo l'avviso, niente ricerca, filtri, settimane o card */
+html.m-fine #pane-menu .search-row,html.m-fine #pane-menu .week-row,html.m-fine #pane-menu .slider,html.m-fine .weeknav{display:none}
+.end-go{display:inline-flex;align-items:center;gap:.25rem;margin-top:.75rem;padding:.5rem .75rem .5rem .875rem;border-radius:.875rem;background:var(--accent);color:var(--bg);font-weight:700;font-size:.8125rem;text-decoration:none}
+.end-go svg{width:1rem;height:1rem}
+[dir=rtl] .end-go svg{transform:scaleX(-1)}
 .unofficial{font-size:.75rem;line-height:1.55;color:var(--muted-fg)}
 .unofficial a{color:var(--fg-2);text-decoration:underline;text-underline-offset:.1875rem}
 .stat-link{display:inline-flex;align-items:center;gap:.25rem}
@@ -770,15 +776,12 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
 .att .date b{white-space:nowrap}
 .att .it{align-items:flex-start;cursor:default;border-radius:0;margin:0;padding:0}
 .att .it:hover{background:none}
-.att .cardx{gap:.375rem}
-.att .shr{width:2.25rem;height:2.25rem}
-.att .shr svg{width:1.0625rem;height:1.0625rem}
-.att .shr.cal svg{width:1.125rem;height:1.125rem}
+.cardx{gap:.375rem}
 .att-row .dd-label{text-transform:capitalize}
 .att .dish{font-weight:normal;font-size:.9375rem;line-height:1.45}
 .att .lbl{margin-bottom:.125rem}
 .badge i{font-style:normal;opacity:.5;margin:0 .25rem}
-.dmeta > .badge{display:inline-flex;width:fit-content;max-width:100%;margin-top:0;white-space:normal;text-align:center;line-height:1.3}
+.dmeta > .badge{display:inline-flex;width:fit-content;max-width:100%;margin-top:0;padding:.25rem .5rem;font-size:.625rem;letter-spacing:.03em;white-space:normal;overflow-wrap:normal;word-break:normal;text-align:center;line-height:1.3}
 .att .badge{display:inline-flex;width:fit-content;max-width:100%;margin-top:0;white-space:normal;text-align:center;line-height:1.3}
 .att .dname{overflow-wrap:normal;word-break:normal}
 .att.past{opacity:.55}
@@ -1059,12 +1062,13 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
 <script>
 /* ===== LINGUE — italiano qui sotto, le altre in i18n/<codice>.json (tradotte con l'IA).
    La lingua si sceglie da sola in base al browser; si può cambiare dal selettore nel footer. */
-const LANGS=[["it","Italiano","🇮🇹"],["en","English","🇬🇧"],["es","Español","🇪🇸"],["pt","Português","🇵🇹"],["fr","Français","🇫🇷"],["de","Deutsch","🇩🇪"],["ro","Română","🇷🇴"],["sq","Shqip","🇦🇱"],["ru","Русский","🇷🇺"],["ar","العربية","🇲🇦"],["zh","中文","🇨🇳"]];
-const LOCALE={it:"it-IT",en:"en-GB",es:"es-ES",pt:"pt-PT",fr:"fr-FR",de:"de-DE",ro:"ro-RO",sq:"sq-AL",ru:"ru-RU",ar:"ar",zh:"zh-CN"};
+const LANGS=[["it","Italiano","🇮🇹"],["en","English","🇬🇧"],["es","Español","🇪🇸"],["pt","Português","🇵🇹"],["fr","Français","🇫🇷"],["de","Deutsch","🇩🇪"],["ro","Română","🇷🇴"],["sq","Shqip","🇦🇱"],["pl","Polski","🇵🇱"],["ru","Русский","🇷🇺"],["ar","العربية","🇲🇦"],["ur","اردو","🇵🇰"],["bn","বাংলা","🇧🇩"],["zh","中文","🇨🇳"]];
+const LOCALE={it:"it-IT",en:"en-GB",es:"es-ES",pt:"pt-PT",fr:"fr-FR",de:"de-DE",ro:"ro-RO",sq:"sq-AL",pl:"pl-PL",ru:"ru-RU",ar:"ar-u-nu-latn",ur:"ur-PK-u-nu-latn",bn:"bn-BD-u-nu-latn",zh:"zh-CN"};
+const RTL=new Set(["ar","ur"]);
 const IT={
   newTitle:"Novità sul menu",
   newIntro:"Abbiamo aggiunto alcune cose per rendere il menu più facile da leggere:",
-  newLang:"<b>Lingue</b> – il menu è disponibile in 11 lingue: scegli la tua dal selettore in alto.",
+  newLang:"<b>Lingue</b> – il menu è disponibile in 14 lingue: scegli la tua in fondo alla pagina.",
   newDesc:"<b>Descrizioni</b> – tocca un piatto per scoprire com'è fatto.",
   newPic:"<b>Foto dei piatti</b> – immagini indicative di come appare il piatto (in arrivo per tutti i giorni).",
   newType:"<b>Tipo di pasto e fonte proteica</b> – su ogni giorno vedi se è vegano, vegetariano o onnivoro e la fonte proteica principale.",
@@ -1170,7 +1174,7 @@ function pickLang(){
   return "it";
 }
 function applyStatic(){
-  const r=document.documentElement;r.lang=LANG;r.dir=LANG==="ar"?"rtl":"ltr";
+  const r=document.documentElement;r.lang=LANG;r.dir=RTL.has(LANG)?"rtl":"ltr";
   document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));
   document.querySelectorAll("[data-th]").forEach(e=>e.innerHTML=t(e.dataset.th));
   document.querySelectorAll("[data-tp]").forEach(e=>e.placeholder=t(e.dataset.tp));
@@ -1500,11 +1504,22 @@ function hl(text,q){
 const isoLocal=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const addDays=(iso,n)=>{const d=new Date(iso+"T12:00:00");d.setDate(d.getDate()+n);return isoLocal(d);};
 const CAMBIO_ORA=18*60+15;
+/* giorno e ora sono sempre quelli di Roma: la mensa sta lì, non dove si trova il dispositivo */
+let FMT_ROMA=null;
+try{FMT_ROMA=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Rome",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"});}catch(e){}
+function oraRoma(){
+  const now=new Date();
+  if(FMT_ROMA)try{
+    const p={};for(const x of FMT_ROMA.formatToParts(now))p[x.type]=x.value;
+    if(p.year&&p.month&&p.day)return{iso:p.year+"-"+p.month+"-"+p.day,min:(+p.hour%24)*60+(+p.minute)};
+  }catch(e){}
+  return{iso:isoLocal(now),min:now.getHours()*60+now.getMinutes()};
+}
 let todayISO,focusISO;
 function calcDate(){
-  const now=new Date();
-  todayISO=isoLocal(now);
-  const dopo=now.getHours()*60+now.getMinutes()>=CAMBIO_ORA;
+  const r=oraRoma();
+  todayISO=r.iso;
+  const dopo=r.min>=CAMBIO_ORA;
   const next=WEEKS.flatMap(w=>w.days).find(d=>dopo?d.date>todayISO:d.date>=todayISO);
   focusISO=next?next.date:null;
 }
@@ -1536,7 +1551,7 @@ function dayCard(d,q=""){
       <div class="date" aria-hidden="true"><b>${dt.getDate()}</b><i>${monShort(dt).toLocaleUpperCase(LANG)}</i></div>
       <div class="dmeta">
         <div class="dname">${rel?`<span class="oggi rel-${rel}">${relT}</span>`:""}${dayName(dt)}</div>
-        ${d.tipo?`<span class="badge b-${d.tipo}">${t(d.tipo).toLocaleUpperCase(LANG)}${d.prot?`<i>·</i><span class="sr-only">${esc(t("protLabel"))}: </span>${t("p_"+d.prot).toLocaleUpperCase(LANG)}`:""}</span>`:""}
+        ${d.tipo?`<span class="badge b-${d.tipo}">${t(d.tipo).toLocaleUpperCase(LANG)}${d.prot?`<i>·</i><wbr><span class="sr-only">${esc(t("protLabel"))}: </span>${t("p_"+d.prot).toLocaleUpperCase(LANG)}`:""}</span>`:""}
       </div>
       <div class="tags">${SHR(`day:${d.date}`)}</div>
     </div>
@@ -1556,6 +1571,9 @@ if(currentWeekIndex()<0) wk=WEEKS.length-1;
 /* filtri: multiselezione tipo di menu */
 const sel=new Set();
 const ALL_DAYS=WEEKS.flatMap(w=>w.days);
+/* ultimo giorno pubblicato dal Comune: dopo quella data non c'è niente da mostrare */
+const FINE_MENU=ALL_DAYS.length?ALL_DAYS[ALL_DAYS.length-1].date:"";
+const menuFinito=()=>!!FINE_MENU&&todayISO>FINE_MENU;
 /* filtri: tipo di menu (vegano, vegetariano, onnivoro) e fonte proteica (p_carne, p_pesce...).
    Nello stesso gruppo vale "oppure", tra i due gruppi vale "e" */
 const PROTS=[["p_carne","🥩"],["p_pesce","🐟"],["p_uova","🥚"],["p_formaggi","🧀"],["p_legumi","🫘"],["p_verdure","🥕"]];
@@ -1613,12 +1631,16 @@ const weekNav=document.querySelector(".weeknav"),weekRow=document.querySelector(
 function placeWeekNav(){if(mqBar.matches){if(weekNav.parentNode!==hdr)hdr.insertBefore(weekNav,hdr.firstChild);}else if(weekNav.parentNode!==weekRow)weekRow.appendChild(weekNav);}
 /* intervallo della settimana: nella barra in basso in forma breve (9–13 nov) */
 function setRange(){const w=WEEKS[wk].days,a=new Date(w[0].date+"T12:00:00"),b=new Date(w[w.length-1].date+"T12:00:00");
-  document.getElementById("range").textContent=new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"long"}).formatRange(a,b).replace(/(^|[^\d])0(\d)/g,"$1$2").replace(/\s*[–-]\s*/," – ");}
+  /* se la settimana sta fra due mesi il nome lungo non ci sta: mese abbreviato */
+  const mm=a.getMonth()!==b.getMonth()?"short":"long";
+  document.getElementById("range").textContent=new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:mm}).formatRange(a,b).replace(/\.(?=\s|$)/g,"").replace(/(^|[^\d])0(\d)/g,"$1$2").replace(/\s*[–-]\s*/," – ");}
 placeWeekNav();mqBar.addEventListener("change",()=>{placeWeekNav();setRange();});
 function renderCal(){
   const q=document.getElementById("q").value.trim();
   const grid=document.getElementById("calGrid");
   const nav=document.querySelector(".week-row");
+  /* menu finito: griglia vuota, così non resta in pagina nessun piatto vecchio */
+  if(menuFinito()){grid.innerHTML="";nav.style.display="none";weekNav.style.display="none";return;}
   if(q||sel.size){
     const all=ALL_DAYS.filter(passa).filter(d=>!q||Object.values(d.piatti).some(p=>norm(p).includes(norm(q))||norm(dishName(p)).includes(norm(q))));
     nav.style.display="none";weekNav.style.display="none";
@@ -1683,8 +1705,8 @@ const ATT=[
   {k:"progetti",d:"2027-02-01",e:"2027-06-30",m:1,x:"🐟",t:"Progetti Pingelap e Pesciolino Blu",b:"Febbraio – giugno",it:[["🧩","Attività","Proseguiranno le attività previste per i diversi gruppi, a partire da febbraio e fino a giugno"]]},
   {k:"gita",d:"2027-05-24",t:"Gita di fine anno",web:{u:"https://aziendagricolaclorofilla.it/",t:"aziendagricolaclorofilla.it"},it:[["🌱","Dove","Azienda Agricola Clorofilla, via Barbotto 3172, Mercato Saraceno (FC)"],["🧪","Programma","Laboratorio al mattino, con rotazione dei gruppi, e poi pranzo con menù dedicato (non è previsto il pasto a sacco preparato dalla scuola)"],["💶","Costi","20 € a bambino per il pranzo in agriturismo. Per il trasporto sono stati richiesti alcuni preventivi, indicativamente tra 15 e 17 €"],["💪","Raccolta fondi","Siamo fiduciosi di riuscire a raccogliere i fondi necessari attraverso le varie iniziative!"]]},
   {k:"maestre",x:"❤️",t:"Dalle maestre",it:[["😊","Come stanno i bambini","Molto bene: sono sereni, felici e ben inseriti"],["👧","Piccoli gruppi","Il metodo di lavoro a piccoli gruppi (10/12 bambini) sta funzionando molto bene: le porte delle sezioni sono aperte e i bambini possono conoscere le diverse insegnanti, imparando anche ad autoregolarsi e ad autogestirsi"],["🌰","Esperienze","Sono tutti molto bravi e stanno facendo tante belle esperienze: la gita delle castagne è stata un successo"]]},
-  {k:"lotteria",x:"🎟️",t:"Super Lotteria di Natale",it:[["🎄","Di cosa si tratta","Una Lotteria di Natale per raccogliere fondi a sostegno delle attività e dei progetti dedicati ai nostri bambini"],["🤝","Chi cerchiamo","Attività, commercianti e persone disponibili a donare buoni regalo, voucher o piccoli premi: parrucchieri, estetiste, bar, ristoranti, pizzerie, negozi, hotel, stabilimenti balneari, palestre, piscine, parchi divertimento, enoteche, fioristi e tanto altro!"],["❤️","Come aiutare","Ogni contributo, anche piccolo, sarà preziosissimo. Se avete un’attività o conoscete qualcuno che potrebbe aiutarci, fatevi avanti e condividete il post. Grazie di cuore a tutti per il vostro sostegno!"]]},
-  {k:"natale-altro",x:"🎅",t:"Natale: altre iniziative",it:[["🎁","Babbo Natale a scuola","Arriverà a trovare i bambini! Le maestre chiedono un regalo per sezione"],["🧢","Cappellini","Acquisteremo i cappellini di Natale"]]},
+  {k:"lotteria",f:"2026-12-23",x:"🎟️",t:"Super Lotteria di Natale",it:[["🎄","Di cosa si tratta","Una Lotteria di Natale per raccogliere fondi a sostegno delle attività e dei progetti dedicati ai nostri bambini"],["🤝","Chi cerchiamo","Attività, commercianti e persone disponibili a donare buoni regalo, voucher o piccoli premi: parrucchieri, estetiste, bar, ristoranti, pizzerie, negozi, hotel, stabilimenti balneari, palestre, piscine, parchi divertimento, enoteche, fioristi e tanto altro!"],["❤️","Come aiutare","Ogni contributo, anche piccolo, sarà preziosissimo. Se avete un’attività o conoscete qualcuno che potrebbe aiutarci, fatevi avanti e condividete il post. Grazie di cuore a tutti per il vostro sostegno!"]]},
+  {k:"natale-altro",f:"2026-12-23",x:"🎅",t:"Natale: altre iniziative",it:[["🎁","Babbo Natale a scuola","Arriverà a trovare i bambini! Le maestre chiedono un regalo per sezione"],["🧢","Cappellini","Acquisteremo i cappellini di Natale"]]},
   {k:"notizie",x:"📰",t:"Notizie",it:[["🏆","Premi Conad","Sono arrivati i premi della raccolta dello scorso anno: sono stati acquistati materiale didattico e costruzioni luminose. Le maestre ringraziano tutte le famiglie per la collaborazione"],["🎒","Materiale scolastico","A fine quadrimestre verrà dato il materiale di ogni bambino, invece di consegnarlo tutto a fine anno"]]},
   {k:"cose-da-portare",x:"👕",t:"Cose da controllare e portare",it:[["🍂","Cambio stagione","Fare il cambio stagione nei sacchettini dei bambini, verificando che ci siano vestiti adatti"],["🧥","Felpe rimaste a scuola","Alcune felpe sono rimaste a scuola e non si capisce di chi siano: controllate se ne manca qualcuna ai vostri bimbi"],["👚","Ricambi in più","Le maestre chiedono se qualcuno ha vestiti di ricambio in più da poter lasciare a scuola"],["🥾","Stivaletti e mantellina","Controllare che ogni bambino li abbia per le uscite e le attività all’aperto"]]},
   {k:"raccomandazioni",x:"📌",t:"Piccole raccomandazioni",it:[["⏰","Orari","Rispettare gli orari di ingresso e uscita"],["✅","Pasto","Ricordarsi di mettere la crocetta per il pasto"],["📞","Uscita anticipata","Avvisare telefonicamente la scuola e concordare l’orario, evitando di presentarsi senza preavviso"],["🕘","Ritardo","In caso di ritardo, avvisare la scuola"]]}
@@ -1705,7 +1727,7 @@ function clarityTags(){
   return true;
 }
 (function attendiClarity(n){if(clarityTags()||n>40)return;setTimeout(()=>attendiClarity(n+1),1500);})(0);
-function localISO(){const n=new Date();return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");}
+function localISO(){return oraRoma().iso;}
 /* testi delle attività nella lingua scelta, con l'italiano come riserva */
 function attT(a){
   const T=TR&&TR.att&&TR.att[a.k];
@@ -1733,7 +1755,7 @@ function attCard(a0,i,now){
   </article>`;
 }
 function renderAtt(){
-  const now=localISO(),vis=ATT.filter(passaSez),dated=vis.filter(a=>a.d),info=vis.filter(a=>!a.d);
+  const now=localISO(),vis=ATT.filter(passaSez),dated=vis.filter(a=>a.d),info=vis.filter(a=>!a.d&&!(a.f&&a.f<now));
   const up=dated.filter(a=>(a.e||a.d)>=now),past=dated.filter(a=>(a.e||a.d)<now);
   const sec=(k,list,extra="")=>list.length||extra?`<section class="att-sec"><div class="att-top"><h2 class="att-h">${esc(t(k))}</h2>${extra}</div><div class="slider"><button type="button" class="sl-btn sl-prev" aria-label="${esc(t("slPrev"))}" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div class="grid" tabindex="0" aria-label="${esc(t(k))}">${list.map((a,i)=>attCard(a,i,now)).join("")}</div><button type="button" class="sl-btn sl-next" aria-label="${esc(t("slNext"))}" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div></section>`:"";
   const pane=document.getElementById("pane-att");
@@ -1898,12 +1920,12 @@ window.addEventListener("resize",()=>requestAnimationFrame(syncTodayBtn));
 function updateTodayBtn(){
   const b=document.getElementById("todayBtn");
   /* menu finito: niente pulsante "Oggi" e un avviso al posto suo */
-  const fine=ALL_DAYS.length?ALL_DAYS[ALL_DAYS.length-1].date:"";
-  const finito=!!fine&&todayISO>fine;
+  const fine=FINE_MENU,finito=menuFinito();
+  document.documentElement.classList.toggle("m-fine",finito);
   const nota=document.getElementById("endNote");
   if(nota){
     nota.hidden=!finito;
-    if(finito)nota.innerHTML=`<span aria-hidden="true">📅</span><span>${t("menuEnd").replace("{d}",new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"long",year:"numeric"}).format(new Date(fine+"T12:00:00")))}</span>`;
+    if(finito)nota.innerHTML=`<span aria-hidden="true">📅</span><span>${t("menuEnd").replace("{d}",new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"long",year:"numeric"}).format(new Date(fine+"T12:00:00")))}<a class="end-go" href="#attivita">${esc(t("tabAtt"))}${CHEV}</a></span>`;
   }
   b.hidden=finito;
   if(finito)return;
@@ -2064,7 +2086,7 @@ document.addEventListener("click",async e=>{
 /* due novità distinte: una per il menu, una per attività ed eventi; ognuna si mostra una volta sola */
 /* Versione del changelog: basta cambiarla per rimostrare le novità a tutti,
    anche a chi aveva già chiuso la finestra la volta prima. */
-const NEWS_V="2026-11-18";
+const NEWS_V="2026-11-18b";
 const NEWS={
   menu:{key:"mensa-news-menu",title:"newTitle",intro:"newIntro",note:"newNote"},
   attivita:{key:"mensa-news-att",title:"newAttTitle",intro:"newAttIntro",note:"newAttNote"}
