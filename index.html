@@ -342,7 +342,7 @@ footer{position:relative;z-index:1;padding:0 1rem 1.75rem}
 /* iubenda: niente pulsante fluttuante (copriva la barra in basso); le preferenze si riaprono dal link "Preferenze cookie" nel footer */
 /* il CSS di iubenda usa selettori con molti :not(), quindi serve più specificità: i :not(#…) aggiungono peso di ID */
 html body button.iubenda-tp-btn:not(#_a):not(#_b):not(#_c),html body .iubenda-tp-btn[data-tp-float]:not(#_a):not(#_b):not(#_c),html body #iubenda-tp-btn{display:none!important;visibility:hidden!important;pointer-events:none!important}
-.foot{max-width:61rem;margin:0 auto;border-radius:1.375rem;padding:1.25rem 1.375rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.8438rem;color:var(--fg-2);line-height:1.7;background:var(--glass)}
+.foot{max-width:61rem;margin:0 auto;border-radius:1.375rem;padding:1.25rem 1.375rem;display:flex;align-items:center;justify-content:space-between;gap:0;font-size:.8438rem;color:var(--fg-2);line-height:1.7;background:var(--glass)}
 .foot > *{position:relative;text-wrap:balance}
 .foot > div:first-child{flex:1;min-width:0}
 @media (max-width:40rem){.foot > div:first-child{width:100%}}
@@ -581,7 +581,7 @@ html:has(.dlg[open]){overflow:hidden}
 .prefs .pol{margin-inline-end:auto}
 .pol .lng-panel{right:auto;left:0;width:12.5rem}
 @media (max-width:40rem){.prefs .pol .lng-panel,[dir=rtl] .prefs .pol .lng-panel{left:0;margin-left:0}}
-.pol .lng-btn > svg:first-child{width:1rem;height:1rem;flex:none}
+.pol .lng-btn > svg:first-child{width:1.5rem;height:1.5rem;flex:none}
 .pol .lng-opt{text-decoration:none}
 #infoBody .unofficial{margin-top:1.5rem;font-size:.75rem;line-height:1.55;color:var(--muted-fg)}
 #infoBody .unofficial a{color:var(--accent)}
@@ -743,7 +743,7 @@ html.v-info #period{display:none}
 .unofficial a{color:var(--fg-2);text-decoration:underline;text-underline-offset:.1875rem}
 .stat-link{display:inline-flex;align-items:center;gap:.25rem}
 .att-row{justify-content:space-between;align-items:center;gap:.75rem;margin-bottom:1rem}
-.att-row #period{flex:1;min-width:0;text-align:left;text-transform:uppercase;font-size:.6875rem;letter-spacing:.06em;line-height:1.45;color:var(--muted-fg)}
+.att-row #period{flex:1;min-width:0;text-align:left;text-transform:none;font-size:.875rem;letter-spacing:.0625em;line-height:1.45;color:var(--muted-fg);text-wrap:balance}
 .att-row .dd-label{display:inline;position:static;width:auto;height:auto;clip:auto;overflow:visible}
 .att-row[hidden]{display:none}
 .att-row .dd{flex:none}
