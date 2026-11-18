@@ -676,6 +676,15 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 /* attività: stesse card del menu, in griglia */
 .att-h{font-size:.75rem;color:var(--fg-2);font-weight:600;text-transform:uppercase;letter-spacing:.0625rem;margin:0 .5rem 1rem;animation:softIn .9s var(--ease) .15s backwards}
 .att-sec{margin-bottom:1.5rem}
+.att-toggle{display:flex;align-items:center;gap:.375rem;background:none;border:0;cursor:pointer;color:var(--fg-2);transition:color .3s var(--ease)}
+.att-toggle:hover{color:var(--fg)}
+.att-toggle svg{width:.875rem;height:.875rem;transition:transform .35s var(--ease)}
+.att-toggle[aria-expanded=true] svg{transform:rotate(90deg)}
+.att-old .slider[hidden]{display:none}
+.c-pdf .ico{background:var(--surface-2)}
+.att-pdf{display:inline-flex;align-items:center;gap:.375rem;color:var(--accent);text-decoration:underline;text-underline-offset:.1875rem;text-decoration-thickness:.0625rem}
+.att-pdf svg{width:.9375rem;height:.9375rem;flex:none}
+.att-pdf:hover{color:var(--fg)}
 .att .dmeta{flex:1;min-width:0}
 .att .dname{line-height:1.2}
 .att .dname small{display:block;margin-top:.1875rem;font-family:var(--font-body,inherit);font-size:.75rem;font-weight:normal;letter-spacing:.025rem;color:var(--muted-fg)}
@@ -684,7 +693,7 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .att .it{align-items:flex-start}
 .att .dish{font-weight:normal;font-size:.9375rem;line-height:1.45}
 .att .lbl{margin-bottom:.125rem}
-.att .badge{display:inline-flex;width:fit-content;margin-top:.5rem;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.att .badge{display:inline-flex;width:fit-content;max-width:100%;margin-top:.5rem;white-space:normal;text-align:center;line-height:1.3}
 .att .dname{overflow-wrap:normal;word-break:normal}
 .att.past{opacity:.55}
 .att-sec .day{animation:cardIn 1s var(--ease) backwards;animation-delay:calc(.2s + var(--i,0) * .06s)}
@@ -863,7 +872,7 @@ const IT={
   newAttInfo:"<b>Da sapere</b> – cosa portare, cosa controllare e le raccomandazioni delle maestre.",
   newAttSwitch:"<b>Menu o Attività</b> – passa dall'uno all'altro con le due voci in alto.",
   newAttNote:"Le informazioni arrivano dagli incontri con le maestre e possono cambiare: vale sempre quanto comunica la scuola.",
-  shareCard:"Condividi il testo",addCal:"Aggiungi al calendario",calDone:"Evento scaricato",copied:"Testo copiato",menu:"Menu",
+  shareCard:"Condividi il testo",attach:"Allegato",addCal:"Aggiungi al calendario",calDone:"Evento scaricato",copied:"Testo copiato",menu:"Menu",
   siteTitle:"Mensa, Attività ed Eventi",menuDoc:"Menu Mensa",
   tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"In calendario",attInfo:"Da sapere",attPast:"Già passati",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
@@ -1379,11 +1388,11 @@ document.getElementById("q").addEventListener("input",renderCal);
 
 /* ===== ATTIVITÀ ED EVENTI (dal verbale dell'incontro con le maestre, novembre 2026) =====
    d = data (o inizio), e = fine, m = solo mese; senza data → card informativa con emoji. it = [emoji, etichetta, testo] */
-const ATT_UPDATED="2026-11-12";
+const ATT_UPDATED="2026-11-18";
 const ATT=[
   {d:"2026-11-13",t:"Scuola chiusa",it:[["🚪","Promemoria","Venerdì 13 novembre la scuola resterà chiusa."]]},
   {d:"2026-11-16",t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Farfalle e Gattini."],["👕","Abbigliamento","Vestire i bambini con colori neutri."],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano, a partire dal primo gruppo."]]},
-  {d:"2026-11-22",e:"2026-11-23",t:"Consiglio di Istituto",it:[["🗳️","Votazioni","Il 22 e 23 ci saranno le votazioni per il rinnovo del Consiglio."]]},
+  {d:"2026-11-22",e:"2026-11-23",t:"Consiglio di Istituto",b:"Si vota",pdf:{f:"doc/elezioni-consiglio-istituto-2026.pdf",t:"Invito dell'Istituto (PDF)"},it:[["🗳️","Votazioni","Elezioni per il rinnovo del Consiglio di Istituto dell'I.C. Cervia 2."],["🕗","Quando si vota","Domenica 22 novembre dalle 8:00 alle 12:00 e lunedì 23 novembre dalle 8:00 alle 13:30."],["📍","Dove si vota","I genitori della \"Don Milani\" votano al seggio n. 3, Scuola Primaria \"G. Mazzini\", Via J. Gora 2/r, Milano Marittima."],["✍️","Come si vota","Una croce sul numero romano della lista, oppure fino a due preferenze fra i candidati di quella lista. Chi ha più figli vota una volta sola, nella scuola del figlio minore."]]},
   {d:"2026-11-23",t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Coccinelle e Fenicotteri."],["👕","Abbigliamento","Vestire i bambini con colori neutri."],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano."]]},
   {d:"2026-11-26",t:"Addobbi a scuola",it:[["🎄","Cosa succede","Si addobberà la scuola."],["🍊","Da portare","Una buccia d’arancia essiccata per le decorazioni natalizie."]]},
   {d:"2026-12-12",e:"2026-12-13",t:"Bancarella di Natale",b:"Da confermare",it:[["🧁","Come contribuire","Preparare dolci da vendere, oppure portare oggettistica se qualcuno ne ha."],["📅","Data","Indicativamente il 12/13 dicembre, ancora da confermare."]]},
@@ -1420,15 +1429,21 @@ function attCard(a,i,now){
       <div class="dmeta"><div class="dname">${esc(a.t)}${sub?`<small>${esc(sub)}</small>`:""}</div>${a.b?`<span class="badge b-prot">${esc(a.b).toLocaleUpperCase("it")}</span>`:""}</div>
       <div class="tags">${SHR("att:"+ATT.indexOf(a),a.d&&!a.m?"att:"+ATT.indexOf(a):"")}</div>
     </div>
-    <ul class="items">${a.it.map(([e,l,x],k)=>`<li class="it c-${["primo","secondo","contorno","pane","frutta"][k%5]}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${esc(l)}</div><div class="dish">${esc(x)}</div></div></li>`).join("")}</ul>
+    <ul class="items">${a.pdf?`<li class="it c-pdf"><span class="ico" aria-hidden="true">📄</span><div><div class="lbl">${esc(t("attach"))}</div><a class="dish att-pdf" href="${a.pdf.f}" download>${esc(a.pdf.t)}<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg></a></div></li>`:""}${a.it.map(([e,l,x],k)=>`<li class="it c-${["primo","secondo","contorno","pane","frutta"][k%5]}"><span class="ico" aria-hidden="true">${e}</span><div><div class="lbl">${esc(l)}</div><div class="dish">${esc(x)}</div></div></li>`).join("")}</ul>
   </article>`;
 }
 function renderAtt(){
   const now=localISO(),dated=ATT.filter(a=>a.d),info=ATT.filter(a=>!a.d);
   const up=dated.filter(a=>(a.e||a.d)>=now),past=dated.filter(a=>(a.e||a.d)<now);
+  const secP=list=>list.length?`<section class="att-sec att-old"><button type="button" class="att-h att-toggle" aria-expanded="false">${CHEV}<span>${esc(t("attPast"))} (${list.length})</span></button><div class="slider" hidden><button type="button" class="sl-btn sl-prev" aria-label="${esc(t("slPrev"))}" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div class="grid" tabindex="0" lang="it" aria-label="${esc(t("attPast"))}">${list.map((a,i)=>attCard(a,i,now)).join("")}</div><button type="button" class="sl-btn sl-next" aria-label="${esc(t("slNext"))}" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div></section>`:"";
   const sec=(k,list)=>list.length?`<section class="att-sec"><h2 class="att-h">${esc(t(k))}</h2><div class="slider"><button type="button" class="sl-btn sl-prev" aria-label="${esc(t("slPrev"))}" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div class="grid" tabindex="0" lang="it" aria-label="${esc(t(k))}">${list.map((a,i)=>attCard(a,i,now)).join("")}</div><button type="button" class="sl-btn sl-next" aria-label="${esc(t("slNext"))}" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div></section>`:"";
   const pane=document.getElementById("pane-att");
-  pane.innerHTML=sec("attCal",up)+sec("attInfo",info)+sec("attPast",past);
+  pane.innerHTML=sec("attCal",up)+secP(past)+sec("attInfo",info);
+  pane.querySelectorAll(".att-toggle").forEach(b=>b.addEventListener("click",()=>{
+    const ap=b.getAttribute("aria-expanded")==="true",sl=b.nextElementSibling;
+    b.setAttribute("aria-expanded",ap?"false":"true");sl.hidden=ap;
+    if(!ap)sl.dispatchEvent(new Event("sync"));
+  }));
   pane.querySelectorAll(".slider").forEach(sl=>{
     const g=sl.querySelector(".grid"),p=sl.querySelector(".sl-prev"),n=sl.querySelector(".sl-next");
     const step=()=>{const c=g.querySelector(".day");return c?c.getBoundingClientRect().width+16:g.clientWidth*.8;};
@@ -1436,7 +1451,7 @@ function renderAtt(){
     p.addEventListener("click",()=>g.scrollBy({left:-step(),behavior:"smooth"}));
     n.addEventListener("click",()=>g.scrollBy({left:step(),behavior:"smooth"}));
     g.addEventListener("scroll",()=>requestAnimationFrame(sync),{passive:true});
-    requestAnimationFrame(sync);
+    requestAnimationFrame(sync);sl.addEventListener("sync",()=>requestAnimationFrame(sync));
   });
 }
 /* lo switch sta in alto a destra su desktop, sopra il titolo su mobile */
