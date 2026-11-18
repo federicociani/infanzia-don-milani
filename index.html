@@ -645,7 +645,7 @@ body{overflow-x:clip}
 }
 
 /* app aggiunta alla Home: un po' di respiro sotto la barra di stato */
-html.standalone main{padding-top:calc(1.25rem + env(safe-area-inset-top))}
+html.standalone main{padding-top:1rem}
 /* ===== switch Menu / Attività ===== */
 nav.vsw{pointer-events:auto;flex:none;border-radius:1.25rem;background:var(--glass-strong);border:1px solid var(--line);box-shadow:var(--card-shadow),inset 0 1px 0 var(--hi)}
 nav.vsw .tab{min-height:2.25rem;padding:.375rem 1rem;border-radius:.9375rem;text-decoration:none;font-size:.75rem;letter-spacing:.0625rem;font-weight:600;text-transform:uppercase}
@@ -955,6 +955,8 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
       <div class="st"><b>16</b><span data-t="statT2"></span></div>
       <div class="st"><b>84%</b><span data-t="statT3"></span></div>
       <div class="st"><b>72%</b><span data-t="statT4"></span></div>
+      <div class="st"><b>13</b><span data-t="statT5"></span></div>
+      <div class="st"><b>62%</b><span data-t="statT6"></span></div>
     </div>
     <h3 data-t="statChart"></h3>
     <div class="st-chart" role="img" data-ta="statChartAlt">
@@ -973,6 +975,7 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
       <li><span aria-hidden="true">📆</span><p data-th="statRead2"></p></li>
       <li><span aria-hidden="true">📱</span><p data-th="statRead3"></p></li>
       <li><span aria-hidden="true">📜</span><p data-th="statRead4"></p></li>
+      <li><span aria-hidden="true">🕐</span><p data-th="statRead5"></p></li>
     </ul>
     <h3 data-t="statWhatT"></h3><p data-t="statWhat"></p>
     <h3 data-t="statNoT"></h3><p data-t="statNo"></p>
@@ -1058,6 +1061,8 @@ const IT={
   statT2:"visite al giorno in media, dopo il primo",
   statT3:"delle visite arriva dal telefono",
   statT4:"della pagina scorsa in media",
+  statT5:"l'ora in cui si guarda di più",
+  statT6:"delle visite fra mezzogiorno e le 15",
   statChart:"Visite giorno per giorno",
   statChartAlt:"12 novembre: 92 visite, il giorno in cui la pagina è stata condivisa. Poi 22, 8, 8, 23, 21 e 6 visite. L'ultimo giorno è ancora in corso.",
   statReadT:"Come si leggono questi numeri",
@@ -1065,6 +1070,7 @@ const IT={
   statRead2:"<b>16 visite al giorno</b> dopo il primo giorno vuol dire che non è stata solo la curiosità del lancio: la pagina viene aperta anche a distanza di una settimana, weekend compresi.",
   statRead3:"<b>84% da telefono</b> racconta come viene usata: al volo, mentre si organizza la giornata o si prepara lo zaino.",
   statRead4:"<b>72% della pagina</b> è la profondità di scorrimento, cioè fin dove si arriva prima di chiudere. Un 20% vorrebbe dire aprire e chiudere subito; il 72% dice che si legge quasi tutto.",
+  statRead5:"<b>L'ora di pranzo</b> è il momento in cui si apre la pagina: 62 visite su 100 arrivano fra mezzogiorno e le 15, con il picco alle 13. Si guarda per sapere cosa stanno mangiando, non la sera prima.",
   statWhatT:"Cosa viene contato",
   statWhat:"Quante volte la pagina viene aperta, se da telefono o da computer, quanto si scorre e quanto ci si resta. Nient'altro.",
   statNoT:"Cosa non viene raccolto",
