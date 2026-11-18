@@ -765,6 +765,7 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
 .sw-sm .tab.active .n-pill{background:var(--sel-fg);color:var(--sel-bg);box-shadow:none}
 .sw-sm .tab{min-height:1.875rem;padding:.25rem .625rem;border-radius:.6875rem;font-size:.625rem;letter-spacing:.05em;white-space:nowrap}
 @media (max-width:26rem){.sw-sm .tab{padding:.25rem .5rem}}
+.dlg-new #newSw{width:fit-content;max-width:100%;flex-wrap:wrap;margin:-.375rem 0 .9375rem}
 .c-pdf .ico{background:var(--surface-2)}
 .att-pdf{display:inline-flex;align-items:center;gap:.375rem;color:var(--accent);text-decoration:underline;text-underline-offset:.1875rem;text-decoration-thickness:.0625rem}
 .att-pdf svg{width:.9375rem;height:.9375rem;flex:none}
@@ -911,16 +912,14 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
   <button class="dlg-x" data-close-dlg aria-label="Chiudi" data-ta="close"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
   <div class="dlg-b">
     <div class="ai-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9Z"/><path d="M19 15l.8 1.9 1.9.8-1.9.8L19 20.5l-.8-1.9-1.9-.8 1.9-.8Z"/></svg></div>
-    <h2 id="newTitle" data-t="newTitle"></h2>
+    <h2 id="newTitle" data-t="newsLink"></h2>
+    <nav class="vsw sw-sm" id="newSw" aria-label="Novità"><button type="button" class="tab active" data-news="menu" data-t="tabMenu" aria-pressed="true"></button><button type="button" class="tab" data-news="attivita" data-t="tabAtt" aria-pressed="false"></button><button type="button" class="tab" data-news="gen" data-t="newGenTab" aria-pressed="false"></button></nav>
     <p id="newIntro" data-t="newIntro"></p>
     <ul class="new-list" id="newListMenu">
-      <li><span aria-hidden="true">🌍</span><p data-th="newLang"></p></li>
       <li><span aria-hidden="true">📖</span><p data-th="newDesc"></p></li>
       <li><span aria-hidden="true">📸</span><p data-th="newPic"></p></li>
       <li><span aria-hidden="true">🥦</span><p data-th="newType"></p></li>
       <li><span aria-hidden="true">⚖️</span><p data-th="newMood"></p></li>
-      <li><span aria-hidden="true">ℹ️</span><p data-th="newInfo"></p></li>
-      <li><span aria-hidden="true">📊</span><p data-th="newStat"></p></li>
     </ul>
     <ul class="new-list" id="newListAtt" hidden>
       <li><span aria-hidden="true">📅</span><p data-th="newAttCal"></p></li>
@@ -929,7 +928,13 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
       <li><span aria-hidden="true">🦋</span><p data-th="newAttSez"></p></li>
       <li><span aria-hidden="true">🗓️</span><p data-th="newAttIcs"></p></li>
       <li><span aria-hidden="true">📤</span><p data-th="newAttShare"></p></li>
+    </ul>
+    <ul class="new-list" id="newListGen" hidden>
+      <li><span aria-hidden="true">🌍</span><p data-th="newLang"></p></li>
       <li><span aria-hidden="true">ℹ️</span><p data-th="newInfo"></p></li>
+      <li><span aria-hidden="true">📊</span><p data-th="newStat"></p></li>
+      <li><span aria-hidden="true">📆</span><p data-th="newGenEnd"></p></li>
+      <li><span aria-hidden="true">📲</span><p data-th="newGenHome"></p></li>
     </ul>
     <p class="new-note" id="newNote" data-t="newNote"></p>
     <div class="dlg-bar"><button class="dlg-ok" data-close-dlg data-t="newOk"></button></div>
@@ -1085,6 +1090,10 @@ const IT={
   newAttShare:"<b>Condividi</b> – il pulsante accanto invia il testo della card in chat, senza link.",
   newInfo:"<b>Dati utili</b> – il pulsante con la “i” in alto raccoglie telefoni, orari della segreteria e documenti.",
   newStat:"<b>Statistiche di utilizzo</b> – dal fondo pagina si vede, in chiaro, quanto la pagina viene usata.",
+  newGenTab:"Generali",
+  newGenIntro:"Cose che valgono su tutta la pagina:",
+  newGenEnd:"<b>Quando il menu finisce</b> – finito il periodo pubblicato dal Comune la pagina te lo dice, invece di mostrare i giorni vecchi.",
+  newGenHome:"<b>Aggiunta alla schermata Home</b> – se hai messo la pagina fra le icone del telefono, le novità arrivano da sole.",
   newAttNote:"Le informazioni arrivano dagli incontri con le maestre e possono cambiare: vale sempre quanto comunica la scuola.",
   infoTitle:"Info utili",infoTab:"Info",policy:"Policy",newsLink:"Novità su questo sito",
   infoIntro:"I riferimenti della scuola e i documenti che servono più spesso, tutti in un posto.",
@@ -2086,26 +2095,30 @@ document.addEventListener("click",async e=>{
 /* due novità distinte: una per il menu, una per attività ed eventi; ognuna si mostra una volta sola */
 /* Versione del changelog: basta cambiarla per rimostrare le novità a tutti,
    anche a chi aveva già chiuso la finestra la volta prima. */
-const NEWS_V="2026-11-18b";
+const NEWS_V="2026-11-18c";
+/* una sola modale con lo switch: menu, attività, generali */
+const NEWS_KEY="mensa-news";
 const NEWS={
-  menu:{key:"mensa-news-menu",title:"newTitle",intro:"newIntro",note:"newNote"},
-  attivita:{key:"mensa-news-att",title:"newAttTitle",intro:"newAttIntro",note:"newAttNote"}
+  menu:{intro:"newIntro",note:"newNote",list:"newListMenu"},
+  attivita:{intro:"newAttIntro",note:"newAttNote",list:"newListAtt"},
+  gen:{intro:"newGenIntro",note:"",list:"newListGen"}
 };
+function newsTab(k){
+  if(!NEWS[k])k="menu";
+  const n=NEWS[k],intro=document.getElementById("newIntro"),nota=document.getElementById("newNote");
+  intro.dataset.t=n.intro;intro.textContent=t(n.intro);
+  nota.hidden=!n.note;
+  if(n.note){nota.dataset.t=n.note;nota.textContent=t(n.note);}else{nota.removeAttribute("data-t");nota.textContent="";}
+  for(const x in NEWS)document.getElementById(NEWS[x].list).hidden=x!==k;
+  document.querySelectorAll("#newSw .tab").forEach(b=>{const on=b.dataset.news===k;b.classList.toggle("active",on);b.setAttribute("aria-pressed",on);});
+}
+document.getElementById("newSw").addEventListener("click",e=>{const b=e.target.closest("[data-news]");if(b)newsTab(b.dataset.news);});
 window.showNewsOnce=function(kind,forza){
-  const n=NEWS[kind==="attivita"?"attivita":"menu"];
-  let seen=false;try{seen=localStorage.getItem(n.key)===NEWS_V;}catch(e){}
+  let seen=false;try{seen=localStorage.getItem(NEWS_KEY)===NEWS_V;}catch(e){}
   if(seen&&!forza)return;
   const d=document.getElementById("newDlg");if(!d||d.open)return;
-  document.getElementById("newTitle").dataset.t=n.title;
-  document.getElementById("newIntro").dataset.t=n.intro;
-  document.getElementById("newNote").dataset.t=n.note;
-  document.getElementById("newTitle").textContent=t(n.title);
-  document.getElementById("newIntro").textContent=t(n.intro);
-  document.getElementById("newNote").textContent=t(n.note);
-  const att=n.key===NEWS.attivita.key;
-  document.getElementById("newListMenu").hidden=att;
-  document.getElementById("newListAtt").hidden=!att;
-  const mark=()=>{try{localStorage.setItem(n.key,NEWS_V);}catch(e){}};
+  newsTab(kind==="attivita"?"attivita":"menu");
+  const mark=()=>{try{localStorage.setItem(NEWS_KEY,NEWS_V);}catch(e){}};
   d.addEventListener("close",mark,{once:true});
   setTimeout(()=>{if(typeof d.showModal==="function"){if(!d.open)d.showModal();}else d.setAttribute("open","");},forza?0:900);
 };
