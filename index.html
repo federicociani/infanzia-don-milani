@@ -675,6 +675,44 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 [hidden].pane{display:none}
 /* attività: stesse card del menu, in griglia */
 .att-h{font-size:.75rem;color:var(--fg-2);font-weight:600;text-transform:uppercase;letter-spacing:.0625rem;margin:0 .5rem 1rem;animation:softIn .9s var(--ease) .15s backwards}
+.info-btn{width:2.75rem;height:2.75rem;border-radius:999rem;display:grid;place-items:center;flex:none;pointer-events:auto;background:var(--glass-strong);border:1px solid var(--line);box-shadow:var(--card-shadow),inset 0 1px 0 var(--hi);color:var(--fg);align-self:center;transition:transform .3s var(--ease),background .3s var(--ease)}
+.info-btn svg{width:1.25rem;height:1.25rem}
+.info-btn:hover{transform:scale(1.06)}
+.info-btn:active{transform:scale(.94)}
+@media (max-width:40rem){
+  .hero-meta{padding-right:3rem}
+  .info-btn{position:fixed;top:calc(.75rem + env(safe-area-inset-top));right:.75rem;z-index:30;-webkit-backdrop-filter:blur(.75rem);backdrop-filter:blur(.75rem)}
+}
+.dlg-info dl{margin:0}
+.info-g{margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--line)}
+.info-g:first-of-type{border-top:0;padding-top:0}
+.info-g h3{margin-bottom:.5rem}
+.info-r{display:flex;gap:.75rem;align-items:baseline;padding:.375rem 0;font-size:.9375rem;line-height:1.5}
+.info-r dt{flex:none;width:6.5rem;font-size:.75rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted-fg)}
+.info-r dd{margin:0;color:var(--fg-2);min-width:0;overflow-wrap:break-word}
+.info-r a{color:var(--accent);text-decoration:underline;text-underline-offset:.1875rem}
+.info-r a:hover{color:var(--fg)}
+.info-cta{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.75rem}
+.info-cta a{display:inline-flex;align-items:center;gap:.375rem;min-height:2.5rem;padding:.5rem .875rem;border-radius:1rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);color:var(--fg);font-size:.8125rem;font-weight:600}
+.info-cta a:hover{background:var(--tile)}
+.info-cta svg{width:1rem;height:1rem;flex:none}
+.dlg-stat{width:min(34rem,calc(100vw - 2rem))}
+.dlg-info{width:min(34rem,calc(100vw - 2rem))}
+.dlg-stat h3{margin-top:1.25rem}
+.dlg-stat h3:first-of-type{margin-top:1.5rem}
+.st-tiles{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1.25rem}
+.st{padding:.75rem .875rem;border-radius:1rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line)}
+.st b{display:block;font-family:var(--font-display);font-size:1.5rem;line-height:1.1;color:var(--accent)}
+.st span{display:block;margin-top:.25rem;font-size:.75rem;line-height:1.35;color:var(--muted-fg)}
+.st-per{margin-top:.125rem;font-size:.8125rem;color:var(--muted-fg)}
+.st-chart{display:flex;align-items:flex-end;gap:.375rem;height:9rem;margin-top:.75rem}
+.st-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.st-bar b{font-size:.75rem;font-weight:700;color:var(--fg-2)}
+.st-bar i{display:block;width:100%;height:calc(var(--v) * 1%);background:var(--accent);border-radius:.25rem .25rem 0 0;font-style:normal}
+.st-bar.part i{background:repeating-linear-gradient(135deg,var(--accent) 0 .25rem,var(--primary) .25rem .5rem)}
+.st-days{display:flex;gap:.375rem;margin-top:.375rem}
+.st-days span{flex:1;text-align:center;font-size:.6875rem;color:var(--muted-fg);min-width:0}
+.stat-link{display:inline-flex;align-items:center;gap:.25rem}
 .att-row{justify-content:flex-end;margin-bottom:1rem}
 .att-row .dd-label{display:inline;position:static;width:auto;height:auto;clip:auto;overflow:visible}
 .att-row[hidden]{display:none}
@@ -731,6 +769,7 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 
 <header>
   <div class="wrap"><div class="hdr">
+    <button type="button" class="info-btn" id="infoBtn" data-ta="infoTitle" aria-haspopup="dialog"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.6h.01"/></svg></button>
     <button class="today-btn" id="todayBtn" aria-label="Vai al menu di oggi" disabled>Oggi</button>
     <nav class="vsw" id="vsw" aria-label="Sezioni" data-ta="sections"><a class="tab active" href="#menu" data-v="menu" aria-current="page"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M4 2a1 1 0 0 0-1 1v6a4 4 0 0 0 3 3.87V21a1 1 0 0 0 2 0v-8.13A4 4 0 0 0 11 9V3a1 1 0 0 0-2 0v5H8V3a1 1 0 0 0-2 0v5H5V3a1 1 0 0 0-1-1Z"/><path d="M19.4 2.08A1 1 0 0 0 18 3v.07A6.5 6.5 0 0 0 14.5 9c0 2.4 1.3 4.2 3.5 4.75V21a1 1 0 0 0 2 0V3a1 1 0 0 0-.6-.92Z"/></svg><span data-t="tabMenu">Menu</span></a><a class="tab" href="#attivita" data-v="attivita"><svg class="o" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg><svg class="f" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M8 1a1 1 0 0 1 1 1v1h6V2a1 1 0 1 1 2 0v1.1A3 3 0 0 1 21 6v2H3V6a3 3 0 0 1 3-2.9V2a1 1 0 0 1 1-1Z"/><path d="M3 10h18v9a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-9Z"/><path class="cut" d="m9 16 2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-t="tabAtt">Attività</span></a></nav>
   </div></div>
@@ -774,7 +813,7 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 
 <footer>
   <div class="foot glass">
-    <div><!-- feedback nascosto per ora --><div class="fb" hidden><span data-t="fbQ">Un problema, un’idea o un parere?</span><a class="opinion-btn" href="https://surveys.hotjar.com/d14f3328-33a0-4ef2-aa57-7c8750f0fe92" target="_blank" rel="noopener"><span data-t="fbBtn">Invia un feedback</span><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></div><details class="info"><summary><span data-t="moreInfo">Maggiori informazioni</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><p><span data-t="unofficial">Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale:</span> <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink"><span data-t="pdf">apri il PDF ufficiale del Comune</span><svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></p></details><span class="legal"><a href="https://www.iubenda.com/privacy-policy/19004044" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.iubenda.com/privacy-policy/19004044/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> · <a href="#" class="iubenda-cs-preferences-link" data-t="cookies">Preferenze cookie</a></span></div>
+    <div><!-- feedback nascosto per ora --><div class="fb" hidden><span data-t="fbQ">Un problema, un’idea o un parere?</span><a class="opinion-btn" href="https://surveys.hotjar.com/d14f3328-33a0-4ef2-aa57-7c8750f0fe92" target="_blank" rel="noopener"><span data-t="fbBtn">Invia un feedback</span><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></div><details class="info"><summary><span data-t="moreInfo">Maggiori informazioni</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary><p><span data-t="unofficial">Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale:</span> <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener" id="pdfLink"><span data-t="pdf">apri il PDF ufficiale del Comune</span><svg class="ext" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only" data-t="newTab"> (si apre in una nuova scheda)</span></a></p></details><p class="stat-row"><a class="stat-link" href="#statistiche" data-t="statLink">Statistiche di utilizzo</a></p><span class="legal"><a href="https://www.iubenda.com/privacy-policy/19004044" target="_blank" rel="noopener">Privacy Policy</a> · <a href="https://www.iubenda.com/privacy-policy/19004044/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> · <a href="#" class="iubenda-cs-preferences-link" data-t="cookies">Preferenze cookie</a></span></div>
     <div class="prefs">
     <div class="lng" id="lng"><button type="button" class="lng-btn ctl" id="lngBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="lngList"><span class="flag" id="lngFlag" aria-hidden="true">🇮🇹</span><span class="code" id="lngCode">IT</span><span class="sr-only" data-t="lang">Lingua</span><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="lng-panel" id="lngList" role="listbox" data-ta="lang" aria-label="Lingua" hidden></div></div>
     <div class="themes" role="group" aria-label="Tema" data-ta="theme">
@@ -824,14 +863,101 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
       <li><span aria-hidden="true">📸</span><p data-th="newPic"></p></li>
       <li><span aria-hidden="true">🥦</span><p data-th="newType"></p></li>
       <li><span aria-hidden="true">⚖️</span><p data-th="newMood"></p></li>
+      <li><span aria-hidden="true">ℹ️</span><p data-th="newInfo"></p></li>
+      <li><span aria-hidden="true">📊</span><p data-th="newStat"></p></li>
     </ul>
     <ul class="new-list" id="newListAtt" hidden>
       <li><span aria-hidden="true">📅</span><p data-th="newAttCal"></p></li>
       <li><span aria-hidden="true">❤️</span><p data-th="newAttInfo"></p></li>
       <li><span aria-hidden="true">🔄</span><p data-th="newAttSwitch"></p></li>
+      <li><span aria-hidden="true">🦋</span><p data-th="newAttSez"></p></li>
+      <li><span aria-hidden="true">🗓️</span><p data-th="newAttIcs"></p></li>
+      <li><span aria-hidden="true">📤</span><p data-th="newAttShare"></p></li>
+      <li><span aria-hidden="true">ℹ️</span><p data-th="newInfo"></p></li>
     </ul>
     <p class="new-note" id="newNote" data-t="newNote"></p>
     <button class="dlg-ok" data-close-dlg data-t="newOk"></button>
+  </div>
+</dialog>
+
+
+<!-- modale dei dati utili -->
+<dialog class="dlg dlg-info" id="infoDlg" aria-labelledby="infoTitle">
+  <button class="dlg-x" data-close-dlg aria-label="Chiudi" data-ta="close"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="dlg-b">
+    <h2 id="infoTitle" data-t="infoTitle"></h2>
+    <p data-t="infoIntro"></p>
+
+    <section class="info-g">
+      <h3 data-t="infoSchoolT"></h3>
+      <dl>
+        <div class="info-r"><dt data-t="infoPhone"></dt><dd><a href="tel:+39054472427">0544 72427</a></dd></div>
+      </dl>
+      <div class="info-cta">
+        <a href="tel:+39054472427"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3a6.5 6.5 0 0 1 6.5 6.5"/><path d="M14 7a3 3 0 0 1 3 3"/><path d="M7.5 3.5 9.8 8l-2 1.6a12 12 0 0 0 6.6 6.6L16 14.2l4.5 2.3v3A1.5 1.5 0 0 1 19 21 16 16 0 0 1 3 5a1.5 1.5 0 0 1 1.5-1.5Z"/></svg><span data-t="infoCall"></span></a>
+        <a href="https://maps.google.com/?q=Scuola+dell%27Infanzia+Don+Milani+Cervia" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg><span data-t="infoMap"></span><span class="sr-only" data-t="newTab"></span></a>
+      </div>
+    </section>
+
+    <section class="info-g">
+      <h3 data-t="infoSecT"></h3>
+      <dl>
+        <div class="info-r"><dt data-t="infoPhone"></dt><dd><a href="tel:+39054471955">0544 71955</a></dd></div>
+        <div class="info-r"><dt data-t="infoHours"></dt><dd>8:00 – 9:00 · 12:00 – 13:30</dd></div>
+        <div class="info-r"><dt data-t="infoEmail"></dt><dd><a href="mailto:raic829007@istruzione.it">raic829007@istruzione.it</a></dd></div>
+        <div class="info-r"><dt>PEC</dt><dd><a href="mailto:raic829007@pec.istruzione.it">raic829007@pec.istruzione.it</a></dd></div>
+        <div class="info-r"><dt data-t="infoAddr"></dt><dd>Via Caduti per la Libertà 16, 48015 Cervia (RA)</dd></div>
+      </dl>
+      <div class="info-cta">
+        <a href="tel:+39054471955"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3a6.5 6.5 0 0 1 6.5 6.5"/><path d="M14 7a3 3 0 0 1 3 3"/><path d="M7.5 3.5 9.8 8l-2 1.6a12 12 0 0 0 6.6 6.6L16 14.2l4.5 2.3v3A1.5 1.5 0 0 1 19 21 16 16 0 0 1 3 5a1.5 1.5 0 0 1 1.5-1.5Z"/></svg><span data-t="infoCall"></span></a>
+        <a href="mailto:raic829007@istruzione.it"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg><span data-t="infoWrite"></span></a>
+        <a href="https://www.iccervia2.edu.it" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span data-t="infoSite"></span><span class="sr-only" data-t="newTab"></span></a>
+      </div>
+    </section>
+
+    <section class="info-g">
+      <h3 data-t="infoDocsT"></h3>
+      <div class="info-cta">
+        <a href="https://cervia-api.municipiumapp.it/s3/1994/allegati/politiche-educative/men/scuole/2627/menu-cervia-dal-15-9-al-23-12-aggiornato-16-9.pdf" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/></svg><span data-t="infoMenuPdf"></span><span class="sr-only" data-t="newTab"></span></a>
+        <a href="doc/elezioni-consiglio-istituto-2026.pdf" download><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/></svg><span data-t="infoVotePdf"></span></a>
+        <a href="#statistiche"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg><span data-t="statLink"></span></a>
+      </div>
+    </section>
+
+    <p class="new-note" data-t="infoNote"></p>
+    <button class="dlg-ok" data-close-dlg data-t="newOk"></button>
+  </div>
+</dialog>
+<!-- modale delle statistiche di utilizzo -->
+<dialog class="dlg dlg-stat" id="statDlg" aria-labelledby="statTitle">
+  <button class="dlg-x" data-close-dlg aria-label="Chiudi" data-ta="close"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  <div class="dlg-b">
+    <h2 id="statTitle" data-t="statTitle"></h2>
+    <p data-t="statIntro"></p>
+    <div class="st-tiles">
+      <div class="st"><b>180</b><span data-t="statT1"></span></div>
+      <div class="st"><b>16</b><span data-t="statT2"></span></div>
+      <div class="st"><b>84%</b><span data-t="statT3"></span></div>
+      <div class="st"><b>72%</b><span data-t="statT4"></span></div>
+    </div>
+    <h3 data-t="statChart"></h3>
+    <p class="st-per">12 – 18/11/2026</p>
+    <div class="st-chart" aria-hidden="true">
+      <div class="st-bar" style="--v:92"><b>92</b><i></i></div>
+      <div class="st-bar" style="--v:22"><b>22</b><i></i></div>
+      <div class="st-bar" style="--v:8"><b>8</b><i></i></div>
+      <div class="st-bar" style="--v:8"><b>8</b><i></i></div>
+      <div class="st-bar" style="--v:23"><b>23</b><i></i></div>
+      <div class="st-bar" style="--v:21"><b>21</b><i></i></div>
+      <div class="st-bar part" style="--v:6"><b>6</b><i></i></div>
+    </div>
+    <div class="st-days" aria-hidden="true"><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span></div>
+    <p class="st-per" data-t="statChartAlt"></p>
+    <h3 data-t="statWhatT"></h3><p data-t="statWhat"></p>
+    <h3 data-t="statNoT"></h3><p data-t="statNo"></p>
+    <h3 data-t="statWhyT"></h3><p data-t="statWhy"></p>
+    <p class="new-note" data-t="statNote"></p>
+    <button class="dlg-ok" id="statShare" data-t="statShare"></button>
   </div>
 </dialog>
 <div class="tip" id="tip" role="dialog" aria-modal="false" hidden></div>
@@ -879,7 +1005,45 @@ const IT={
   newAttCal:"<b>In calendario</b> – feste, uscite, foto di Natale e appuntamenti, in ordine di data.",
   newAttInfo:"<b>Da sapere</b> – cosa portare, cosa controllare e le raccomandazioni delle maestre.",
   newAttSwitch:"<b>Menu o Attività</b> – passa dall'uno all'altro con le due voci in alto.",
+  newAttSez:"<b>Filtro per sezione</b> – scegli Farfalle, Gattini, Coccinelle o Fenicotteri e resti con le cose che ti riguardano. La scelta viene ricordata.",
+  newAttIcs:"<b>Aggiungi al calendario</b> – il pulsante sulle card con una data scarica l'evento già pronto.",
+  newAttShare:"<b>Condividi</b> – il pulsante accanto invia il testo della card in chat, senza link.",
+  newInfo:"<b>Dati utili</b> – il pulsante con la “i” in alto raccoglie telefoni, orari della segreteria e documenti.",
+  newStat:"<b>Statistiche di utilizzo</b> – dal fondo pagina si vede, in chiaro, quanto la pagina viene usata.",
   newAttNote:"Le informazioni arrivano dagli incontri con le maestre e possono cambiare: vale sempre quanto comunica la scuola.",
+  infoTitle:"Dati utili",
+  infoIntro:"I riferimenti della scuola e i documenti che servono più spesso, tutti in un posto.",
+  infoSchoolT:"Scuola dell'Infanzia “Don Milani”",
+  infoSecT:"Segreteria — I.C. Cervia 2",
+  infoDocsT:"Documenti e link",
+  infoPhone:"Telefono",
+  infoHours:"Al telefono",
+  infoEmail:"Email",
+  infoAddr:"Indirizzo",
+  infoCall:"Chiama",
+  infoWrite:"Scrivi",
+  infoMap:"Apri la mappa",
+  infoSite:"Sito dell'Istituto",
+  infoMenuPdf:"Menu ufficiale del Comune",
+  infoVotePdf:"Invito alle elezioni",
+  infoNote:"I numeri personali delle insegnanti non sono pubblicati: per le comunicazioni dirette vale quanto indicato dalla scuola.",
+  statLink:"Statistiche di utilizzo",
+  statTitle:"Statistiche di utilizzo",
+  statIntro:"Questa pagina è un'iniziativa dei genitori. Per capire se è davvero utile contiamo quante volte viene aperta, in modo anonimo e solo per chi ha accettato i cookie di misurazione. Ecco tutto quello che sappiamo.",
+  statT1:"visite in sette giorni",
+  statT2:"visite al giorno in media, dopo il primo",
+  statT3:"delle visite arriva dal telefono",
+  statT4:"della pagina scorsa in media",
+  statChart:"Visite giorno per giorno",
+  statChartAlt:"12 novembre: 92 visite, il giorno in cui la pagina è stata condivisa. Poi 22, 8, 8, 23, 21 e 6 visite. L'ultimo giorno è ancora in corso.",
+  statWhatT:"Cosa viene contato",
+  statWhat:"Quante volte la pagina viene aperta, se da telefono o da computer, quanto si scorre e quanto ci si resta. Nient'altro.",
+  statNoT:"Cosa non viene raccolto",
+  statNo:"Nessun nome, nessun contatto, nessun dato dei bambini. Le visite non sono collegate a una persona e non vengono condivise con nessuno. Chi rifiuta i cookie di misurazione non viene contato, e la pagina funziona lo stesso.",
+  statWhyT:"Perché lo facciamo",
+  statWhy:"Per capire se questa pagina serve davvero alle famiglie. Se i numeri lo confermano, l'idea è proporla alla scuola perché un domani diventi un canale ufficiale, invece di restare un'iniziativa di qualche genitore.",
+  statNote:"Dati raccolti con Microsoft Clarity. L'ultimo giorno del grafico è parziale.",
+  statShare:"Copia il link di questa pagina",
   shareCard:"Condividi il testo",secLabel:"Sezione",secAria:"Filtra per sezione",secPanel:"Sezioni",secHint:"Mostra anche le attività di:",attach:"Allegato",addCal:"Aggiungi al calendario",calDone:"Evento scaricato",copied:"Testo copiato",menu:"Menu",
   siteTitle:"Mensa, Attività ed Eventi",menuDoc:"Menu Mensa",
   tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"In calendario",attInfo:"Da sapere",attPast:"Già passati",
@@ -1348,7 +1512,7 @@ document.addEventListener("click",e=>{
     else if(e.target.closest("[data-clear-s]")){selS.clear();}
     else if(e.target.closest("[data-close]")){closeDD();return;}
     else return;
-    saveSez();renderAtt();return;
+    saveSez();renderAtt();clarityTags();return;
   }
   const opt=e.target.closest(".opt");
   if(opt){const k=opt.dataset.f;sel.has(k)?sel.delete(k):sel.add(k);}
@@ -1447,6 +1611,17 @@ function attUpdated(){
   const o=ld.getFullYear()===new Date(ATT_UPDATED+"T12:00:00").getFullYear()?{month:"long"}:{month:"long",year:"numeric"};
   return t("attUpd").replace("{d}",new Intl.DateTimeFormat(L,{day:"numeric",month:"long",year:"numeric"}).format(new Date(ATT_UPDATED+"T12:00:00")))+" – "+t("attUntil").replace("{m}",new Intl.DateTimeFormat(L,o).format(ld));
 }
+/* etichette anonime per Clarity: lingua, vista e sezioni scelte, nessun dato personale */
+function clarityTags(){
+  if(!window.clarity)return false;
+  try{
+    clarity("set","lingua",LANG);
+    clarity("set","vista",typeof VIEW!=="undefined"?VIEW:"menu");
+    clarity("set","sezioni",typeof selS!=="undefined"&&selS.size?[...selS].sort().join(" "):"tutte");
+  }catch(e){}
+  return true;
+}
+(function attendiClarity(n){if(clarityTags()||n>40)return;setTimeout(()=>attendiClarity(n+1),1500);})(0);
 function localISO(){const n=new Date();return n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");}
 function attCard(a,i,now){
   const L=LOCALE[LANG]||LANG,dt=a.d?new Date(a.d+"T12:00:00"):null,de=a.e?new Date(a.e+"T12:00:00"):null;
@@ -1492,7 +1667,11 @@ function renderAtt(){
 /* lo switch sta in alto a destra su desktop, sopra il titolo su mobile */
 const vsw=document.getElementById("vsw"),vswRow=document.getElementById("vswRow");
 function placeVsw(){const hd=document.querySelector(".hdr");if(matchMedia("(max-width:40rem)").matches){if(vsw.parentNode!==vswRow)vswRow.appendChild(vsw);}else if(vsw.parentNode!==hd)hd.appendChild(vsw);}
-placeVsw();matchMedia("(max-width:40rem)").addEventListener("change",placeVsw);
+const infoBtn=document.getElementById("infoBtn");
+function placeInfo(){const hd=document.querySelector(".hdr");
+  if(matchMedia("(max-width:40rem)").matches){if(infoBtn.parentNode!==document.body)document.body.appendChild(infoBtn);}
+  else if(infoBtn.parentNode!==hd)hd.appendChild(infoBtn);}
+placeVsw();placeInfo();matchMedia("(max-width:40rem)").addEventListener("change",()=>{placeVsw();placeInfo();});
 /* titolo, schede e contenuto seguono la vista attiva */
 function applyView(){
   const att=VIEW==="attivita";
@@ -1505,6 +1684,7 @@ function applyView(){
   document.title=(VIEW_PICKED?(att?t("attDoc"):t("menuDoc")):t("siteTitle"))+" – Scuola dell'Infanzia \"Don Milani\"";
   vsw.querySelectorAll(".tab").forEach(a=>{const on=a.dataset.v===VIEW;a.classList.toggle("active",on);if(on)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
   if(att)renderAtt();
+  if(typeof clarityTags==="function")clarityTags();
 }
 function show(v){
   const nv=v==="attivita"?"attivita":"menu",changed=nv!==VIEW;
@@ -1516,7 +1696,34 @@ function show(v){
   if(window.showNewsOnce)showNewsOnce(nv);
   if(nv==="menu")requestAnimationFrame(()=>{focusToday(document.getElementById("calGrid"));typeof syncTodayBtn==="function"&&syncTodayBtn();});
 }
-window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+/* #statistiche apre la modale, così il link si può condividere già aperto */
+const statDlg=document.getElementById("statDlg");
+function openStat(){
+  if(!statDlg.open){typeof statDlg.showModal==="function"?statDlg.showModal():statDlg.setAttribute("open","");}
+  try{if(window.clarity)clarity("event","statistiche");}catch(e){}
+}
+statDlg.addEventListener("close",()=>{if(location.hash==="#statistiche")history.replaceState(null,"",location.pathname+location.search+(VIEW==="attivita"?"#attivita":""));});
+document.getElementById("statShare").addEventListener("click",async e=>{
+  e.preventDefault();
+  const url=location.origin+location.pathname+"#statistiche";
+  try{if(navigator.share){await navigator.share({text:t("statTitle")+" – "+url});return;}}catch(err){if(err&&err.name==="AbortError")return;}
+  try{await navigator.clipboard.writeText(url);toast(t("copied"));}catch(err){toast(url);}
+});
+const infoDlg=document.getElementById("infoDlg");
+function openInfo(){
+  if(!infoDlg.open){typeof infoDlg.showModal==="function"?infoDlg.showModal():infoDlg.setAttribute("open","");}
+  try{if(window.clarity)clarity("event","dati-utili");}catch(e){}
+}
+document.getElementById("infoBtn").addEventListener("click",openInfo);
+infoDlg.addEventListener("click",e=>{if(e.target.closest('a[href="#statistiche"]')){infoDlg.close();}});
+infoDlg.addEventListener("close",()=>{if(location.hash==="#dati-utili")history.replaceState(null,"",location.pathname+location.search);});
+function route(h){
+  if(h==="dati-utili"){openInfo();return;}
+  if(h==="statistiche"){openStat();return;}
+  if(statDlg.open)statDlg.close();
+  show(h);
+}
+window.addEventListener("hashchange",()=>route(location.hash.slice(1)));
 
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-view]");if(!b)return;
@@ -1710,8 +1917,8 @@ document.addEventListener("click",async e=>{
 /* modale "Novità": si apre una sola volta per dispositivo, dopo che la lingua è pronta */
 /* due novità distinte: una per il menu, una per attività ed eventi; ognuna si mostra una volta sola */
 const NEWS={
-  menu:{key:"mensa-news-2026-11",title:"newTitle",intro:"newIntro",note:"newNote"},
-  attivita:{key:"mensa-news-att-2026-11",title:"newAttTitle",intro:"newAttIntro",note:"newAttNote"}
+  menu:{key:"mensa-news-2026-11-18",title:"newTitle",intro:"newIntro",note:"newNote"},
+  attivita:{key:"mensa-news-att-2026-11-18",title:"newAttTitle",intro:"newAttIntro",note:"newAttNote"}
 };
 window.showNewsOnce=function(kind){
   const n=NEWS[kind==="attivita"?"attivita":"menu"];
@@ -1766,6 +1973,8 @@ document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",
   btn.addEventListener("click",e=>{e.stopPropagation();toggle(list.hidden);});
   list.addEventListener("click",async e=>{const o=e.target.closest(".lng-opt");if(!o)return;toggle(false);btn.focus();
     await setLang(o.dataset.l,true);calcDate();updateTodayBtn();renderFilters();renderCal();
+    try{if(window.clarity)clarity("event","lingua-"+LANG);}catch(e){}
+    clarityTags();
     document.querySelectorAll("#calGrid > *").forEach(c=>c.style.animation="none");});
   list.addEventListener("keydown",e=>{const os=[...list.children],i=os.indexOf(document.activeElement);
     if(e.key==="ArrowDown"){e.preventDefault();os[(i+1)%os.length].focus();}
@@ -1773,7 +1982,7 @@ document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",
     else if(e.key==="Escape"){toggle(false);btn.focus();}});
   document.addEventListener("click",e=>{if(!box.contains(e.target))toggle(false);});
 })();
-setLang(pickLang()).then(()=>{calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();show(location.hash.slice(1));if(window.showNewsOnce)showNewsOnce(VIEW);});
+setLang(pickLang()).then(()=>{calcDate();updateTodayBtn();renderFilters();renderHome();renderCal();route(location.hash.slice(1));if(window.showNewsOnce&&location.hash!=="#statistiche")showNewsOnce(VIEW);clarityTags();});
 
 /* ===== banner "Aggiungi alla schermata Home" =====
    - solo su telefono/tablet e solo se il sito non è già aperto come app
