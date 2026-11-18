@@ -1644,9 +1644,8 @@ const weekNav=document.querySelector(".weeknav"),weekRow=document.querySelector(
 function placeWeekNav(){if(mqBar.matches){if(weekNav.parentNode!==hdr)hdr.insertBefore(weekNav,hdr.firstChild);}else if(weekNav.parentNode!==weekRow)weekRow.appendChild(weekNav);}
 /* intervallo della settimana: nella barra in basso in forma breve (9–13 nov) */
 function setRange(){const w=WEEKS[wk].days,a=new Date(w[0].date+"T12:00:00"),b=new Date(w[w.length-1].date+"T12:00:00");
-  /* se la settimana sta fra due mesi il nome lungo non ci sta: mese abbreviato */
-  const mm=a.getMonth()!==b.getMonth()?"short":"long";
-  document.getElementById("range").textContent=new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:mm}).formatRange(a,b).replace(/\.(?=\s|$)/g,"").replace(/(^|[^\d])0(\d)/g,"$1$2").replace(/\s*[–-]\s*/," – ");}
+  /* mese sempre abbreviato, anche quando la settimana sta dentro un mese solo */
+  document.getElementById("range").textContent=new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"short"}).formatRange(a,b).replace(/(\p{L})\.(?=\s|$)/gu,"$1").replace(/(^|[^\d])0(\d)/g,"$1$2").replace(/\s*[–-]\s*/," – ");}
 placeWeekNav();mqBar.addEventListener("change",()=>{placeWeekNav();setRange();});
 function renderCal(){
   const q=document.getElementById("q").value.trim();
