@@ -169,7 +169,7 @@ nav .tab{position:relative}
 .tab{display:flex;align-items:center;gap:.4375rem;min-height:2.75rem;padding:.5625rem 1.125rem;border-radius:1rem;font-weight:600;font-size:.9062rem;color:var(--fg-2);transition:background .25s,color .25s,box-shadow .25s}
 .tab svg{width:1.125rem;height:1.125rem;flex:none}
 .tab:hover{color:var(--fg);background:var(--tile)}
-.tab.active{color:var(--sel-fg);background:var(--sel-bg);box-shadow:inset 0 0 0 1.5px var(--line)}
+.tab.active{color:var(--accent);background:var(--sel-bg);box-shadow:inset 0 0 0 1.5px var(--line)}
 .tab .f{display:none}.tab.active .f{display:block}.tab.active .o{display:none}
 .tab .f .cut{stroke:var(--sel-bg)}
 
@@ -280,7 +280,7 @@ button,a,summary,.arrow,.weeknav{touch-action:manipulation}
 .opt .box{width:1.25rem;height:1.25rem;border-radius:.375rem;flex:none;display:grid;place-items:center;box-shadow:inset 0 0 0 .125rem var(--border);transition:background .15s}
 .opt .box svg{width:.8125rem;height:.8125rem;opacity:0;color:var(--bg)}
 .opt.on{background:var(--sel-bg);color:var(--sel-fg)}
-.opt.on .box{background:var(--fg);box-shadow:none}
+.opt.on .box{background:var(--accent);box-shadow:none}
 .opt.on .box svg{opacity:1}
 .opt .n{margin-left:auto;font-size:.8125rem;color:var(--fg-2);font-weight:600}
 .opt.on .n{color:var(--sel-fg)}
@@ -291,7 +291,7 @@ button,a,summary,.arrow,.weeknav{touch-action:manipulation}
 .dd-foot button{font-size:.875rem;font-weight:700;min-height:2.5rem;padding:.375rem .75rem;border-radius:1rem;color:var(--fg)}
 .dd-foot button:first-child{background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line)}
 .dd-foot button:hover{background:var(--tile)}
-.dd-foot .done,.dd-foot .done:hover{background:var(--fg);color:var(--bg)}
+.dd-foot .done,.dd-foot .done:hover{background:var(--accent);color:var(--bg)}
 .dd-foot .done:hover{opacity:.88}
 .search-row{display:flex;gap:.625rem;align-items:stretch;margin-bottom:1rem}
 .search-row .search{flex:1;margin-bottom:0}
@@ -1053,7 +1053,7 @@ const IT={
   newInfo:"<b>Dati utili</b> – il pulsante con la “i” in alto raccoglie telefoni, orari della segreteria e documenti.",
   newStat:"<b>Statistiche di utilizzo</b> – dal fondo pagina si vede, in chiaro, quanto la pagina viene usata.",
   newAttNote:"Le informazioni arrivano dagli incontri con le maestre e possono cambiare: vale sempre quanto comunica la scuola.",
-  infoTitle:"Info utili",infoTab:"Info",newsLink:"Novità",
+  infoTitle:"Info utili",infoTab:"Info",newsLink:"Novità su questo sito",
   infoIntro:"I riferimenti della scuola e i documenti che servono più spesso, tutti in un posto.",
   infoSchoolT:"Scuola dell'Infanzia “Don Milani”",
   infoSecT:"Segreteria — I.C. Cervia 2",
