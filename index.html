@@ -287,6 +287,7 @@ button,a,summary,.arrow,.weeknav{touch-action:manipulation}
 .dd-panel{max-height:min(34rem,70vh);overflow:auto}
 .dd-foot{display:flex;justify-content:space-between;gap:.375rem;margin-top:.375rem;padding-top:.5rem;border-top:1px solid var(--line)}
 .dd-foot button{font-size:.875rem;font-weight:700;min-height:2.5rem;padding:.375rem .75rem;border-radius:1rem;color:var(--fg)}
+.dd-foot button:first-child{background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line)}
 .dd-foot button:hover{background:var(--tile)}
 .dd-foot .done{background:var(--fg);color:var(--bg)}
 .search-row{display:flex;gap:.625rem;align-items:stretch;margin-bottom:1rem}
@@ -512,9 +513,11 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
 .mood:focus-visible{outline-offset:.1875rem}
 .day-f{display:flex;align-items:center;gap:.5rem;padding:.3125rem .5rem .3125rem .875rem;border-top:1px solid var(--line);color:var(--muted-fg);position:relative;text-transform:uppercase;letter-spacing:.0625rem;font-size:.65rem}
 :lang(zh) .day-f,:lang(ar) .day-f{letter-spacing:0}
-.day-f > span{flex:1;min-width:0}
+.day-f > span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .day-f .mood{margin:0}
-.ai-info{width:1.875rem;height:1.875rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2)}
+.ai-info{display:inline-flex;align-items:center;gap:.3125rem;min-height:1.875rem;padding:0 .375rem;border-radius:999rem;color:var(--fg-2);text-transform:uppercase;letter-spacing:.0625rem;font-size:.65rem;flex:none}
+.ai-info svg{width:.9375rem;height:.9375rem}
+.ai-info:hover{color:var(--fg)}
 .ai-info:hover{background:var(--tile);color:var(--fg)}
 .ai-info svg{width:1.0625rem;height:1.0625rem}
 .day:has(.day-f){display:flex;flex-direction:column}
@@ -727,8 +730,10 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .att-top{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:1rem;animation:softIn .9s var(--ease) .15s backwards}
 .att-top .att-h{margin:0}
 nav.vsw.sw-sm{flex:none;border-radius:1rem}
+.sw-sm .n-pill{display:inline-grid;place-items:center;min-width:1.125rem;height:1.125rem;margin-left:.375rem;padding:0 .25rem;border-radius:999rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);font-size:.625rem;font-weight:700;letter-spacing:0}
+.sw-sm .tab.active .n-pill{background:var(--sel-fg);color:var(--sel-bg);box-shadow:none}
 .sw-sm .tab{min-height:1.875rem;padding:.25rem .625rem;border-radius:.6875rem;font-size:.625rem;letter-spacing:.05em;white-space:nowrap}
-@media (max-width:30rem){.att-top{flex-wrap:wrap}.sw-sm{width:100%}.sw-sm .tab{flex:1;justify-content:center}}
+@media (max-width:26rem){.sw-sm .tab{padding:.25rem .5rem}}
 .c-pdf .ico{background:var(--surface-2)}
 .att-pdf{display:inline-flex;align-items:center;gap:.375rem;color:var(--accent);text-decoration:underline;text-underline-offset:.1875rem;text-decoration-thickness:.0625rem}
 .att-pdf svg{width:.9375rem;height:.9375rem;flex:none}
@@ -742,7 +747,7 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
 .att .dish{font-weight:normal;font-size:.9375rem;line-height:1.45}
 .att .lbl{margin-bottom:.125rem}
 .badge i{font-style:normal;opacity:.5;margin:0 .25rem}
-.dmeta > .badge{display:inline-flex;width:fit-content;max-width:100%;margin-top:.375rem;white-space:normal;text-align:center;line-height:1.3}
+.dmeta > .badge{display:inline-flex;width:fit-content;max-width:100%;margin-top:0;white-space:normal;text-align:center;line-height:1.3}
 .att .badge{display:inline-flex;width:fit-content;max-width:100%;margin-top:.5rem;white-space:normal;text-align:center;line-height:1.3}
 .att .dname{overflow-wrap:normal;word-break:normal}
 .att.past{opacity:.55}
@@ -1068,9 +1073,9 @@ const IT={
   statWhy:"Per capire se questa pagina serve davvero alle famiglie. Se i numeri lo confermano, l'idea è proporla alla scuola perché un domani diventi un canale ufficiale, invece di restare un'iniziativa di qualche genitore.",
   statNote:"Dati raccolti con Microsoft Clarity. L'ultimo giorno del grafico è parziale.",
   statShare:"Condividi",
-  shareCard:"Condividi il testo",secLabel:"Sezione",secAria:"Filtra per sezione",secPanel:"Sezioni",secHint:"Mostra anche le attività di:",attach:"Allegato",addCal:"Aggiungi al calendario",calDone:"Evento scaricato",copied:"Testo copiato",menu:"Menu",
+  shareCard:"Condividi il testo",secLabel:"Sezione",secAria:"Filtra per sezione",secPanel:"Sezioni",secHint:"Filtra per sezione",attach:"Allegato",addCal:"Aggiungi al calendario",calDone:"Evento scaricato",copied:"Testo copiato",menu:"Menu",
   siteTitle:"Mensa, Attività ed Eventi",menuDoc:"Menu Mensa",
-  tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"In calendario",attNext:"Prossimi",attInfo:"Da sapere",attPast:"Già passati",
+  tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"Calendario",attNext:"Prossimi",attInfo:"Da sapere",attPast:"Già passati",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
   search:"Cerca...",searchLabel:"Cerca un piatto",clear:"Cancella la ricerca",
   menuType:"Tipo di menu",menuTypes:"Tipi di menu",filterAria:"Filtra per tipo di menu",showAll:"Mostra tutti",done:"Fatto",nDays:"{n} giorni",
@@ -1086,7 +1091,7 @@ const IT={
   m_caldo:"Caldo e leggero",m_caldo_d:"Il primo è una minestra o un passato: un pasto caldo, morbido e leggero, che scalda nelle giornate più fresche.",
   m_bilanciato:"Pasto bilanciato",m_bilanciato_d:"Un primo, un secondo e le verdure: il classico pasto completo, con un po' di tutto.",
   whatMeans:"cosa significa",tipNote:"Questa indicazione è generata tramite l'intelligenza artificiale e ovviamente è solo orientativa.",
-  aiFoot:"Informazioni generate con l'IA",discover:"Scopri il piatto",howMade:"Com'è fatto",bringsSr:"Cosa porta nel piatto: ",
+  aiFoot:"Informazioni generate con l'IA",aiInfo:"Info AI",discover:"Scopri il piatto",howMade:"Com'è fatto",bringsSr:"Cosa porta nel piatto: ",
   dishNote:"La descrizione è generata con l'intelligenza artificiale: il piatto servito può essere diverso. Non sono consigli medici o nutrizionali.",
   why:"Perché?",inItalian:"Nel menu ufficiale:",close:"Chiudi",ok:"Ho capito",
   aiTitle:"Informazioni generate con l'intelligenza artificiale",
@@ -1483,7 +1488,7 @@ function dayCard(d,q=""){
       </div>
       <div class="tags">${SHR(`day:${d.date}`)}</div>
     </div>
-    ${items?`<ul class="items">${items}</ul><div class="day-f">${d.mood?`<button type="button" class="mood" data-mood="${d.mood}" aria-expanded="false" aria-label="${esc(t("m_"+d.mood))}: ${esc(t("whatMeans"))}">${MOODS[d.mood].i}</button>`:""}<span>${esc(t("aiFoot"))}</span><button type="button" class="ai-info" data-ai-info aria-haspopup="dialog" aria-label="${esc(t("aiTitle"))}: ${esc(t("whatMeans"))}">${INFO}</button></div>`:`<p class="noday">${esc(t("noday"))}</p>`}
+    ${items?`<ul class="items">${items}</ul><div class="day-f">${d.mood?`<button type="button" class="mood" data-mood="${d.mood}" aria-expanded="false" aria-label="${esc(t("m_"+d.mood))}: ${esc(t("whatMeans"))}">${MOODS[d.mood].i}</button><span class="mood-l">${esc(t("m_"+d.mood))}</span>`:"<span></span>"}<button type="button" class="ai-info" data-ai-info aria-haspopup="dialog" aria-label="${esc(t("aiTitle"))}: ${esc(t("whatMeans"))}"><span>${esc(t("aiInfo"))}</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3 12.7 7.3 17 9l-4.3 1.7L11 15l-1.7-4.3L5 9l4.3-1.7Z"/><path d="M18.5 14.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8Z"/></svg></button></div>`:`<p class="noday">${esc(t("noday"))}</p>`}
   </article>`;
 }
 
@@ -1673,7 +1678,7 @@ function renderAtt(){
   const sec=(k,list,extra="")=>list.length||extra?`<section class="att-sec"><div class="att-top"><h2 class="att-h">${esc(t(k))}</h2>${extra}</div><div class="slider"><button type="button" class="sl-btn sl-prev" aria-label="${esc(t("slPrev"))}" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div class="grid" tabindex="0" lang="it" aria-label="${esc(t(k))}">${list.map((a,i)=>attCard(a,i,now)).join("")}</div><button type="button" class="sl-btn sl-next" aria-label="${esc(t("slNext"))}" tabindex="-1" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button></div></section>`:"";
   const pane=document.getElementById("pane-att");
   if(ATT_PAST&&!past.length)ATT_PAST=false;
-  pane.innerHTML=sec("attCal",ATT_PAST?past:up,past.length?`<nav class="vsw sw-sm" id="attSw" aria-label="${esc(t("attCal"))}"><button type="button" class="tab${ATT_PAST?"":" active"}" data-past="0" aria-pressed="${!ATT_PAST}">${esc(t("attNext"))}</button><button type="button" class="tab${ATT_PAST?" active":""}" data-past="1" aria-pressed="${ATT_PAST}">${esc(t("attPast"))} (${past.length})</button></nav>`:"")+sec("attInfo",info);
+  pane.innerHTML=sec("attCal",ATT_PAST?past:up,past.length?`<nav class="vsw sw-sm" id="attSw" aria-label="${esc(t("attCal"))}"><button type="button" class="tab${ATT_PAST?"":" active"}" data-past="0" aria-pressed="${!ATT_PAST}">${esc(t("attNext"))}</button><button type="button" class="tab${ATT_PAST?" active":""}" data-past="1" aria-pressed="${ATT_PAST}">${esc(t("attPast"))}<b class="n-pill">${past.length}</b></button></nav>`:"")+sec("attInfo",info);
   renderSez();
   const sw=document.getElementById("attSw");
   if(sw)sw.addEventListener("click",e=>{const b=e.target.closest("[data-past]");if(!b)return;
@@ -1694,7 +1699,7 @@ function placeVsw(){const hd=document.querySelector(".hdr");if(matchMedia("(max-
 const infoBtn=document.getElementById("infoBtn");
 function placeInfo(){const hd=document.querySelector(".hdr");
   if(matchMedia("(max-width:40rem)").matches){if(infoBtn.parentNode!==document.body)document.body.appendChild(infoBtn);}
-  else if(infoBtn.parentNode!==hd)hd.appendChild(infoBtn);}
+  else if(infoBtn.nextElementSibling!==vsw)hd.insertBefore(infoBtn,vsw);}
 placeVsw();placeInfo();matchMedia("(max-width:40rem)").addEventListener("change",()=>{placeVsw();placeInfo();});
 /* titolo, schede e contenuto seguono la vista attiva */
 function applyView(){
