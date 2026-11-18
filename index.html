@@ -1824,13 +1824,17 @@ function openInfo(){
   try{if(window.clarity)clarity("event","dati-utili");}catch(e){}
 }
 document.getElementById("infoBtn").addEventListener("click",openInfo);
-infoDlg.addEventListener("click",e=>{
-  if(e.target.closest('a[href="#statistiche"]')){infoDlg.close();return;}
-  const n=e.target.closest('a[href="#novita"]');
-  if(n){e.preventDefault();infoDlg.close();setTimeout(()=>showNewsOnce(VIEW,true),150);}
+infoDlg.addEventListener("click",e=>{if(e.target.closest('a[href="#statistiche"]'))infoDlg.close();});
+/* "Novità su questo sito" funziona sia dalla modale sia dalla scheda Info */
+document.addEventListener("click",e=>{
+  const n=e.target.closest('a[href="#novita"]');if(!n)return;
+  e.preventDefault();
+  const era=infoDlg.open;if(era)infoDlg.close();
+  setTimeout(()=>showNewsOnce(VIEW==="info"?"menu":VIEW,true),era?150:0);
 });
 infoDlg.addEventListener("close",()=>{if(location.hash==="#dati-utili")history.replaceState(null,"",location.pathname+location.search);});
 function route(h){
+  if(h==="novita"){showNewsOnce(VIEW==="info"?"menu":VIEW,true);return;}
   if(h==="dati-utili"){openInfo();return;}
   if(h==="statistiche"){openStat();return;}
   if(statDlg.open)statDlg.close();
