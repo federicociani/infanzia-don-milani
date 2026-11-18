@@ -208,7 +208,7 @@ main{position:relative;z-index:1;flex:1;padding:1.75rem 0 4rem}
 .badge{font-size:.6875rem;font-weight:normal;letter-spacing:.05em;padding:.25rem .625rem;border-radius:999rem}
 .items{list-style:none;display:flex;flex-direction:column;gap:.5rem;position:relative;padding:.875rem}
 .it{display:flex;gap:.75rem;align-items:center}
-.ico{width:2.375rem;height:2.375rem;border-radius:.75rem;display:grid;place-items:center;font-size:1.5rem;flex:none;
+.ico{width:3rem;height:3rem;border-radius:.875rem;display:grid;place-items:center;font-size:1.75rem;flex:none;
   background:linear-gradient(160deg,rgba(255,255,255,.6),rgba(255,255,255,.1)),var(--c);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 0 0 1px rgba(255,255,255,.35),0 .1875rem .5rem -.25rem rgba(8,11,20,.25)}
 .dark .ico{background:linear-gradient(160deg,rgba(255,255,255,.35),rgba(255,255,255,.05)),color-mix(in srgb,var(--c) 55%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 0 0 1px rgba(255,255,255,.07),0 .1875rem .5rem -.25rem rgba(0,0,0,.6)}
@@ -740,6 +740,9 @@ html.v-info #period{display:none}
 .st-bar.part i{background:repeating-linear-gradient(135deg,var(--accent) 0 .25rem,var(--primary) .25rem .5rem)}
 .st-days{display:flex;gap:.375rem;margin-top:.375rem}
 .st-days span{flex:1;text-align:center;font-size:.6875rem;color:var(--muted-fg);min-width:0}
+.end-note{display:flex;gap:.625rem;align-items:flex-start;margin:0 0 1rem;padding:.875rem 1rem;border-radius:1.125rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);font-size:.875rem;line-height:1.5;color:var(--fg-2);animation:softIn .9s var(--ease) .1s backwards}
+.end-note[hidden]{display:none}
+.end-note b{font-weight:700;color:var(--fg)}
 .unofficial{font-size:.75rem;line-height:1.55;color:var(--muted-fg)}
 .unofficial a{color:var(--fg-2);text-decoration:underline;text-underline-offset:.1875rem}
 .stat-link{display:inline-flex;align-items:center;gap:.25rem}
@@ -835,6 +838,7 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
     </div>
     <div class="dd" data-filters><button class="dd-btn ctl" aria-haspopup="true" aria-expanded="false" aria-label="Filtra per tipo di menu" data-ta="filterAria"><svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M3.2 5.3A1 1 0 0 1 4 5h16a1 1 0 0 1 .8 1.6l-6.3 7.9V20a1 1 0 0 1-1.5.9l-3-1.8a1 1 0 0 1-.5-.9v-3.7L3.2 6.6a1 1 0 0 1 0-1.3Z"/></svg><span class="dd-label">Tipo di menu</span><b class="dd-count" hidden></b><svg class="chev" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="dd-panel" role="group" aria-label="Tipi di menu" data-ta="menuTypes" hidden></div></div>
     </div>
+    <p class="end-note" id="endNote" hidden></p>
     <div class="week-row">
     <div class="weeknav glass">
       <button class="arrow" id="prev" aria-label="Settimana precedente" data-ta="prev"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
@@ -1120,6 +1124,7 @@ const IT={
   statNote:"Dati raccolti con Microsoft Clarity. L'ultimo giorno del grafico è parziale.",
   statShare:"Condividi",
   shareCard:"Condividi il testo",site:"Sito",secLabel:"Sezione",secAria:"Filtra per sezione",secPanel:"Sezioni",secHint:"Filtra per sezione",attach:"Allegato",addCal:"Aggiungi al calendario",calDone:"Evento scaricato",copied:"Testo copiato",menu:"Menu",
+  menuEnd:"<b>Il menu pubblicato dal Comune arriva fino al {d}.</b> Appena esce quello nuovo lo trovi qui.",
   siteTitle:"Mensa, Attività ed Eventi",menuDoc:"Menu Mensa",
   tabMenu:"Menu",tabAtt:"Attività",sections:"Sezioni",attTitle:"Attività<br>ed eventi",attDoc:"Attività ed eventi",attUpd:"Aggiornate al {d}",attUntil:"Fino a {m}",attCal:"Calendario",attNext:"Prossimi",attInfo:"Da sapere",attPast:"Passati",
   heroTitle:"Menu<br>Mensa",school:"Scuola dell'Infanzia<br>“Don Milani” a Cervia",
@@ -1884,6 +1889,16 @@ window.addEventListener("resize",()=>requestAnimationFrame(syncTodayBtn));
 /* etichetta del pulsante: Oggi / Domani / nome del giorno */
 function updateTodayBtn(){
   const b=document.getElementById("todayBtn");
+  /* menu finito: niente pulsante "Oggi" e un avviso al posto suo */
+  const fine=ALL_DAYS.length?ALL_DAYS[ALL_DAYS.length-1].date:"";
+  const finito=!!fine&&todayISO>fine;
+  const nota=document.getElementById("endNote");
+  if(nota){
+    nota.hidden=!finito;
+    if(finito)nota.innerHTML=`<span aria-hidden="true">📅</span><span>${t("menuEnd").replace("{d}",new Intl.DateTimeFormat(LOCALE[LANG]||LANG,{day:"numeric",month:"long",year:"numeric"}).format(new Date(fine+"T12:00:00")))}</span>`;
+  }
+  b.hidden=finito;
+  if(finito)return;
   let x=t("oggi");
   if(focusISO&&focusISO!==todayISO) x=focusISO===addDays(todayISO,1)?t("domani"):dayName(new Date(focusISO+"T12:00:00"));
   b.textContent=x;
