@@ -72,6 +72,7 @@ _iub.csConfiguration = {
 :root{
   --font-sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-display:"Bricolage Grotesque",sans-serif;
   /* light — palette federicociani.com */
+  --border:#ccc;
   --bg:#efebe4;--fg:#222;--fg-2:#2b303c;--muted-fg:#4f5563;
   --primary:#6a8298;--primary-strong:#55697d;--primary-rgb:106,130,152;
   --accent:#3a5266;          /* testo/icone d'accento leggibili su chiaro */
@@ -89,6 +90,7 @@ _iub.csConfiguration = {
   --bg-emoji-opacity:.26;--radius:1.375rem;
 }
 .dark{
+  --border:#ccc;
   --bg:#07061a;--fg:#eeecfa;--fg-2:#d6d3ec;--muted-fg:#aeaacb;
   --primary:#b4b0ff;--primary-strong:#cdc9ff;--primary-rgb:180,176,255;
   --accent:#c4c0ff;
@@ -275,7 +277,7 @@ button,a,summary,.arrow,.weeknav{touch-action:manipulation}
 .opt{display:flex;align-items:center;gap:.625rem;width:100%;min-height:2.75rem;padding:.5625rem .625rem;border-radius:.75rem;font-size:.9375rem;font-weight:600;text-align:left;color:var(--fg)}
 .opt:hover:not(:disabled){background:var(--tile)}
 .opt:disabled{opacity:.4;cursor:not-allowed}
-.opt .box{width:1.25rem;height:1.25rem;border-radius:.375rem;flex:none;display:grid;place-items:center;box-shadow:inset 0 0 0 .125rem var(--fg-2);transition:background .15s}
+.opt .box{width:1.25rem;height:1.25rem;border-radius:.375rem;flex:none;display:grid;place-items:center;box-shadow:inset 0 0 0 .125rem var(--border);transition:background .15s}
 .opt .box svg{width:.8125rem;height:.8125rem;opacity:0;color:var(--bg)}
 .opt.on{background:var(--sel-bg);color:var(--sel-fg)}
 .opt.on .box{background:var(--fg);box-shadow:none}
