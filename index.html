@@ -38,8 +38,8 @@ _iub.csConfiguration = {
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Mensa Don Milani">
-<meta name="application-name" content="Mensa Don Milani">
+<meta name="apple-mobile-web-app-title" content="Don Milani">
+<meta name="application-name" content="Don Milani">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Il menu della mensa giorno per giorno e le attività ed eventi della Scuola dell'Infanzia “Don Milani” di Cervia. Pagina non ufficiale.">
 <link rel="canonical" href="https://federicociani.github.io/infanzia-don-milani/">
@@ -510,9 +510,11 @@ header .today-btn:disabled{max-width:0;padding-left:0;padding-right:0;margin-lef
 .day.today .mood[aria-expanded="true"]{background:#f4f2fb;color:#1b1832}
 .dark .day.today .mood[aria-expanded="true"]{background:#130f2e;color:#ece9ff}
 .mood:focus-visible{outline-offset:.1875rem}
-.day-f{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.375rem .625rem .375rem 1.125rem;border-top:1px solid var(--line);color:var(--muted-fg);position:relative;text-transform:uppercase;letter-spacing:.0625rem;font-size:.65rem}
+.day-f{display:flex;align-items:center;gap:.5rem;padding:.3125rem .5rem .3125rem .875rem;border-top:1px solid var(--line);color:var(--muted-fg);position:relative;text-transform:uppercase;letter-spacing:.0625rem;font-size:.65rem}
 :lang(zh) .day-f,:lang(ar) .day-f{letter-spacing:0}
-.ai-info{width:2.25rem;height:2.25rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2)}
+.day-f > span{flex:1;min-width:0}
+.day-f .mood{margin:0}
+.ai-info{width:1.875rem;height:1.875rem;border-radius:999rem;display:grid;place-items:center;color:var(--fg-2)}
 .ai-info:hover{background:var(--tile);color:var(--fg)}
 .ai-info svg{width:1.0625rem;height:1.0625rem}
 .day:has(.day-f){display:flex;flex-direction:column}
@@ -748,6 +750,8 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 .att .it{align-items:flex-start}
 .att .dish{font-weight:normal;font-size:.9375rem;line-height:1.45}
 .att .lbl{margin-bottom:.125rem}
+.badge i{font-style:normal;opacity:.5;margin:0 .25rem}
+.dmeta > .badge{display:inline-flex;width:fit-content;max-width:100%;margin-top:.375rem;white-space:normal;text-align:center;line-height:1.3}
 .att .badge{display:inline-flex;width:fit-content;max-width:100%;margin-top:.5rem;white-space:normal;text-align:center;line-height:1.3}
 .att .dname{overflow-wrap:normal;word-break:normal}
 .att.past{opacity:.55}
@@ -990,7 +994,7 @@ header .vsw-row{margin:0;padding:0 1rem;width:100%;max-width:63rem}
 <!-- Banner "Aggiungi alla schermata Home" (solo mobile) -->
 <div class="a2hs" id="a2hs" role="region" aria-label="Aggiungi alla schermata Home" data-ta="a2hsTitle" hidden>
   <div class="a2hs-body" id="a2hsBody"><div>
-    <p data-t="a2hsText">Mensa Don Milani sul telefono: la ritrovi con un tocco, tra le icone della schermata Home.</p>
+    <p data-t="a2hsText">Il menu e le attività sul telefono: li ritrovi con un tocco, tra le icone della schermata Home.</p>
     <ol class="a2hs-steps" id="a2hsIos" hidden>
     <li data-steps="ios1" data-k1="share" data-i1='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>'></li>
     <li data-steps="ios2" data-k1="addHome" data-i1='<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg>'></li>
@@ -1103,7 +1107,7 @@ const IT={
   fbQ:"Un problema, un’idea o un parere?",fbBtn:"Invia un feedback",newTab:" (si apre in una nuova scheda)",moreInfo:"Maggiori informazioni",
   unofficial:"Pagina non ufficiale, nata solo per rendere più comodo consultare il menu pubblicato dal Comune di Cervia. In caso di differenze vale il documento ufficiale:",
   pdf:"apri il PDF ufficiale del Comune",cookies:"Preferenze cookie",lang:"Lingua",theme:"Tema",themeLight:"Tema chiaro",themeDark:"Tema scuro",
-  a2hsTitle:"Aggiungi alla schermata Home",a2hsText:"Mensa Don Milani sul telefono: la ritrovi con un tocco, tra le icone della schermata Home.",
+  a2hsTitle:"Aggiungi alla schermata Home",a2hsText:"Il menu e le attività sul telefono: li ritrovi con un tocco, tra le icone della schermata Home.",
   ios1:"Tocca {i} nella barra del browser",ios2:"Scegli {i}",and1:"Tocca il menu {i} del browser",and2:"Scegli {i}",
   share:"Condividi",addHome:"Aggiungi alla schermata Home",addHomeA:"Aggiungi a schermata Home",add:"Aggiungi",noThanks:"No, grazie!",showHow:"Mostra come fare",closeHow:"Chiudi le istruzioni"
 };
@@ -1486,10 +1490,11 @@ function dayCard(d,q=""){
       <div class="date" aria-hidden="true"><b>${dt.getDate()}</b><i>${monShort(dt).toLocaleUpperCase(LANG)}</i></div>
       <div class="dmeta">
         <div class="dname">${rel?`<span class="oggi rel-${rel}">${relT}</span>`:""}${dayName(dt)}</div>
+        ${d.tipo?`<span class="badge b-${d.tipo}">${t(d.tipo).toLocaleUpperCase(LANG)}${d.prot?`<i>·</i><span class="sr-only">${esc(t("protLabel"))}: </span>${t("p_"+d.prot).toLocaleUpperCase(LANG)}`:""}</span>`:""}
       </div>
-      <div class="tags">${SHR(`day:${d.date}`)}${d.tipo?`<span class="badge b-${d.tipo}">${t(d.tipo).toLocaleUpperCase(LANG)}</span>${d.prot?`<span class="badge b-prot" title="${esc(t("protLabel"))}"><span class="sr-only">${esc(t("protLabel"))}: </span>${t("p_"+d.prot).toLocaleUpperCase(LANG)}</span>`:""}${d.mood?`<button type="button" class="mood" data-mood="${d.mood}" aria-expanded="false" aria-label="${esc(t("m_"+d.mood))}: ${esc(t("whatMeans"))}">${MOODS[d.mood].i}</button>`:""}`:""}</div>
+      <div class="tags">${SHR(`day:${d.date}`)}</div>
     </div>
-    ${items?`<ul class="items">${items}</ul><div class="day-f"><span>${esc(t("aiFoot"))}</span><button type="button" class="ai-info" data-ai-info aria-haspopup="dialog" aria-label="${esc(t("aiTitle"))}: ${esc(t("whatMeans"))}">${INFO}</button></div>`:`<p class="noday">${esc(t("noday"))}</p>`}
+    ${items?`<ul class="items">${items}</ul><div class="day-f">${d.mood?`<button type="button" class="mood" data-mood="${d.mood}" aria-expanded="false" aria-label="${esc(t("m_"+d.mood))}: ${esc(t("whatMeans"))}">${MOODS[d.mood].i}</button>`:""}<span>${esc(t("aiFoot"))}</span><button type="button" class="ai-info" data-ai-info aria-haspopup="dialog" aria-label="${esc(t("aiTitle"))}: ${esc(t("whatMeans"))}">${INFO}</button></div>`:`<p class="noday">${esc(t("noday"))}</p>`}
   </article>`;
 }
 
