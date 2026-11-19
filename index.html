@@ -757,9 +757,6 @@ html.v-info #period{display:none}
 .st-bar.part i{background:repeating-linear-gradient(135deg,var(--accent) 0 .25rem,var(--primary) .25rem .5rem)}
 .st-bar.oggi u{color:var(--accent);font-weight:800}
 .st-cap{margin:.5rem 0 0;font-size:.75rem;color:var(--muted-fg)}
-.st-opt{margin:.5rem 0 0}
-.st-opt button{font-size:.75rem;font-weight:600;color:var(--muted-fg);text-decoration:underline;text-underline-offset:.1875rem}
-.st-opt button:hover{color:var(--fg)}
 .end-note{display:flex;gap:.625rem;align-items:flex-start;margin:0 0 1rem;padding:.875rem 1rem;border-radius:1.125rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);font-size:.875rem;line-height:1.5;color:var(--fg-2);animation:softIn .9s var(--ease) .1s backwards}
 .end-note[hidden]{display:none}
 .end-note b{font-weight:700;color:var(--fg)}
@@ -1050,7 +1047,6 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
     <h3 data-t="statNoT"></h3><p data-t="statNo"></p>
     <h3 data-t="statWhyT"></h3><p data-t="statWhy"></p>
     <p class="new-note" data-t="statNote"></p>
-    <p class="st-opt"><button type="button" id="stOpt"></button></p>
     <div class="dlg-bar">
       <button type="button" class="dlg-share" data-share-dlg="stat"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m8 7 4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg><span data-t="statShare"></span></button>
       <button type="button" class="dlg-ok" data-close-dlg data-t="newOk"></button>
@@ -1154,8 +1150,6 @@ const IT={
   statWhy:"Per capire se questa pagina serve davvero alle famiglie. Se i numeri lo confermano, l'idea è proporla alla scuola perché un domani diventi un canale ufficiale, invece di restare un'iniziativa di qualche genitore.",
   statNote:"Dati raccolti con Microsoft Clarity. L'ultimo giorno del grafico è parziale.",
   statOff:"Questo dispositivo non viene più contato nelle statistiche",
-  statOffBtn:"Non contare questo dispositivo",
-  statOnBtn:"Conta di nuovo questo dispositivo",
   statOn:"Questo dispositivo viene contato di nuovo nelle statistiche",
   statNext:"Mese successivo",
   statPrev:"Mese precedente",
@@ -2171,22 +2165,12 @@ function renderStat(){
     h+='<div class="st-bar '+cls+(iso===STAT.oggi?" oggi":"")+'"><b>'+(v==null?"":v)+'</b><span><i style="--v:'+(v?Math.max(3,Math.round(v/max*100)):0)+'"></i></span><u>'+d+'</u></div>';
   }
   ch.innerHTML=h;
-  const off=(()=>{try{return localStorage.getItem(STAT_OFF)==="1";}catch(e){return false;}})();
-  document.getElementById("stOpt").textContent=t(off?"statOnBtn":"statOffBtn");
   ch.setAttribute("aria-label",statTxt("statChartAlt").replace("{mese}",nomeMese).replace("{max}",max).replace("{gmax}",gg.filter(d=>dati[d]===max)[0]));
   if(document.getElementById("statDlg").open){
     const o=ch.querySelector(".part")||ch.lastElementChild;
     if(o&&o.scrollIntoView)try{o.scrollIntoView({inline:"end",block:"nearest"});}catch(e){}
   }
 }
-document.getElementById("stOpt").addEventListener("click",()=>{
-  let off=false;try{off=localStorage.getItem(STAT_OFF)==="1";}catch(e){}
-  try{
-    if(off)localStorage.removeItem(STAT_OFF);
-    else{localStorage.setItem(STAT_OFF,"1");try{if(window.clarity)clarity("stop");}catch(e){}}
-  }catch(e){}
-  renderStat();toast(t(off?"statOn":"statOff"));
-});
 document.getElementById("stPrev").addEventListener("click",()=>{if(stMese>0){stMese--;renderStat();}});
 document.getElementById("stNext").addEventListener("click",()=>{if(stMese<STAT_MESI.length-1){stMese++;renderStat();}});
 
