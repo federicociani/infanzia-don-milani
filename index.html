@@ -1756,6 +1756,10 @@ function clarityTags(){
   try{if(localStorage.getItem("mensa-stat-off")==="1"){try{clarity("stop");}catch(e){}return true;}}catch(e){}
   try{
     clarity("set","lingua",LANG);
+    /* un evento una volta sola per sessione: il tag "lingua" nella dashboard non si può
+       sfogliare per valore, l'evento invece si conta. Solo per le lingue diverse dall'italiano,
+       le altre sessioni sono il resto. */
+    if(!clarityTags.letta){clarityTags.letta=true;if(LANG!=="it")clarity("event","letta-"+LANG);}
     clarity("set","vista",typeof VIEW!=="undefined"?VIEW:"menu");
     clarity("set","sezioni",typeof selS!=="undefined"&&selS.size?[...selS].sort().join(" "):"tutte");
   }catch(e){}
