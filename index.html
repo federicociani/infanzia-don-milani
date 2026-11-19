@@ -819,6 +819,7 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
 <!-- Microsoft Clarity (z8xwarghap): parte solo dopo il consenso ai cookie di misurazione (iubenda) -->
 <script type="text/plain" class="_iub_cs_activate-inline" data-iub-purposes="4">
     (function(c,l,a,r,i,t,y){
+        try{if(localStorage.getItem("mensa-stat-off")==="1")return;}catch(e){}
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
@@ -1142,12 +1143,14 @@ const IT={
   statRead4:"<b>{scr}% della pagina</b> è la profondità di scorrimento, cioè fin dove si arriva prima di chiudere. Intorno al 20% vorrebbe dire aprire e chiudere subito, {scr}% vuol dire che si legge quasi tutto.",
   statRead5:"<b>L'ora di pranzo</b> è il momento in cui la pagina si apre: il picco è alle {h}, e {f} visite su 100 stanno fra le 11 e le 17. Si guarda cosa mangiano i bambini proprio in quel momento, non la sera prima.",
   statWhatT:"Cosa viene contato",
-  statWhat:"Quante volte la pagina viene aperta, se da telefono o da computer, quanto si scorre e quanto ci si resta. Nient'altro.",
+  statWhat:"Quante volte la pagina viene aperta, se da telefono o da computer, in quale lingua viene letta, quanto si scorre e quanto ci si resta. Nient'altro.",
   statNoT:"Cosa non viene raccolto",
   statNo:"Nessun nome, nessun contatto, nessun dato dei bambini. Le visite non sono collegate a una persona e non vengono condivise con nessuno. Chi rifiuta i cookie di misurazione non viene contato, e la pagina funziona lo stesso.",
   statWhyT:"Perché lo facciamo",
   statWhy:"Per capire se questa pagina serve davvero alle famiglie. Se i numeri lo confermano, l'idea è proporla alla scuola perché un domani diventi un canale ufficiale, invece di restare un'iniziativa di qualche genitore.",
   statNote:"Dati raccolti con Microsoft Clarity. L'ultimo giorno del grafico è parziale.",
+  statOff:"Questo dispositivo non viene più contato nelle statistiche",
+  statOn:"Questo dispositivo viene contato di nuovo nelle statistiche",
   statNext:"Mese successivo",
   statPrev:"Mese precedente",
   statDays:"I numeri sotto le colonne sono i giorni del mese. Scorri di lato per vederli tutti.",
@@ -1744,6 +1747,7 @@ function attUpdated(){
 /* etichette anonime per Clarity: lingua, vista e sezioni scelte, nessun dato personale */
 function clarityTags(){
   if(!window.clarity)return false;
+  try{if(localStorage.getItem("mensa-stat-off")==="1"){try{clarity("stop");}catch(e){}return true;}}catch(e){}
   try{
     clarity("set","lingua",LANG);
     clarity("set","vista",typeof VIEW!=="undefined"?VIEW:"menu");
@@ -2113,6 +2117,21 @@ document.addEventListener("click",async e=>{
 /* Versione del changelog: basta cambiarla per rimostrare le novità a tutti,
    anche a chi aveva già chiuso la finestra la volta prima. */
 const NEWS_V="2026-11-18c";
+/* interruttore privato: aprire la pagina con ?stat=off esclude per sempre questo
+   dispositivo dal conteggio (vale anche in rete dati), ?stat=on lo rimette dentro */
+const STAT_OFF="mensa-stat-off";
+(function(){
+  const u=new URLSearchParams(location.search),v=u.get("stat");
+  if(v!=="off"&&v!=="on")return;
+  try{
+    if(v==="off"){localStorage.setItem(STAT_OFF,"1");try{if(window.clarity)clarity("stop");}catch(e){}}
+    else localStorage.removeItem(STAT_OFF);
+  }catch(e){}
+  u.delete("stat");const q=u.toString();
+  try{history.replaceState(null,"",location.pathname+(q?"?"+q:"")+location.hash);}catch(e){}
+  setTimeout(()=>toast(t(v==="off"?"statOff":"statOn")),600);
+})();
+
 /* ===== STATISTICHE — numeri presi da Clarity (11-19 novembre 2026) ===== */
 const STAT={
   visite:268,giorni:9,media:25,mobile:85,scroll:76,punta:13,fascia:65,
