@@ -758,6 +758,8 @@ html.v-info #period{display:none}
 .st-bar.oggi u{color:var(--accent);font-weight:800}
 .st-cap{margin:.5rem 0 0;font-size:.75rem;color:var(--muted-fg)}
 .st-off{color:var(--accent);font-weight:700}
+/* tocchi ripetuti sul titolo: niente selezione del testo né zoom da doppio tocco */
+#statTitle{-webkit-user-select:none;user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .end-note{display:flex;gap:.625rem;align-items:flex-start;margin:0 0 1rem;padding:.875rem 1rem;border-radius:1.125rem;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line);font-size:.875rem;line-height:1.5;color:var(--fg-2);animation:softIn .9s var(--ease) .1s backwards}
 .end-note[hidden]{display:none}
 .end-note b{font-weight:700;color:var(--fg)}
@@ -2180,7 +2182,7 @@ function renderStat(){
 (function(){
   const h=document.getElementById("statTitle");let n=0,ult=0;
   h.addEventListener("click",()=>{
-    const ora=Date.now();n=ora-ult<1200?n+1:1;ult=ora;
+    const ora=Date.now();n=ora-ult<2000?n+1:1;ult=ora;
     if(n<5)return;
     n=0;let off=false;try{off=localStorage.getItem(STAT_OFF)==="1";}catch(e){}
     try{
