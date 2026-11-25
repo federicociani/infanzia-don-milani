@@ -1049,7 +1049,7 @@ nav.vsw.sw-sm{flex:none;border-radius:1rem}
     <h3 data-t="statWhatT"></h3><p data-t="statWhat"></p>
     <h3 data-t="statNoT"></h3><p data-t="statNo"></p>
     <h3 data-t="statWhyT"></h3><p data-t="statWhy"></p>
-    <p class="new-note" data-t="statNote"></p>
+    <p class="new-note" id="stNote" data-t="statNote"></p>
     <p class="new-note st-off" id="stOffNote" hidden></p>
     <div class="dlg-bar">
       <button type="button" class="dlg-share" data-share-dlg="stat"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m8 7 4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg><span data-t="statShare"></span></button>
@@ -1152,7 +1152,8 @@ const IT={
   statNo:"Nessun nome, nessun contatto, nessun dato dei bambini. Le visite non sono collegate a una persona e non vengono condivise con nessuno. Chi rifiuta i cookie di misurazione non viene contato, e la pagina funziona lo stesso.",
   statWhyT:"Perché lo facciamo",
   statWhy:"Per capire se questa pagina serve davvero alle famiglie. Se i numeri lo confermano, l'idea è proporla alla scuola perché un domani diventi un canale ufficiale, invece di restare un'iniziativa di qualche genitore.",
-  statNote:"Dati raccolti con Microsoft Clarity. L'ultimo giorno del grafico è parziale.",
+  statNote:"Dati raccolti con Microsoft Clarity.",
+  statNotePart:"L'ultimo giorno del grafico è parziale.",
   statOff:"Questo dispositivo non viene più contato nelle statistiche",
   statOn:"Questo dispositivo viene contato di nuovo nelle statistiche",
   statNext:"Mese successivo",
@@ -2142,9 +2143,9 @@ const STAT_OFF="mensa-stat-off";
 
 /* ===== STATISTICHE — numeri presi da Clarity (11-19 novembre 2026) ===== */
 const STAT={
-  visite:268,giorni:9,media:25,mobile:85,scroll:76,punta:13,fascia:65,
-  oggi:"2026-11-19",
-  gg:{"2026-11":{11:1,12:92,13:22,14:8,15:8,16:23,17:21,18:83,19:10}}
+  visite:341,giorni:14,media:21,mobile:88,scroll:77,punta:13,fascia:61,
+  fine:"2026-11-24",parziale:"",
+  gg:{"2026-11":{11:1,12:92,13:22,14:8,15:8,16:23,17:21,18:83,19:18,20:10,21:9,22:6,23:19,24:21}}
 };
 const STAT_MESI=Object.keys(STAT.gg).sort();
 let stMese=STAT_MESI.length-1;
@@ -2165,12 +2166,13 @@ function renderStat(){
   let h="";
   for(let d=1;d<=quanti;d++){
     const v=dati[d],iso=k+"-"+String(d).padStart(2,"0");
-    const cls=v==null?(iso>STAT.oggi?"fut":"nod"):(d===ult?"part":"");
-    h+='<div class="st-bar '+cls+(iso===STAT.oggi?" oggi":"")+'"><b>'+(v==null?"":v)+'</b><span><i style="--v:'+(v?Math.max(3,Math.round(v/max*100)):0)+'"></i></span><u>'+d+'</u></div>';
+    const cls=v==null?(iso>STAT.fine?"fut":"nod"):(iso===STAT.parziale?"part":"");
+    h+='<div class="st-bar '+cls+(d===ult?" oggi":"")+'"><b>'+(v==null?"":v)+'</b><span><i style="--v:'+(v?Math.max(3,Math.round(v/max*100)):0)+'"></i></span><u>'+d+'</u></div>';
   }
   ch.innerHTML=h;
   const off=(()=>{try{return localStorage.getItem(STAT_OFF)==="1";}catch(e){return false;}})();
   const nOff=document.getElementById("stOffNote");nOff.hidden=!off;if(off)nOff.textContent=t("statOff");
+  document.getElementById("stNote").textContent=t("statNote")+(STAT.parziale?" "+t("statNotePart"):"");
   ch.setAttribute("aria-label",statTxt("statChartAlt").replace("{mese}",nomeMese).replace("{max}",max).replace("{gmax}",gg.filter(d=>dati[d]===max)[0]));
   if(document.getElementById("statDlg").open){
     const o=ch.querySelector(".part")||ch.lastElementChild;
