@@ -1732,8 +1732,8 @@ const ATT=[
   {k:"foto-23-11",d:"2026-11-23",s:["coccinelle","fenicotteri"],t:"Foto di Natale",b:"Data provvisoria",it:[["📸","Gruppi","Coccinelle e Fenicotteri"],["👕","Abbigliamento","Vestire i bambini con colori neutri"],["🙋","Aiuto dei genitori","Si cercano genitori disponibili a dare una mano"]]},
   {k:"addobbi",d:"2026-11-26",t:"Addobbi a scuola",it:[["🎄","Cosa succede","Si addobberà la scuola"],["🍊","Da portare","Una buccia d’arancia essiccata per le decorazioni natalizie"]]},
   {k:"scenografie",d:"2026-12-02",h:"17:00",dur:120,t:"Scenografie dello spettacolo",b:"Ore 17:00",map:{u:"https://maps.google.com/?q=Scuola+dell%27Infanzia+Don+Milani+Cervia",t:"Via delle Rose 34, Cervia"},it:[["🖌️","Appuntamento","Ci si trova per finire le scenografie dello spettacolo di Natale"]]},
-  {k:"bancarella",d:"2026-12-12",e:"2026-12-13",loc:"",t:"Bancarella di Natale",it:[["🧁","Come contribuire","Preparare dolci da vendere, oppure portare oggettistica se qualcuno ne ha"]]},
-  {k:"canti",d:"2026-12-15",h:"16:30",dur:60,loc:"",t:"Canti in piazzetta",b:"Ore 16:30",it:[["🎶","Appuntamento","Canti di Natale in piazzetta alle 16:30"]]},
+  {k:"bancarella",d:"2026-12-12",e:"2026-12-13",loc:"Piazzetta della Parrocchia Madonna della Neve, Cervia (RA)",geo:"44.261962;12.337269",map:{u:"https://maps.google.com/?q=44.261962,12.337269",t:"Parrocchia Madonna della Neve, Cervia"},t:"Bancarella di Natale",it:[["🧁","Come contribuire","Preparare dolci da vendere, oppure portare oggettistica se qualcuno ne ha"]]},
+  {k:"canti",d:"2026-12-15",h:"16:30",dur:60,loc:"Piazzetta della Parrocchia Madonna della Neve, Cervia (RA)",geo:"44.261962;12.337269",map:{u:"https://maps.google.com/?q=44.261962,12.337269",t:"Parrocchia Madonna della Neve, Cervia"},t:"Canti in piazzetta",b:"Ore 16:30",it:[["🎶","Appuntamento","Canti di Natale in piazzetta alle 16:30"]]},
   {k:"festa",d:"2026-12-18",h:"14:30",dur:120,t:"Festa di Natale",b:"Ore 14:30",it:[["🎭","Musical in palestra","Le maestre hanno iniziato le prove del musical, mantenendo i gruppi. A breve comunicheranno le parti da imparare a memoria e le indicazioni sull’abbigliamento"],["🎨","Scenografie","Il tema sarà ispirato a Christmas Carol. Servono genitori disponibili ad aiutare a realizzare e dipingere le scenografie: chi può dare una mano è il benvenuto!"],["🧹","Pulizia palestra","Dopo la recita servirà la collaborazione di alcuni genitori per sistemare e pulire la palestra"]]},
   {k:"protezione-civile",d:"2027-02-01",m:1,x:"🚒",t:"Progetto Protezione Civile",b:"Da febbraio",it:[["🤝","Incontri","Da febbraio inizieranno 4/5 incontri con i volontari"],["☀️","Con il caldo","Quando il tempo sarà più caldo verranno anche con i loro mezzi, per farli conoscere ai bambini"]]},
   {k:"progetti",d:"2027-02-01",e:"2027-06-30",m:1,x:"🐟",t:"Progetti Pingelap e Pesciolino Blu",b:"Febbraio – giugno",it:[["🧩","Attività","Proseguiranno le attività previste per i diversi gruppi, a partire da febbraio e fino a giugno"]]},
@@ -2045,6 +2045,7 @@ function icsFor(i){
     fold("SUMMARY:"+esq(a.t+" – Don Milani")),
     fold("DESCRIPTION:"+esq(corpo)),
     ...(luogo?[fold("LOCATION:"+esq(luogo))]:[]),
+    ...(a.geo?["GEO:"+a.geo]:[]),
     "END:VEVENT","END:VCALENDAR"];
   return {testo:righe.join("\r\n")+"\r\n",nome:(a.t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"evento")+".ics"};
 }
